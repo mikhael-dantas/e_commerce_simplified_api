@@ -1,10 +1,16 @@
-const express = require('express');
-// import express from 'express'
+import express from 'express';
+import cors from 'cors';
+
 const app = express()
+app.use(cors())
+app.use(express.json())
+
 const port = 3000
 
-app.get('/', (req, res) => {
+
+app.post('/', (req, res) => {
    const hello = 'Hello World!'
+
    res.send(hello)
 })
 
