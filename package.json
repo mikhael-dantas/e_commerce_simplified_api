@@ -1,0 +1,9 @@
+{
+  "name": "simplified_ecommerce_api_fromscratch",
+  "version": "1.0.0",
+  "description": "a simple e-commerce made from zero to deploy",
+  "main": "index.js",
+  "repository": "url here",
+  "author": "Mikhael Dantas",
+  "license": "MIT"
+}
