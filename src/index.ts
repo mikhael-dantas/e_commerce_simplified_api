@@ -1,6 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 
+import { PrismaClient } from "@prisma/client"
+
+const prisma = new PrismaClient()
+
 const app = express()
 app.use(cors())
 app.use(express.json())
@@ -8,10 +12,21 @@ app.use(express.json())
 const port = 3000
 
 
-app.post('/', (req, res) => {
-   const hello = 'Hello World!'
+app.post('/users', async (req, res) => {
+   const user = await prisma.user.create({
+      data: {
+         name: req.body.name,
+         email: req.body.email,
+      }
+   })
 
-   res.send(hello)
+   res.send(user)
+})
+
+app.get('/users', async (req, res) => {
+   const users = await prisma.user.findMany()
+   
+   res.send(users)
 })
 
 app.listen(port, () => {
