@@ -4,12 +4,11 @@ import cors from 'cors';
 import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
-
 const app = express()
+const port = process.env.SERVER_PORT ? process.env.SERVER_PORT : 3000
+
 app.use(cors())
 app.use(express.json())
-
-const port = 3000
 
 
 app.post('/users', async (req, res) => {
@@ -28,6 +27,7 @@ app.get('/users', async (req, res) => {
    
    res.send(users)
 })
+
 
 app.listen(port, () => {
    console.log(`Example app listening on port ${port}`)
