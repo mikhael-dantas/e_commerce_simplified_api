@@ -4,7 +4,7 @@ import cors from 'cors';
 import { graphqlHTTP } from 'express-graphql'
 import { buildSchema } from 'type-graphql';
 
-import { RecipeResolver } from './graphql/RecipeResolver';
+import { UserResolver } from './graphql/UserResolver';
 
 // import { PrismaClient } from "@prisma/client"
 
@@ -14,7 +14,7 @@ import { RecipeResolver } from './graphql/RecipeResolver';
 export const returnApp: () => Promise<express.Application> = async () => {
    const app = express()
    const GraphqlSchema = await buildSchema({
-      resolvers: [RecipeResolver],
+      resolvers: [UserResolver],
    });
 
    app.use(cors())
