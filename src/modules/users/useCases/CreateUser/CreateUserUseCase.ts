@@ -1,4 +1,4 @@
-import { container, inject, injectable } from "tsyringe";
+import { container } from "tsyringe";
 import { ICreateUserDTO } from "../../DTOs/UsersDTOs";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { UsersRepository } from "../../repositories/UsersRepository";
