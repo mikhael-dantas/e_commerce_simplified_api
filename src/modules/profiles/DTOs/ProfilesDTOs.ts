@@ -1,14 +1,14 @@
 import { InputType, Field, ArgsType } from "type-graphql";
 
 export interface ICreateProfileDTO {
-   bio: string | null;
+   bio?: string;
    user_id: string;
 }
 
 @InputType()
 export class createProfileInput {
-   @Field()
-   bio: string | null;
+   @Field({ nullable: true })
+   bio?: string;
 
    @Field()
    user_id: string;

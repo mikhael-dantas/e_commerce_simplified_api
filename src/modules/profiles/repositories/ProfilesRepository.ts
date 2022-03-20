@@ -24,11 +24,11 @@ export class ProfilesRepository implements IProfilesRepository {
          data,
       });
 
-      return profile;
+      return profile as Profile;
    }
 
    async findAll(): Promise<Profile[]> {
       const profiles = await this.dbCli.profile.findMany();
-      return profiles
+      return profiles as Profile[];
    }
 }
