@@ -5,8 +5,8 @@ class Profile {
    @Field()
    id: string;
 
-   @Field()
-   bio: string;
+   @Field({ nullable: true })
+   bio: string | null;
 
    @Field()
    created_at: Date;

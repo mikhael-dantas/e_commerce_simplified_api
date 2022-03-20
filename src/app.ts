@@ -7,6 +7,7 @@ import { graphqlHTTP } from 'express-graphql'
 import { buildSchema } from 'type-graphql';
 
 import { UsersResolver } from './modules/users/resolvers/UsersResolver';
+import { ProfilesResolver } from './modules/profiles/resolvers/ProfilesResolver';
 
 export const returnApp: () => Promise<express.Application> = async () => {
    const app = express()
@@ -15,7 +16,7 @@ export const returnApp: () => Promise<express.Application> = async () => {
    app.use(express.json())
    
    const GraphqlSchema = await buildSchema({
-      resolvers: [UsersResolver],
+      resolvers: [UsersResolver, ProfilesResolver],
    });
 
    app.use(
