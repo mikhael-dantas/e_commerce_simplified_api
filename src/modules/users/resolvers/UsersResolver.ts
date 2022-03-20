@@ -1,5 +1,7 @@
-import { Resolver, Query, Arg, Ctx, Mutation, InputType, Args} from "type-graphql";
+import { Resolver, Query, Arg, Mutation, Args } from "type-graphql";
 import { User } from "../typeDefs/UserTypeDef";
+
+import { createUserInput, usersArgs } from "../DTOs/UsersDTOs";
 
 import { CreateUserUserCase } from "../useCases/CreateUser/CreateUserUseCase";
 import { ListUsersUseCase } from "../useCases/ListUsers/ListUsersUseCase";
@@ -8,18 +10,14 @@ import { ListUsersUseCase } from "../useCases/ListUsers/ListUsersUseCase";
 class UserResolver {
 
    @Mutation(returns => User)
-   createUser(
-      @Arg("name") name: string,
-      @Arg("email") email: string,
-      @Arg("password") password: string,
+   createUser( @Arg("data") { name, email, password }: createUserInput
    ): Promise<User> {
       const createUserUseCase = new CreateUserUserCase();
       return createUserUseCase.execute({name, email, password});
    }
 
    @Query(returns => [User])
-   // async users(@Arg("skip") skip: number, @Arg("take") take: number) {
-   async users() {
+   async users(@Args() { skip, take }: usersArgs) {
       const listUsersUseCase = new ListUsersUseCase();
       const users = await listUsersUseCase.execute();
       return users
