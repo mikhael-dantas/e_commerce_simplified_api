@@ -7,7 +7,7 @@ import { CreateUserUseCase } from "../useCases/CreateUser/CreateUserUseCase";
 import { ListUsersUseCase } from "../useCases/ListUsers/ListUsersUseCase";
 
 @Resolver(User)
-class UserResolver {
+class UsersResolver {
 
    @Mutation(returns => User)
    createUser( @Arg("data") { name, email, password }: createUserInput
@@ -24,4 +24,4 @@ class UserResolver {
    }
 }
 
-export { UserResolver };
+export { UsersResolver };

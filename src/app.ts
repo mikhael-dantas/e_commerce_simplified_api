@@ -6,7 +6,7 @@ import cors from 'cors';
 import { graphqlHTTP } from 'express-graphql'
 import { buildSchema } from 'type-graphql';
 
-import { UserResolver } from './modules/users/resolvers/UsersResolver';
+import { UsersResolver } from './modules/users/resolvers/UsersResolver';
 
 export const returnApp: () => Promise<express.Application> = async () => {
    const app = express()
@@ -15,7 +15,7 @@ export const returnApp: () => Promise<express.Application> = async () => {
    app.use(express.json())
    
    const GraphqlSchema = await buildSchema({
-      resolvers: [UserResolver],
+      resolvers: [UsersResolver],
    });
 
    app.use(
