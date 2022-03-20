@@ -4,7 +4,7 @@ import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { UsersRepository } from "../../repositories/UsersRepository";
 
 @injectable()
-class CreateUserUserCase {
+class CreateUserUseCase {
    private readonly usersRepository: IUsersRepository;
    constructor() {
       this.usersRepository = container.resolve(UsersRepository);
@@ -17,4 +17,4 @@ class CreateUserUserCase {
    }
 }
 
-export { CreateUserUserCase };
+export { CreateUserUseCase };

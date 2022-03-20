@@ -3,7 +3,7 @@ import { User } from "../typeDefs/UserTypeDef";
 
 import { createUserInput, usersArgs } from "../DTOs/UsersDTOs";
 
-import { CreateUserUserCase } from "../useCases/CreateUser/CreateUserUseCase";
+import { CreateUserUseCase } from "../useCases/CreateUser/CreateUserUseCase";
 import { ListUsersUseCase } from "../useCases/ListUsers/ListUsersUseCase";
 
 @Resolver(User)
@@ -12,7 +12,7 @@ class UserResolver {
    @Mutation(returns => User)
    createUser( @Arg("data") { name, email, password }: createUserInput
    ): Promise<User> {
-      const createUserUseCase = new CreateUserUserCase();
+      const createUserUseCase = new CreateUserUseCase();
       return createUserUseCase.execute({name, email, password});
    }
 
