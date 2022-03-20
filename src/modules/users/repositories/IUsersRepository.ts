@@ -1,4 +1,4 @@
-import { ICreateUserDTO } from '../DTOs/DTOs';
+import { ICreateUserDTO } from '../DTOs/UsersDTOs';
 import { User } from '../typeDefs/UserTypeDef'
 
 

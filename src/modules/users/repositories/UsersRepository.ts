@@ -2,7 +2,7 @@ import { inject, injectable } from "tsyringe";
 import { v4 as uuid } from 'uuid';
 
 import { PrismaClient } from "@prisma/client";
-import { ICreateUserDTO } from "../DTOs/DTOs";
+import { ICreateUserDTO } from "../DTOs/UsersDTOs";
 import { IUsersRepository } from "./IUsersRepository";
 import { User } from "../typeDefs/UserTypeDef";
 
