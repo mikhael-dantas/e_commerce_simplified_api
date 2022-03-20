@@ -1,4 +1,4 @@
-import { container, inject, injectable, singleton } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { v4 as uuid } from 'uuid';
 
 import { PrismaClient } from "@prisma/client";
