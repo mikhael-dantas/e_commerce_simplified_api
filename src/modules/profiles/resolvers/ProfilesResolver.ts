@@ -1,4 +1,5 @@
-import { Resolver, Query, Arg, Mutation, Args } from "type-graphql";
+import { Resolver, Query, Arg, Mutation, Args, FieldResolver, Root } from "type-graphql";
+import { FindUserByIdUseCase } from "../../users/useCases/FindUserById/FindUserByIdUseCase";
 
 import { createProfileInput, profilesArgs } from "../DTOs/ProfilesDTOs";
 import { Profile } from "../typeDefs/ProfileTypeDef";
@@ -20,6 +21,16 @@ class ProfilesResolver {
       const listProfilesUseCase = new ListProfilesUseCase();
       const profiles = await listProfilesUseCase.execute();
       return profiles
+   }
+
+   @FieldResolver()
+   async user (@Root() profile: Profile) {
+      const findUserByIdUseCase = new FindUserByIdUseCase();
+      const user = await findUserByIdUseCase.execute( profile.user_id );
+      if (!user) {
+         throw new Error("User not found");
+      }
+      return user;
    }
 }
 
