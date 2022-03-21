@@ -8,12 +8,16 @@ import { buildSchema } from 'type-graphql';
 
 import { UsersResolver } from './modules/users/resolvers/UsersResolver';
 import { ProfilesResolver } from './modules/profiles/resolvers/ProfilesResolver';
+import { router } from './routes';
 
 export const returnApp: () => Promise<express.Application> = async () => {
    const app = express()
 
    app.use(cors())
    app.use(express.json())
+
+   // add routes from routes.ts
+   app.use('/', router)
    
    const GraphqlSchema = await buildSchema({
       resolvers: [UsersResolver, ProfilesResolver],
