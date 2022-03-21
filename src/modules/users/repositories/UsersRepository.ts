@@ -25,11 +25,21 @@ export class UsersRepository implements IUsersRepository {
          data,
       });
 
-      return user;
+      return user as User;
    }
 
    async findAll(): Promise<User[]> {
       const users = await this.dbCli.user.findMany();
-      return users
+      return users as User[];
+   }
+
+   async findById(user_id: string): Promise<User | null> {
+      const user = await this.dbCli.user.findUnique({
+         where: {
+            id: user_id
+         }
+      });
+
+      return user as User | null;
    }
 }
