@@ -1,14 +1,19 @@
+import express from 'express';
+
+import "express-async-errors";
 import 'reflect-metadata'
 import './shared/container'
-import express from 'express';
+
 import cors from 'cors';
+import { AppError } from './shared/errors/AppError';
+import { router } from './routes';
 
 import { graphqlHTTP } from 'express-graphql'
 import { buildSchema } from 'type-graphql';
 
 import { UsersResolver } from './modules/users/resolvers/UsersResolver';
 import { ProfilesResolver } from './modules/profiles/resolvers/ProfilesResolver';
-import { router } from './routes';
+
 
 export const returnApp: () => Promise<express.Application> = async () => {
    const app = express()
@@ -32,8 +37,23 @@ export const returnApp: () => Promise<express.Application> = async () => {
    );
 
    app.get('/', async (req, res) => {
-      res.send("hello express world")
+      res.send("hello world")
    })
+
+   app.use(
+      (err: Error, request: express.Request, response: express.Response, _next: express.NextFunction) => {
+      if (err instanceof AppError) {
+         return response.status(err.statusCode).json({
+            message: err.message
+         });
+      }
+   
+      return response.status(500).json({
+         status: "error",
+         message: `Internal server error - ${err.message} `,
+      });
+      }
+   );
 
    return app
 }
