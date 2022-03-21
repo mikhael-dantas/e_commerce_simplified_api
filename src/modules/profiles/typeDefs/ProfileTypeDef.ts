@@ -1,4 +1,5 @@
-import { ObjectType, Field } from "type-graphql";
+import { ObjectType, Field, FieldResolver,  } from "type-graphql";
+import { User } from "../../users/typeDefs/UserTypeDef";
 
 @ObjectType()
 class Profile {
@@ -17,6 +18,8 @@ class Profile {
    @Field()
    user_id: string;
 
+   @Field(() => User)
+   user: User;
 }
 
 export { Profile };

@@ -1,4 +1,5 @@
 import { ObjectType, Field } from "type-graphql";
+import { Profile } from "../../profiles/typeDefs/ProfileTypeDef";
 
 @ObjectType()
 class User {
@@ -19,6 +20,9 @@ class User {
 
    @Field()
    updated_at: Date;
+
+   @Field(() => Profile)
+   profile: Profile;
 }
 
 export { User };
