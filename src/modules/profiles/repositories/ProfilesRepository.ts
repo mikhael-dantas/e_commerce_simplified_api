@@ -1,4 +1,4 @@
-import { inject, injectable } from "tsyringe";
+import { inject, injectable, singleton } from "tsyringe";
 import { v4 as uuid } from 'uuid';
 
 import { PrismaClient } from "@prisma/client";
@@ -6,7 +6,7 @@ import { IProfilesRepository } from "./IProfilesRepository";
 import { ICreateProfileDTO } from "../DTOs/ProfilesDTOs";
 import { Profile } from "../typeDefs/ProfileTypeDef";
 
-@injectable()
+@injectable() @singleton()
 export class ProfilesRepository implements IProfilesRepository {
    constructor(
       @inject("PrismaClient")
