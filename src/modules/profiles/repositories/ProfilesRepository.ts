@@ -31,4 +31,24 @@ export class ProfilesRepository implements IProfilesRepository {
       const profiles = await this.dbCli.profile.findMany();
       return profiles as Profile[];
    }
+
+   async findById(id: string): Promise<Profile | null> {
+      const profile = await this.dbCli.profile.findUnique({
+         where: {
+            id: id,
+         },
+      });
+
+      return profile as Profile | null;
+   }
+
+   async findByUserId(user_id: string): Promise<Profile | null> {
+      const profile = await this.dbCli.profile.findUnique({
+         where: {
+            user_id: user_id,
+         },
+      });
+
+      return profile as Profile | null;
+   }
 }
