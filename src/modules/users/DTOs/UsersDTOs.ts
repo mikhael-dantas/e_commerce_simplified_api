@@ -1,5 +1,6 @@
-import { InputType, Field, ArgsType } from "type-graphql";
+import { InputType, Field, ArgsType, registerEnumType } from "type-graphql";
 
+// create user
 export interface ICreateUserDTO {
    name: string;
    email: string;
@@ -18,6 +19,7 @@ export class createUserInput {
    password: string;
 }
 
+// find users
 @ArgsType()
 export class usersArgs {
    @Field()
@@ -26,3 +28,14 @@ export class usersArgs {
    @Field()
    skip: number;
 }
+//find user
+
+export enum FieldsToSearchUser {
+   Id = "id",
+   Email = "email",
+}
+
+registerEnumType(FieldsToSearchUser, {
+   name: "FieldToSeachUser", 
+   description: "fields that the query accepts to search the user",
+});

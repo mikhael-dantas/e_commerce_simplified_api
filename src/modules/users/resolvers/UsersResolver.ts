@@ -4,11 +4,11 @@ import { container } from "tsyringe";
 import { User } from "../typeDefs/UserTypeDef";
 import { Profile } from "../../profiles/typeDefs/ProfileTypeDef";
 
-import { createUserInput, usersArgs } from "../DTOs/UsersDTOs";
+import { createUserInput, FieldsToSearchUser, usersArgs } from "../DTOs/UsersDTOs";
 
 import { CreateUserUseCase } from "../useCases/CreateUser/CreateUserUseCase";
 import { ListUsersUseCase } from "../useCases/ListUsers/ListUsersUseCase";
-import { FindUserByIdUseCase } from "../useCases/FindUserById/FindUserByIdUseCase";
+import { FindUserUseCase } from "../useCases/FindUser/FindUserUseCase";
 import { FindProfileByUserIdUseCase } from "../../profiles/useCases/FindProfileByUserId/FindProfileByUserIdUseCase";
 
 @Resolver(User)
@@ -22,9 +22,12 @@ class UsersResolver {
    }
 
    @Query(returns => User)
-   async user(@Arg("id") id: string): Promise<User> {
-      const findUserByIdUseCase = container.resolve(FindUserByIdUseCase);
-      const user = await findUserByIdUseCase.execute(id);
+   async user(
+      @Arg("fieldValue") fieldValue: string,
+      @Arg("fieldToSearch", type => FieldsToSearchUser) fieldToSearch: FieldsToSearchUser,
+   ): Promise<User> {
+      const findUserByIdUseCase = container.resolve(FindUserUseCase);
+      const user = await findUserByIdUseCase.execute(fieldToSearch, fieldValue);
       return user
    }
 

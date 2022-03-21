@@ -5,11 +5,12 @@ import { User } from "../../users/typeDefs/UserTypeDef";
 import { Profile } from "../typeDefs/ProfileTypeDef";
 
 import { createProfileInput, profilesArgs } from "../DTOs/ProfilesDTOs";
+import { FieldsToSearchUser } from "../../users/DTOs/UsersDTOs";
 
-import { FindUserByIdUseCase } from "../../users/useCases/FindUserById/FindUserByIdUseCase";
 import { CreateProfileUseCase } from "../useCases/CreateProfile/CreateProfileUseCase";
 import { ListProfilesUseCase } from "../useCases/ListProfiles/ListUsersUseCase";
 import { FindProfileByUserIdUseCase } from "../useCases/FindProfileByUserId/FindProfileByUserIdUseCase";
+import { FindUserUseCase } from "../../users/useCases/FindUser/FindUserUseCase";
 
 @Resolver(Profile)
 class ProfilesResolver {
@@ -37,8 +38,8 @@ class ProfilesResolver {
 
    @FieldResolver()
    async user (@Root() profile: Profile): Promise<User> {
-      const findUserByIdUseCase = container.resolve(FindUserByIdUseCase);
-      const user = await findUserByIdUseCase.execute( profile.user_id );
+      const findUserUseCase = container.resolve(FindUserUseCase);
+      const user = await findUserUseCase.execute( FieldsToSearchUser.Id, profile.user_id );
       if (!user) {
          throw new Error("User not found");
       }
