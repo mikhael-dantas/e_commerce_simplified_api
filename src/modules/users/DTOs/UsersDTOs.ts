@@ -19,6 +19,16 @@ export class createUserInput {
    password: string;
 }
 
+// auth user
+export interface IAuthUserDTO {
+   user: {
+      id: string;
+      name: string;
+      email: string;
+   };
+   token: string;
+}
+
 // find users
 @ArgsType()
 export class usersArgs {
