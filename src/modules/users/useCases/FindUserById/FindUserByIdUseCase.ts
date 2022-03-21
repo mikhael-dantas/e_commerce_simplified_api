@@ -1,24 +1,23 @@
-import { container } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
-import { UsersRepository } from "../../repositories/UsersRepository";
 import { User } from "../../typeDefs/UserTypeDef";
 
+@injectable()
 class FindUserByIdUseCase {
-   private readonly usersRepository: IUsersRepository;
 
-   constructor() {
-      this.usersRepository = container.resolve(UsersRepository);
-   }
+   constructor(
+      @inject('UsersRepository')
+      private readonly usersRepository: IUsersRepository,
+   ) {}
 
    async execute( id: string ): Promise<User> {
       const user = await this.usersRepository.findById(id);
       if (!user) {
          throw new Error("User not found");
       }
-   
       return user
    }
 
 }
 
-export { FindUserByIdUseCase };
+export { FindUserByIdUseCase }; 

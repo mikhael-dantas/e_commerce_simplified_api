@@ -6,7 +6,7 @@ import { IProfilesRepository } from "./IProfilesRepository";
 import { ICreateProfileDTO } from "../DTOs/ProfilesDTOs";
 import { Profile } from "../typeDefs/ProfileTypeDef";
 
-@injectable() @singleton()
+@injectable()
 export class ProfilesRepository implements IProfilesRepository {
    constructor(
       @inject("PrismaClient")

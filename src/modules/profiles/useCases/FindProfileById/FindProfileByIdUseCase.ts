@@ -1,15 +1,15 @@
-import { container } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { IProfilesRepository } from "../../repositories/IProfilesRepository";
-import { ProfilesRepository } from "../../repositories/ProfilesRepository";
 import { Profile } from "../../typeDefs/ProfileTypeDef";
 
 
+@injectable()
 class FindProfileByIdUseCase {
-   private readonly profilesRepository: IProfilesRepository;
 
-   constructor() {
-      this.profilesRepository = container.resolve(ProfilesRepository);
-   }
+   constructor(
+      @inject('ProfilesRepository')
+      private readonly profilesRepository: IProfilesRepository,
+   ) {}
 
    async execute( id: string ): Promise<Profile> {
       const profile = await this.profilesRepository.findById(id);

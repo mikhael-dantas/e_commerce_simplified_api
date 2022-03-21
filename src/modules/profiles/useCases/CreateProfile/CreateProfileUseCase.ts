@@ -1,15 +1,17 @@
-import { container } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { ICreateProfileDTO } from "../../DTOs/ProfilesDTOs";
 import { IProfilesRepository } from "../../repositories/IProfilesRepository";
-import { ProfilesRepository } from "../../repositories/ProfilesRepository";
+import { Profile } from "../../typeDefs/ProfileTypeDef";
 
+@injectable()
 class CreateProfileUseCase {
-   private readonly profilesRepository: IProfilesRepository;
-   constructor() {
-      this.profilesRepository = container.resolve(ProfilesRepository);
-   }
 
-   async execute(createProfileDTO: ICreateProfileDTO) {
+   constructor(
+      @inject('ProfilesRepository')
+      private readonly profilesRepository: IProfilesRepository,
+   ) {}
+
+   async execute(createProfileDTO: ICreateProfileDTO): Promise<Profile> {
       const profile = this.profilesRepository.create(createProfileDTO);
 
       return profile;

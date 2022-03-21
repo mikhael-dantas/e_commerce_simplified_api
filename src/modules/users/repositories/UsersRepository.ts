@@ -6,7 +6,7 @@ import { ICreateUserDTO } from "../DTOs/UsersDTOs";
 import { IUsersRepository } from "./IUsersRepository";
 import { User } from "../typeDefs/UserTypeDef";
 
-@injectable() @singleton()
+@injectable()
 export class UsersRepository implements IUsersRepository {
    constructor(
       @inject("PrismaClient")

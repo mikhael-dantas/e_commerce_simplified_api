@@ -1,15 +1,16 @@
-import { container } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
-import { UsersRepository } from "../../repositories/UsersRepository";
+import { User } from "../../typeDefs/UserTypeDef";
 
+@injectable()
 class ListUsersUseCase {
-   private readonly usersRepository: IUsersRepository;
 
-   constructor() {
-      this.usersRepository = container.resolve(UsersRepository);
-   }
+   constructor(
+      @inject('UsersRepository')
+      private readonly usersRepository: IUsersRepository,
+   ) {}
 
-   async execute() {
+   async execute(): Promise<User[]> {
       const users = await this.usersRepository.findAll();
       return users
    }
