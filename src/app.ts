@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request } from 'express';
 
 import "express-async-errors";
 import 'reflect-metadata'
@@ -14,6 +14,9 @@ import { buildSchema } from 'type-graphql';
 import { UsersResolver } from './modules/users/resolvers/UsersResolver';
 import { ProfilesResolver } from './modules/profiles/resolvers/ProfilesResolver';
 
+export interface IContext {
+   req: Request;
+}
 
 export const returnApp: () => Promise<express.Application> = async () => {
    const app = express()
@@ -30,10 +33,13 @@ export const returnApp: () => Promise<express.Application> = async () => {
 
    app.use(
       '/graphql',
-      graphqlHTTP({
+      graphqlHTTP((req) => ({
          schema: GraphqlSchema,
          graphiql: true,
-      }),
+         context: {
+            req,
+         },
+      })),
    );
 
    app.get('/', async (req, res) => {
