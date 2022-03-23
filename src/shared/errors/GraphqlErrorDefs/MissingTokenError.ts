@@ -6,5 +6,8 @@ export class MissingTokenErrorTypeDef {
    message: string = "You need to Login";
 
    @Field()
+   location: string = "Authorization Header - Bearer Token";
+
+   @Field()
    status: number = 401;
 }
