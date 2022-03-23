@@ -1,8 +1,5 @@
 require('dotenv').config();
-import { Request } from "express";
 import { verify } from 'jsonwebtoken';
-import { ExpiredTokenErrorTypeDef } from "../errors/GraphqlErrorDefs/ExpiredTokenError";
-import { MissingTokenErrorTypeDef } from "../errors/GraphqlErrorDefs/MissingTokenError";
 
 interface IPayload {
    user: {
@@ -18,31 +15,20 @@ interface IPayload {
 export function AuthCheck(
    authorization: string | undefined
    ) {
-   const authHeader = authorization
+   let authHeader = authorization
 
-   const secret = process.env.JWT_SECRET
-
-   if (!secret) {
-      console.log('JWT_SECRET is not defined in .env file');
-      throw new Error("Internal server error")
-   }
+   const secret = process.env.JWT_SECRET as string
 
    if (!authHeader) {
-      return new MissingTokenErrorTypeDef()
+      authHeader = ''
    }
 
-   const [, token] = authHeader.split(" ");
+   const [, token] = "authHeader".split(" ");
 
-   try {
-      const decoded = verify(token, secret) as IPayload;
-      const { user } = decoded;
+   const decoded = verify(token, secret) as IPayload;
 
-      return {
-         user,
-         status: 200,
-         message: "user is authenticated",
-      };
-   } catch {
-      return new ExpiredTokenErrorTypeDef()
-   }
+   return {
+      user: decoded.user,
+      user_id: decoded.sub,
+   };
 }
