@@ -34,7 +34,6 @@ export function AuthCheck(
    const [, token] = authHeader.split(" ");
 
    try {
-      // const { sub: user_id } = verify(token, secret) as IPayload;
       const decoded = verify(token, secret) as IPayload;
       const { user } = decoded;
 
