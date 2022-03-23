@@ -39,16 +39,22 @@ export class AuthUserUseCase {
          throw new IncorrectEmailOrPasswordError();
       }
 
-      const token = sign({ user }, this.secret, {
+      const token = sign({
+         user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+         }
+      }, this.secret, {
          subject: user.id,
          expiresIn: this.tokenExpirationTime,
       });
 
       return {
          user: {
-         id: user.id,
-         name: user.name,
-         email: user.email
+            id: user.id,
+            name: user.name,
+            email: user.email
          },
          token
       }
