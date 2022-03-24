@@ -19,7 +19,7 @@ export function AuthCheck(
    const secret = process.env.JWT_SECRET as string
 
    if (!authHeader) {
-      authHeader = ''
+      throw new Error('missing authorization header')
    }
 
    const [, token] = "authHeader".split(" ");

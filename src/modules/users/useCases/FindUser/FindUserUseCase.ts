@@ -1,10 +1,18 @@
 import { inject, injectable } from "tsyringe";
 import { AuthCheck } from "../../../../shared/authCheck/AuthCheck";
-import { ResourceNotFoundErrorTypeDef } from "../../../../shared/errors/GraphqlErrorDefs/ResourceNotFoundError";
-import { FieldsToSearchUser } from "../../DTOs/UsersDTOs";
+
 import { IUsersRepository } from "../../repositories/IUsersRepository";
-import { SearchUserResults } from "../../resolvers/ResolverResults"
+
 import { User } from "../../typeDefs/UserTypeDef";
+
+import { FieldsToSearchUser } from "../../DTOs/UsersDTOs";
+import { SearchUserResults } from "../../resolvers/ResolverResults"
+
+import { ExpiredTokenErrorTypeDef } from "../../../../shared/errors/GraphqlErrorDefs/ExpiredTokenError";
+import { InvalidTokenErrorTypeDef } from "../../../../shared/errors/GraphqlErrorDefs/InvalidTokenError";
+import { MissingTokenErrorTypeDef } from "../../../../shared/errors/GraphqlErrorDefs/MissingTokenError";
+import { ResourceNotFoundErrorTypeDef } from "../../../../shared/errors/GraphqlErrorDefs/ResourceNotFoundError";
+import { graphqlTokenErrorHandler } from "../../../../shared/errors/GraphqlTokenErrorHandler";
 
 @injectable()
 class FindUserUseCase {
@@ -15,8 +23,9 @@ class FindUserUseCase {
    ) {}
 
    async execute(authorizationHeader: string | undefined, field: FieldsToSearchUser, value: string ): Promise<typeof SearchUserResults> {
-      const authenticateUser = AuthCheck(authorizationHeader)
-      if (authenticateUser.status !== 200) { return  authenticateUser }
+      let authenticatedUser
+      try {authenticatedUser=AuthCheck(authorizationHeader)}catch(error:any){return graphqlTokenErrorHandler(error)}
+      
 
       if (field === 'id') {
          const user = await this.usersRepository.findById(value);
