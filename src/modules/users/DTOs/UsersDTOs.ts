@@ -1,4 +1,5 @@
 import { InputType, Field, ArgsType, registerEnumType } from "type-graphql";
+import { Order } from "../../../shared/graphqlDefs/ArgTypeDefs";
 
 // create user
 export interface ICreateUserDTO {
@@ -42,6 +43,14 @@ registerEnumType(FieldsToSortUsers, {
    name: "FieldToSortUsers", 
    description: "fields that the query accepts to sort the user",
 });
+
+export interface IListUsersDTO {
+   authHeader: string;
+   sort: FieldsToSortUsers;
+   order: Order;
+   skip: number;
+   take: number;
+}
 
 //find user
 export enum FieldsToSearchUser {
