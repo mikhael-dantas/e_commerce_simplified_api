@@ -2,7 +2,6 @@ import { Resolver, Query, Arg, Mutation, Args, FieldResolver, Root, Ctx } from "
 import { container } from "tsyringe";
 
 import { User } from "../typeDefs/UserTypeDef";
-import { Profile } from "../../profiles/typeDefs/ProfileTypeDef";
 
 import { 
    CreateUserResults,
@@ -38,22 +37,24 @@ class UsersResolver {
       @Ctx() context: IContext
 
    ): Promise<typeof SearchUserResults> {
-      const authorizationHeader = context.req.headers.authorization;
+      const authHeader = context.req.headers.authorization;
 
       const findUserUseCase = container.resolve(FindUserUseCase);
-      const user = await findUserUseCase.execute(authorizationHeader, fieldToSearch, fieldValue);
+      const user = await findUserUseCase.execute(authHeader, fieldToSearch, fieldValue);
       return user;
    }
 
    @Query(returns => [SearchUsersResults])
    async users(
-      @Args() { skip, take }: usersArgs
-   ): Promise<typeof SearchUsersResults[]> {
+      @Args() { skip, take }: usersArgs,
+      @Ctx() context: IContext,
+      ): Promise<typeof SearchUsersResults[]> {
+      const authHeader = context.req.headers.authorization;
       // 
       // TODO: add pagination
       // TODO: add error handling for everything
       const listUsersUseCase = container.resolve(ListUsersUseCase);;
-      const users = await listUsersUseCase.execute();
+      const users = await listUsersUseCase.execute(authHeader);
       return users
    }
 
