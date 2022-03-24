@@ -22,7 +22,7 @@ export function AuthCheck(
       throw new Error('missing authorization header')
    }
 
-   const [, token] = "authHeader".split(" ");
+   const [, token] = authHeader.split(" ");
 
    const decoded = verify(token, secret) as IPayload;
 
