@@ -54,5 +54,6 @@ export const SearchUsersResults = createUnionType({
       if ("unauthorizedToken" in value) {
          return UnauthorizedTokenErrorTypeDef;
       }
+      undefined;
    },
 })
