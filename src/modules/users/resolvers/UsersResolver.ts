@@ -10,13 +10,14 @@ import {
 } from "./ResolverResults";
 
 import { IContext } from "../../../app";
-import { createUserInput, FieldsToSearchUser, usersArgs } from "../DTOs/UsersDTOs";
+import { createUserInput, FieldsToSearchUser, FieldsToSortUsers} from "../DTOs/UsersDTOs";
 
 import { CreateUserUseCase } from "../useCases/CreateUser/CreateUserUseCase";
 import { ListUsersUseCase } from "../useCases/ListUsers/ListUsersUseCase";
 import { FindUserUseCase } from "../useCases/FindUser/FindUserUseCase";
 import { FindProfileByUserIdUseCase } from "../../profiles/useCases/FindProfileByUserId/FindProfileByUserIdUseCase";
 import { SearchProfileResults } from "../../profiles/resolvers/ResolverResults";
+import { Order, PaginationArgs } from "../../../shared/graphqlDefs/ArgTypeDefs";
 
 
 @Resolver(User)
@@ -46,7 +47,9 @@ class UsersResolver {
 
    @Query(returns => [SearchUsersResults])
    async users(
-      @Args() { skip, take }: usersArgs,
+      @Arg("fieldToSort", type => FieldsToSortUsers, {nullable: true}) fieldToSort: FieldsToSortUsers = FieldsToSortUsers.CreatedAt,
+      @Arg("order", type => Order, {nullable: true}) order: Order = Order.ASC,
+      @Args() { skip = 0, take = 20}: PaginationArgs,
       @Ctx() context: IContext,
       ): Promise<typeof SearchUsersResults[]> {
       const authHeader = context.req.headers.authorization;
