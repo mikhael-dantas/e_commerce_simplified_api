@@ -46,7 +46,7 @@ registerEnumType(FieldsToSortUsers, {
 
 export interface IListUsersDTO {
    authHeader: string | undefined;
-   sort: FieldsToSortUsers;
+   fieldToSort: FieldsToSortUsers;
    order: Order;
    skip: number;
    take: number;
