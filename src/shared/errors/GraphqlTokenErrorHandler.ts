@@ -8,6 +8,8 @@ export function graphqlTokenErrorHandler(error: any) {
          return new ExpiredTokenErrorTypeDef()
       case "invalid signature":
          return new InvalidTokenErrorTypeDef()
+      case "jwt malformed":
+         return new InvalidTokenErrorTypeDef()
       case "jwt must be provided": 
          return new MissingTokenErrorTypeDef()
       case "missing authorization header":
