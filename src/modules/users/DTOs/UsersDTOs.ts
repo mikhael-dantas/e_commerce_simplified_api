@@ -8,6 +8,13 @@ export interface ICreateUserDTO {
    password: string;
 }
 
+export interface IFindAllDTO {
+   fieldToSort: FieldsToSortUsers;
+   order: Order;
+   skip: number;
+   take: number;
+}
+
 @InputType()
 export class createUserInput {
    @Field()

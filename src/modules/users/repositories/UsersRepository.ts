@@ -1,8 +1,8 @@
-import { inject, injectable, singleton } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { v4 as uuid } from 'uuid';
 
 import { PrismaClient } from "@prisma/client";
-import { ICreateUserDTO } from "../DTOs/UsersDTOs";
+import { ICreateUserDTO, IFindAllDTO } from "../DTOs/UsersDTOs";
 import { IUsersRepository } from "./IUsersRepository";
 import { User } from "../typeDefs/UserTypeDef";
 
@@ -28,8 +28,12 @@ export class UsersRepository implements IUsersRepository {
       return user as User;
    }
 
-   async findAll(): Promise<User[]> {
-      const users = await this.dbCli.user.findMany();
+   async findAll({ fieldToSort, order, skip, take}: IFindAllDTO): Promise<User[]> {
+      const users = await this.dbCli.user.findMany({
+         orderBy: { [fieldToSort]: order },
+         skip: skip,
+         take: take
+      });
       return users as User[];
    }
 

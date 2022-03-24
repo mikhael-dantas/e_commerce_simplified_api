@@ -17,7 +17,12 @@ class ListUsersUseCase {
    async execute( ListUsersDTO: IListUsersDTO ): Promise<(typeof SearchUsersResults)[]> {
       let authUser; try {authUser=AuthCheck(ListUsersDTO.authHeader)}catch(err:any){return [graphqlTokenErrorHandler(err)]}
 
-      const users = await this.usersRepository.findAll();
+      const users = await this.usersRepository.findAll({
+         fieldToSort: ListUsersDTO.fieldToSort,
+         order: ListUsersDTO.order,
+         skip: ListUsersDTO.skip,
+         take: ListUsersDTO.take,
+      });
       return users
    }
 
