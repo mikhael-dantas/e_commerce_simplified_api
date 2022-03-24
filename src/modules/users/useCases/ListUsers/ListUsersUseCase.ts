@@ -4,7 +4,6 @@ import { graphqlTokenErrorHandler } from "../../../../shared/errors/GraphqlToken
 import { IListUsersDTO } from "../../DTOs/UsersDTOs";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { SearchUsersResults } from "../../resolvers/ResolverResults";
-import { User } from "../../typeDefs/UserTypeDef";
 
 @injectable()
 class ListUsersUseCase {
