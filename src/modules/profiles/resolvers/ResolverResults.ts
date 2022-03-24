@@ -22,6 +22,7 @@ export const SearchProfileResults = createUnionType({
    name: "SearchProfileResults",
    types: () => [
       Profile,
+      ResourceNotFoundErrorTypeDef
    ] as const, 
 })
 
