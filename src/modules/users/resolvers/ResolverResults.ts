@@ -4,7 +4,6 @@ import { InvalidTokenErrorTypeDef } from "../../../shared/errors/GraphqlErrorDef
 import { MissingTokenErrorTypeDef } from "../../../shared/errors/GraphqlErrorDefs/MissingTokenError";
 import { ResourceNotFoundErrorTypeDef } from "../../../shared/errors/GraphqlErrorDefs/ResourceNotFoundError";
 import { UnauthorizedTokenErrorTypeDef } from "../../../shared/errors/GraphqlErrorDefs/UnauthorizedTokenError";
-import { Profile } from "../../profiles/typeDefs/ProfileTypeDef";
 import { User } from "../typeDefs/UserTypeDef";
 
 export const CreateUserResults = createUnionType({
@@ -33,17 +32,6 @@ export const SearchUsersResults = createUnionType({
       ExpiredTokenErrorTypeDef,
       MissingTokenErrorTypeDef,
       InvalidTokenErrorTypeDef,
-      UnauthorizedTokenErrorTypeDef,
-      ResourceNotFoundErrorTypeDef
-   ] as const, 
-})
-
-export const SearchUserProfileResults = createUnionType({
-   name: "SearchUserResults",
-   types: () => [
-      Profile,
-      ExpiredTokenErrorTypeDef,
-      MissingTokenErrorTypeDef,
       UnauthorizedTokenErrorTypeDef,
       ResourceNotFoundErrorTypeDef
    ] as const, 

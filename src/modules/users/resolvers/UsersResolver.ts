@@ -5,7 +5,6 @@ import { User } from "../typeDefs/UserTypeDef";
 
 import { 
    CreateUserResults,
-   SearchUserProfileResults,
    SearchUserResults,
    SearchUsersResults
 } from "./ResolverResults";
@@ -17,6 +16,7 @@ import { CreateUserUseCase } from "../useCases/CreateUser/CreateUserUseCase";
 import { ListUsersUseCase } from "../useCases/ListUsers/ListUsersUseCase";
 import { FindUserUseCase } from "../useCases/FindUser/FindUserUseCase";
 import { FindProfileByUserIdUseCase } from "../../profiles/useCases/FindProfileByUserId/FindProfileByUserIdUseCase";
+import { SearchProfileResults } from "../../profiles/resolvers/ResolverResults";
 
 
 @Resolver(User)
@@ -56,10 +56,10 @@ class UsersResolver {
       return users
    }
 
-   @FieldResolver( returns => SearchUserProfileResults )
+   @FieldResolver( returns => SearchProfileResults )
    async profile (
       @Root() user: User
-   ): Promise<typeof SearchUserProfileResults> {
+   ): Promise<typeof SearchProfileResults> {
       const findProfileByUserIdUseCase = container.resolve(FindProfileByUserIdUseCase);
       const profileFound = await findProfileByUserIdUseCase.execute( user.id );
       return profileFound;
