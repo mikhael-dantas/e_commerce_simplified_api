@@ -24,6 +24,15 @@ export const SearchProfileResults = createUnionType({
       Profile,
       ResourceNotFoundErrorTypeDef
    ] as const, 
+   resolveType: value => {
+      if ("user_id" in value && "bio" in value) {
+         return Profile;
+      }
+      if ("resourceNotFound" in value) {
+         return ResourceNotFoundErrorTypeDef;
+      }
+      undefined;
+   },
 })
 
 export const SearchProfilesResults = createUnionType({
