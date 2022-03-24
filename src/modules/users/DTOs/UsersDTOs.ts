@@ -32,10 +32,10 @@ export interface IAuthUserDTO {
 // find users
 @ArgsType()
 export class usersArgs {
-   @Field()
+   @Field({nullable: true})
    take: number;
    
-   @Field()
+   @Field({nullable: true})
    skip: number;
 }
 //find user
