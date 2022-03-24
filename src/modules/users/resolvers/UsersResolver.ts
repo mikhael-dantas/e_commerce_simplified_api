@@ -50,9 +50,7 @@ class UsersResolver {
       @Ctx() context: IContext,
       ): Promise<typeof SearchUsersResults[]> {
       const authHeader = context.req.headers.authorization;
-      // 
-      // TODO: add pagination
-      // TODO: add error handling for everything
+
       const listUsersUseCase = container.resolve(ListUsersUseCase);;
       const users = await listUsersUseCase.execute(authHeader);
       return users
