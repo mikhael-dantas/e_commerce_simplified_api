@@ -23,8 +23,7 @@ class FindUserUseCase {
    ) {}
 
    async execute(authorizationHeader: string | undefined, field: FieldsToSearchUser, value: string ): Promise<typeof SearchUserResults> {
-      let authenticatedUser
-      try {authenticatedUser=AuthCheck(authorizationHeader)}catch(error:any){return graphqlTokenErrorHandler(error)}
+      let authenticatedUser; try {authenticatedUser=AuthCheck(authorizationHeader)}catch(error:any){return graphqlTokenErrorHandler(error)}
       
 
       if (field === 'id') {
