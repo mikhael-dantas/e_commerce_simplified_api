@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { AuthCheck } from "../../../../shared/authCheck/AuthCheck";
+import { UnauthorizedTokenErrorTypeDef } from "../../../../shared/errors/GraphqlErrorDefs/UnauthorizedTokenError";
 import { graphqlTokenErrorHandler } from "../../../../shared/errors/GraphqlTokenErrorHandler";
 import { ICreateProfileDTO } from "../../DTOs/ProfilesDTOs";
 import { IProfilesRepository } from "../../repositories/IProfilesRepository";
@@ -14,7 +15,10 @@ class CreateProfileUseCase {
    ) {}
 
    async execute( authHeader: string | undefined ,createProfileDTO: ICreateProfileDTO): Promise<typeof CreateProfileResults> {
+      //authentication
       let authUser; try {authUser=AuthCheck(authHeader)}catch(err:any){return graphqlTokenErrorHandler(err)}
+      //authorization
+      if (createProfileDTO.user_id !== authUser.user.id) {return new UnauthorizedTokenErrorTypeDef}
 
       const profile = this.profilesRepository.create(createProfileDTO);
 
