@@ -30,16 +30,20 @@ export interface IAuthUserDTO {
 }
 
 // find users
-@ArgsType()
-export class usersArgs {
-   @Field({nullable: true})
-   take: number;
-   
-   @Field({nullable: true})
-   skip: number;
+export enum FieldsToSortUsers {
+   Id = "id",
+   Name = "name",
+   Email = "email",
+   CreatedAt = "created_at",
+   UpdatedAt = "updated_at",
 }
-//find user
 
+registerEnumType(FieldsToSortUsers, {
+   name: "FieldToSortUsers", 
+   description: "fields that the query accepts to sort the user",
+});
+
+//find user
 export enum FieldsToSearchUser {
    Id = "id",
    Email = "email",
