@@ -55,7 +55,9 @@ class UsersResolver {
       const authHeader = context.req.headers.authorization;
 
       const listUsersUseCase = container.resolve(ListUsersUseCase);;
-      const users = await listUsersUseCase.execute(authHeader);
+      const users = await listUsersUseCase.execute({
+         authHeader, fieldToSort, order, skip, take
+      });
       return users
    }
 
