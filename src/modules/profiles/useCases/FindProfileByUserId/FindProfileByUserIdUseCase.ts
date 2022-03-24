@@ -1,6 +1,7 @@
 import { inject, injectable } from "tsyringe";
+import { ResourceNotFoundErrorTypeDef } from "../../../../shared/errors/GraphqlErrorDefs/ResourceNotFoundError";
 import { IProfilesRepository } from "../../repositories/IProfilesRepository";
-import { Profile } from "../../typeDefs/ProfileTypeDef";
+import { SearchProfileResults } from "../../resolvers/ResolverResults";
 
 @injectable()
 class FindProfileByUserIdUseCase {
@@ -10,10 +11,10 @@ class FindProfileByUserIdUseCase {
       private readonly profilesRepository: IProfilesRepository,
    ) {}
 
-   async execute( user_id: string ): Promise<Profile> {
+   async execute( user_id: string ): Promise<typeof SearchProfileResults> {
       const profile = await this.profilesRepository.findByUserId(user_id);
       if (!profile) {
-         throw new Error("Profile not found");
+         return new ResourceNotFoundErrorTypeDef()
       }
       return profile
    }
