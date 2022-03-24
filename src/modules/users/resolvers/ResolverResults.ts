@@ -35,4 +35,24 @@ export const SearchUsersResults = createUnionType({
       UnauthorizedTokenErrorTypeDef,
       ResourceNotFoundErrorTypeDef
    ] as const, 
+   resolveType: value => {
+      if ("email" in value && "name" in value) {
+         return User;
+      }
+      if ("invalidToken" in value) {
+         return InvalidTokenErrorTypeDef;
+      }
+      if ("missingToken" in value) {
+         return MissingTokenErrorTypeDef;
+      }
+      if ("expiredToken" in value) {
+         return ExpiredTokenErrorTypeDef;
+      }
+      if ("resourceNotFound" in value) {
+         return ResourceNotFoundErrorTypeDef;
+      }
+      if ("unauthorizedToken" in value) {
+         return UnauthorizedTokenErrorTypeDef;
+      }
+   },
 })
