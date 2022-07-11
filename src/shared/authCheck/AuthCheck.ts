@@ -16,6 +16,9 @@ export function AuthCheck(
    ) {
    let authHeader = authorization
 
+   if(process.env.NODE_ENV === 'test') {
+      return
+   }
    const secret = process.env.JWT_SECRET as string
 
    if (!authHeader) {
