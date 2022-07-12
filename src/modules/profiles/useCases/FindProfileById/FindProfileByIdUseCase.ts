@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { ResourceNotFoundErrorTypeDef } from "../../../../shared/errors/GraphqlErrorDefs/ResourceNotFoundError";
+import { ResourceNotFoundErrorTypeDef } from "../../../../shared/graphql/GraphqlErrorDefs/ResourceNotFoundError";
 import { IProfilesRepository } from "../../repositories/IProfilesRepository";
 import { SearchProfileResults } from "../../resolvers/ResolverResults";
 import { Profile } from "../../typeDefs/ProfileTypeDef";

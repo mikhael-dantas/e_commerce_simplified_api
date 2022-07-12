@@ -17,7 +17,7 @@ import { ListUsersUseCase } from "../useCases/ListUsers/ListUsersUseCase";
 import { FindUserUseCase } from "../useCases/FindUser/FindUserUseCase";
 import { FindProfileByUserIdUseCase } from "../../profiles/useCases/FindProfileByUserId/FindProfileByUserIdUseCase";
 import { SearchProfileResults } from "../../profiles/resolvers/ResolverResults";
-import { Order, PaginationArgs } from "../../../shared/graphqlDefs/ArgTypeDefs";
+import { Order, PaginationArgs } from "../../../shared/graphql/graphqlDefs/ArgTypeDefs";
 
 
 @Resolver(User)
@@ -54,6 +54,10 @@ class UsersResolver {
       ): Promise<typeof SearchUsersResults[]> {
       const authHeader = context.req.headers.authorization;
 
+      // add input validation un use cases
+      // structure better the DTOs for usecases, resolvers and repositories
+      // make the test mocks
+      // add tests
       const listUsersUseCase = container.resolve(ListUsersUseCase);;
       const users = await listUsersUseCase.execute({
          authHeader, fieldToSort, order, skip, take

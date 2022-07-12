@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { AuthCheck } from "../../../../shared/authCheck/AuthCheck";
-import { UnauthorizedTokenErrorTypeDef } from "../../../../shared/errors/GraphqlErrorDefs/UnauthorizedTokenError";
-import { graphqlTokenErrorHandler } from "../../../../shared/errors/GraphqlTokenErrorHandler";
+import { UnauthorizedTokenErrorTypeDef } from "../../../../shared/graphql/GraphqlErrorDefs/UnauthorizedTokenError";
+import { graphqlTokenErrorHandler } from "../../../../shared/graphql/GraphqlTokenErrorHandler";
 import { ICreateProfileDTO } from "../../DTOs/ProfilesDTOs";
 import { IProfilesRepository } from "../../repositories/IProfilesRepository";
 import { CreateProfileResults } from "../../resolvers/ResolverResults";

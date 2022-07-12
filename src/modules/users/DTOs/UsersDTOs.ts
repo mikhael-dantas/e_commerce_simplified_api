@@ -1,5 +1,5 @@
 import { InputType, Field, ArgsType, registerEnumType } from "type-graphql";
-import { Order } from "../../../shared/graphqlDefs/ArgTypeDefs";
+import { Order } from "../../../shared/graphql/graphqlDefs/ArgTypeDefs";
 
 // create user
 export interface ICreateUserDTO {

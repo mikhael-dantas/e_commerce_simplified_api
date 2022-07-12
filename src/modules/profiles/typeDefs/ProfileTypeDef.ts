@@ -1,4 +1,4 @@
-import { ObjectType, Field, FieldResolver,  } from "type-graphql";
+import { ObjectType, Field, } from "type-graphql";
 import { User } from "../../users/typeDefs/UserTypeDef";
 
 @ObjectType()

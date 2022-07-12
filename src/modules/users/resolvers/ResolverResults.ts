@@ -1,9 +1,9 @@
 import { createUnionType } from "type-graphql";
-import { ExpiredTokenErrorTypeDef } from "../../../shared/errors/GraphqlErrorDefs/ExpiredTokenError";
-import { InvalidTokenErrorTypeDef } from "../../../shared/errors/GraphqlErrorDefs/InvalidTokenError";
-import { MissingTokenErrorTypeDef } from "../../../shared/errors/GraphqlErrorDefs/MissingTokenError";
-import { ResourceNotFoundErrorTypeDef } from "../../../shared/errors/GraphqlErrorDefs/ResourceNotFoundError";
-import { UnauthorizedTokenErrorTypeDef } from "../../../shared/errors/GraphqlErrorDefs/UnauthorizedTokenError";
+import { ExpiredTokenErrorTypeDef } from "../../../shared/graphql/GraphqlErrorDefs/ExpiredTokenError";
+import { InvalidTokenErrorTypeDef } from "../../../shared/graphql/GraphqlErrorDefs/InvalidTokenError";
+import { MissingTokenErrorTypeDef } from "../../../shared/graphql/GraphqlErrorDefs/MissingTokenError";
+import { ResourceNotFoundErrorTypeDef } from "../../../shared/graphql/GraphqlErrorDefs/ResourceNotFoundError";
+import { UnauthorizedTokenErrorTypeDef } from "../../../shared/graphql/GraphqlErrorDefs/UnauthorizedTokenError";
 import { User } from "../typeDefs/UserTypeDef";
 
 export const CreateUserResults = createUnionType({

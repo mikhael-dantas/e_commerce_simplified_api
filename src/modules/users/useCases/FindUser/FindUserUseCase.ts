@@ -8,11 +8,11 @@ import { User } from "../../typeDefs/UserTypeDef";
 import { FieldsToSearchUser } from "../../DTOs/UsersDTOs";
 import { SearchUserResults } from "../../resolvers/ResolverResults"
 
-import { ExpiredTokenErrorTypeDef } from "../../../../shared/errors/GraphqlErrorDefs/ExpiredTokenError";
-import { InvalidTokenErrorTypeDef } from "../../../../shared/errors/GraphqlErrorDefs/InvalidTokenError";
-import { MissingTokenErrorTypeDef } from "../../../../shared/errors/GraphqlErrorDefs/MissingTokenError";
-import { ResourceNotFoundErrorTypeDef } from "../../../../shared/errors/GraphqlErrorDefs/ResourceNotFoundError";
-import { graphqlTokenErrorHandler } from "../../../../shared/errors/GraphqlTokenErrorHandler";
+import { ExpiredTokenErrorTypeDef } from "../../../../shared/graphql/GraphqlErrorDefs/ExpiredTokenError";
+import { InvalidTokenErrorTypeDef } from "../../../../shared/graphql/GraphqlErrorDefs/InvalidTokenError";
+import { MissingTokenErrorTypeDef } from "../../../../shared/graphql/GraphqlErrorDefs/MissingTokenError";
+import { ResourceNotFoundErrorTypeDef } from "../../../../shared/graphql/GraphqlErrorDefs/ResourceNotFoundError";
+import { graphqlTokenErrorHandler } from "../../../../shared/graphql/GraphqlTokenErrorHandler";
 
 @injectable()
 class FindUserUseCase {
