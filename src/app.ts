@@ -2,7 +2,7 @@ import express, { Request } from 'express';
 
 import "express-async-errors";
 import 'reflect-metadata'
-import './shared/container'
+import './shared/tsyringeContainer'
 
 import cors from 'cors';
 import { AppError } from './shared/errors/AppError';
@@ -11,8 +11,7 @@ import { router } from './routes';
 import { graphqlHTTP } from 'express-graphql'
 import { buildSchema } from 'type-graphql';
 
-import { UsersResolver } from './modules/users/resolvers/UsersResolver';
-import { ProfilesResolver } from './modules/profiles/resolvers/ProfilesResolver';
+import { ProductsResolver } from './modules/products/resolvers/ProductsResolver';
 
 export interface IContext {
    req: Request;
@@ -28,7 +27,9 @@ export const returnApp: () => Promise<express.Application> = async () => {
    app.use('/', router)
    
    const GraphqlSchema = await buildSchema({
-      resolvers: [UsersResolver, ProfilesResolver],
+      resolvers: [
+         ProductsResolver
+      ],
    });
 
    app.use(

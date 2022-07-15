@@ -29,3 +29,13 @@ model Profile {
   user_id String @unique
 }
 
+model Product {
+  model String @default("product")
+  id      String   @id
+  name    String   @unique
+  price   Int
+  description String @db.Text
+  stock   Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
