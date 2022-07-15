@@ -9,8 +9,11 @@
   "scripts": {
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn ./src/server.ts"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "dependencies": {
-    "@prisma/client": "^3.11.0",
+    "@prisma/client": "^4.0.0",
     "bcryptjs": "^2.4.3",
     "class-validator": "^0.13.2",
     "cors": "^2.8.5",
@@ -33,7 +36,7 @@
     "@types/jsonwebtoken": "^8.5.8",
     "@types/uuid": "^8.3.4",
     "jest": "^28.1.2",
-    "prisma": "^3.11.0",
+    "prisma": "^4.0.0",
     "ts-jest": "^28.0.5",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.6.2"
