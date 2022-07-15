@@ -1,16 +1,16 @@
 import { ObjectType, Field } from "type-graphql";
 
 @ObjectType()
-export class MissingTokenErrorTypeDef {
+export class InvalidTokenErrorTypeDef {
    @Field()
-   missingToken: boolean = true;
+   model: string ="invalidTokenErrorTypeDef";
 
    @Field()
-   message: string = "You need to Login";
+   message: string = "Invalid token";
 
    @Field()
    location: string = "Authorization Header - Bearer Token";
 
    @Field()
-   status: number = 401;
+   status: number = 400;
 }

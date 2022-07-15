@@ -19,6 +19,7 @@ export function graphqlTokenErrorHandler(error: any) {
       case "missing authorization header":
          return new MissingTokenErrorTypeDef()
       default:
-         throw new Error(error.message)
+         console.log('unknown error', error)
+         return new InvalidTokenErrorTypeDef()
    }
 }
