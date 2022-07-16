@@ -37,6 +37,7 @@
     "@types/jsonwebtoken": "^8.5.8",
     "@types/uuid": "^8.3.4",
     "jest": "^28.1.2",
+    "jest-mock-extended": "^2.0.7",
     "prisma": "^4.0.0",
     "ts-jest": "^28.0.5",
     "ts-node-dev": "^1.1.8",
