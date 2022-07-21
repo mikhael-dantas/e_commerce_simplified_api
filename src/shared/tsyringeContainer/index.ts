@@ -2,6 +2,8 @@ import { container } from 'tsyringe';
 import { PrismaClient } from '@prisma/client';
 import { IProductsRepository } from '../../modules/products/repositories/IProductsRepository';
 import { ProductsRepository } from '../../modules/products/repositories/ProductsRepository';
+import { IManagersRepository } from '../../modules/managers/repositories/IManagersRepository';
+import { ManagersRepository } from '../../modules/managers/repositories/ManagersRepository';
 
 // import { IUsersRepository } from '../../modules/users/repositories/IUsersRepository';
 // import { UsersRepository } from '../../modules/users/repositories/UsersRepository';
@@ -26,6 +28,11 @@ container.registerSingleton<GlobalPrisma>(
 container.registerSingleton<IProductsRepository>(
    "ProductsRepository",
    ProductsRepository,
+);
+
+container.registerSingleton<IManagersRepository>(
+   "ManagersRepository",
+   ManagersRepository,
 );
 
 // container.registerSingleton<IProfilesRepository>(
