@@ -26,7 +26,8 @@ let myCustomOptions = {
 const port = process.env.SERVER_PORT
 
 export default async function setupServerToIntegrationTests() {
-   // execute the command 'yarn prisma migrate dev' to reset the database and push the schema
+   execSync('yarn prisma migrate reset -f')
+
    let serverToBeClosedAfter: any
    const app = await returnApp()
 
