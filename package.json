@@ -7,6 +7,8 @@
   "author": "Mikhael Dantas",
   "license": "MIT",
   "scripts": {
+    "test:infra": "jest infra",
+    "test": "jest ucfrs",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn ./src/server.ts"
   },
   "prisma": {
