@@ -2,8 +2,7 @@ import fs from 'fs';
 import { IFileStructure, IFolderStructure, ITestsFolder } from '../../types/TestsFolder';
 
 export class TestsWriter {
-    constructor() {}
-    public checkAndCreateAllMissingFolders({
+    public static checkAndCreateAllMissingFolders({
         depthLimit: depthLimitReceived,
         currentDepth: currentDepthReceived,
         currentPath: currentPathReceived,
@@ -34,7 +33,7 @@ export class TestsWriter {
         }
     }
 
-    public checkAndCreateMissingFilesForAllFoldersAndSubFolders( {
+    public static checkAndCreateMissingFilesForAllFoldersAndSubFolders( {
         depthLimit: depthLimitReceived, currentDepth: currentDepthReceived, 
         currentPath: currentPathReceived, currentFolder: currentFolderReceived,
         markStringToIdentifyLabel: markStringToIdentifyLabelReceived,
@@ -80,7 +79,7 @@ export class TestsWriter {
         }
     }
 
-    public enterFilesToCheckAndWriteControlledLines({
+    public static enterFilesToCheckAndWriteControlledLines({
         depthLimit: depthLimitReceived, currentDepth: currentDepthReceived,
         currentPath: currentPathReceived, currentFolder: currentFolderReceived,
         markStringToIdentifyLabel: markStringToIdentifyLabelReceived,
@@ -142,7 +141,7 @@ export class TestsWriter {
     }
 
 
-    private ensureDepthLimit({ depthLimit: depthLimitReceived, currentDepth: currentDepthReceived } : { depthLimit: number, currentDepth: number }) {
+    private static ensureDepthLimit({ depthLimit: depthLimitReceived, currentDepth: currentDepthReceived } : { depthLimit: number, currentDepth: number }) {
         const depthLimitReached = currentDepthReceived === depthLimitReceived
         if (depthLimitReached) {
             console.log('depth limit reached')
@@ -150,7 +149,7 @@ export class TestsWriter {
         }
     }
 
-    private recursiveCallForAllSubFoldersEnterFilesToCheckAndWriteControlledLines({
+    private static recursiveCallForAllSubFoldersEnterFilesToCheckAndWriteControlledLines({
         depthLimit: depthLimitReceived, currentDepth: currentDepthReceived,
         currentPath: currentPathReceived, currentFolder: currentFolderReceived,
         markStringToIdentifyLabel: markStringToIdentifyLabelReceived,
@@ -182,19 +181,19 @@ export class TestsWriter {
     }
 
 
-    private executeLogicForControllingUseCaseFile({
+    private static executeLogicForControllingUseCaseFile({
         file: fileReceived, fileContent: fileContentReceived
     } : {file: IFileStructure, fileContent: string}) {
         return ''
     }
 
-    private executeLogicForControllingNestedUseCaseFile({
+    private static executeLogicForControllingNestedUseCaseFile({
         file: fileReceived, fileContent: fileContentReceived
     } : {file: IFileStructure, fileContent: string}) {
         return ''
     }
 
-    private executeLogicForControllingFunctionalRequirementFile({ 
+    private static executeLogicForControllingFunctionalRequirementFile({ 
         file: fileReceived, fileContent: fileContentReceived
     } : {file: IFileStructure, fileContent: string}) {
         return ''

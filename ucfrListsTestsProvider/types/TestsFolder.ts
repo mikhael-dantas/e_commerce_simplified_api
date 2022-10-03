@@ -14,15 +14,15 @@ export type IFileStructure = {
 
 export interface ITestsFolder extends IFolderStructure {
     name: string;
-    subFolders: {
+    subFolders: ({
         name: 'integration';
         subFolders: IUseCasesModuleFolder[];
         files: null;
-    }[] | {
+    } | {
         name: 'unit';
         subFolders: IFunctionalRequirementModuleFolder[];
         files: null;
-    }[],
+    })[],
     files: null
 }
 

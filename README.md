@@ -1,7 +1,10 @@
 // SuperLogotype.image
-// The super project is a little example of a more robust project construction,
+// The super project is a little example of a robust project structure,
 // in this case a e-commerce with simulated processes like payment and delivery.
 // If you have any suggestion or feedback, feel free to give it here: link.link.com
+
+// getting started:
+// yarn install
 
 // ### How this project basic TDD workflow works:
 // Every application have features that can be treated as a isolated module 
