@@ -58,7 +58,7 @@ export default class TestsSpecHandler {
                 if (!frScoped.tagIds) {
                     throw new Error(`The fr ${frScoped.name} does not have tagIds`)
                 }
-                if (!frScoped.done) {
+                if (frScoped.done === undefined) {
                     throw new Error(`The fr ${frScoped.name} does not have a done`)
                 }
                 if (!frScoped.frDependencies) {
@@ -78,7 +78,7 @@ export default class TestsSpecHandler {
                 if (!useCaseScoped.tagIds) {
                     throw new Error(`The useCase ${useCaseScoped.name} does not have tagIds`)
                 }
-                if (!useCaseScoped.completed) {
+                if (useCaseScoped.completed === undefined) {
                     throw new Error(`The useCase ${useCaseScoped.name} does not have a completed`)
                 }
                 if (!useCaseScoped.neededFrsToWorkIds) {
@@ -101,7 +101,7 @@ export default class TestsSpecHandler {
                 if (!nestedUseCaseScoped.tagIds) {
                     throw new Error(`The nestedUseCase ${nestedUseCaseScoped.name} does not have tagIds`)
                 }
-                if (!nestedUseCaseScoped.completed) {
+                if (nestedUseCaseScoped.completed === undefined) {
                     throw new Error(`The nestedUseCase ${nestedUseCaseScoped.name} does not have a completed`)
                 }
                 if (!nestedUseCaseScoped.neededFrsToWorkIds) {
