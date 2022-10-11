@@ -25,7 +25,7 @@ fs.mkdirSync(backupFolderName, { recursive: true })
 fs.cpSync(pathToTests, backupFolderName, { recursive: true })
 
 // get tests specification
-const testsSpecification = fs.readFileSync('./ucfrListsTestsProvider/example.json', 'utf-8')
+const testsSpecification = fs.readFileSync('./__tests__/example.json', 'utf-8')
 
 const parsedAndValidatedTestsSpec = TestsSpecHandler.parseAndValidateFromJSON(testsSpecification)
 
