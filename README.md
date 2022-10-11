@@ -5,6 +5,9 @@
 
 // getting started:
 // yarn install
+// create and populate env variables based on .env.example
+// create and populate variables based on compose.yaml.example
+// run docker compose up
 
 // ### How this project basic TDD workflow works:
 // Every application have features that can be treated as a isolated module 
