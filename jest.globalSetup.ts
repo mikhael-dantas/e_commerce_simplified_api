@@ -34,7 +34,7 @@ export default async function setupServerToIntegrationTests() {
    await new Promise(resolve => {
       serverToBeClosedAfter = app.listen(port, () => {
          // styling log
-         const message = `Server is running on http://localhost:${port}`
+         const message = `GlobalSetupFile: Server is running on http://localhost:${port}`
          const styleTab = '-'.repeat(message.length +2)
          const color = `\x1b[36m`
          console.log(color,'\n' + `${styleTab}\n${styleTab}\n`,)
