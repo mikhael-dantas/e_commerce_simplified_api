@@ -28,7 +28,7 @@ test("should be able to connect with database", async () => {
 })
 
 test("should have all the correct environment variables", async () => {
-   const env = require("dotenv").config()
+   require("dotenv").config()
    const correctVariables = [
       "SERVER_HOST",
       "SERVER_PORT",
@@ -40,17 +40,9 @@ test("should have all the correct environment variables", async () => {
       // "JWT_REFRESH_ALGORITHM",
       // "JWT_ALGORITHM",
    ]
-   
-   const parsedKeys = Object.keys(env.parsed)
-   const parsedValues = Object.values(env.parsed)
 
-   expect(env).toHaveProperty("parsed")
-
-   correctVariables.forEach(key => {
-      expect(parsedKeys).toContain(key)
-   })
-
-   parsedValues.forEach(value => {
-      expect(value).toBeDefined()
-   })
+   for (let i = 0; i < correctVariables.length; i++) {
+      const variable = correctVariables[i]
+      expect(process.env[variable]).toBeDefined()
+   }
 })

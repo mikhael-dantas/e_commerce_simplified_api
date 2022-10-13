@@ -1,0 +1,57 @@
+services:
+  db:
+    image: postgres:latest
+    environment:
+      # POSTGRES_USER: USER
+      # POSTGRES_PASSWORD: PASSWORD
+    ports:
+      - "5432:5432"
+    networks:
+      - layer-a
+    
+
+  tests_provider_front:
+    build: ./tests_provider_front
+    # dev command
+    command: [sh, -cx, "yarn install && yarn dev"]
+    volumes:
+      # - ABSOULUTEPATH:/tests_provider_front
+    ports:
+      - "3042:3042"
+    networks:
+      - layer-a
+
+  backend:
+    build: ./e_commerce_simplified_api
+    # dev command
+    command: [sh, -cx, "yarn install && yarn prisma migrate reset -f && yarn build && yarn start"]
+    environment:
+      # - SERVER_HOST=STRING
+      # - SERVER_PORT=NUMBER
+      # - DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/TABLE
+      # - JWT_SECRET=STRING
+      # - JWT_EXPIRATION=STRING
+    volumes:
+      # - ABSOULUTEPATH:/backend
+    ports:
+      - "3041:3041"
+    networks:
+      - layer-a
+    depends_on:
+      - db
+
+  frontend:
+      build: ./e_commerce_simplified_frontend
+    # dev command
+      command: [sh, -cx, "yarn install && yarn dev"]
+      volumes:
+        # - ABSOULUTEPATH:/frontend
+      ports:
+        - "3040:3040"
+      networks:
+        - layer-a
+
+
+networks:
+  # The presence of these objects is sufficient to define them
+  layer-a: {}
