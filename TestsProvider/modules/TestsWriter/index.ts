@@ -111,6 +111,7 @@ export class TestsWriter {
                 switch (scopedFile.type) {
                     case 'useCase': {
                         const fullContent = this.executeLogicForControllingUseCaseFile({file: scopedFile, fileContent: fileContent, label: updatedLabelToControlFileInfoReceived})
+                        if (!fullContent) { return }
                         fs.writeFileSync(pathToFile, fullContent)
                         break;
                     }
@@ -121,6 +122,7 @@ export class TestsWriter {
                     }
                     case 'functionalRequirement': {
                         const fullContent = this.executeLogicForControllingFunctionalRequirementFile({file: scopedFile, fileContent: fileContent, label: updatedLabelToControlFileInfoReceived})
+                        if (!fullContent) { return }
                         fs.writeFileSync(pathToFile, fullContent)
                         break
                     }
@@ -168,12 +170,20 @@ export class TestsWriter {
         }
     }
 
+    private static putFailCodeInFragment(fragment: string) {
+        const failCode = `\n// this code fail was put in here because this test name was eddited\n;expect(true).toBe(false);`
+        const fragmentArray = fragment.split('}')
+        const lastFragmentArrayElement = fragmentArray[fragmentArray.length - 2]
+        const fragmentArrayWithoutLastElement = fragmentArray.slice(0, fragmentArray.length - 2)
+        const newFragmentArray = [...fragmentArrayWithoutLastElement, lastFragmentArrayElement + failCode, ""]
+        return newFragmentArray.join('}')
+    }
 
     private static executeLogicForControllingUseCaseFile({
         file: fileReceived, fileContent: fileContentReceived, label: labelReceived
     } : {
         file: IFileStructure, fileContent: string, label: string
-    }): string {
+    }): string | undefined {
         const useCase: IUseCase = fileReceived.content as IUseCase
         const startTestPositionMark = `// ${useCase.id}`
         const endTestPositionMark = `// ${useCase.id}`
@@ -195,8 +205,8 @@ export class TestsWriter {
             + `\n${testCode}`
             + `\n${testCodeEndPositionMark}`
             + `\n${compareStringTestPositionMark}`
-            + `\n${labelStringTestPositionMark}`
             + `\n${endTestPositionMark}`
+            + `\n${labelStringTestPositionMark}`
             return stringToReturn
         }
 
@@ -227,8 +237,8 @@ export class TestsWriter {
             }
 
             if (thisTestFragmentMatchComparisonString) {
-                console.log('writing same use case test')
-                return thisTestFragment
+                console.log('writing nothing, test already written')
+                return undefined
             }
 
             throw new Error(`something went wrong and thisTestFragment was not found for use case id & name: ${useCase.id} & ${useCase.name}`)
@@ -246,6 +256,9 @@ export class TestsWriter {
 
         let accumulatedNewTestsWrittenString = ''
 
+        if (nestedUseCases.length === 0) {
+            return 'test("no nested use cases", () => {expect(true).toBe(true)})'
+        }
         nestedUseCases.forEach(nestedUseCase => {
             const startTestPositionMark = `// ${nestedUseCase.id}`
             const endTestPositionMark = `// ${nestedUseCase.id}`
@@ -268,8 +281,8 @@ export class TestsWriter {
                 + `\n${testCode}`
                 + `\n${testCodeEndPositionMark}`
                 + `\n${compareStringTestPositionMark}`
-                + `\n${labelStringTestPositionMark}`
                 + `\n${endTestPositionMark}`
+                + `\n${labelStringTestPositionMark}`
                 return stringToReturn
             }
 
@@ -315,20 +328,11 @@ export class TestsWriter {
         return accumulatedNewTestsWrittenString
     }
 
-    private static putFailCodeInFragment(fragment: string) {
-        const failCode = `\n// this code fail was put in here because this test name was eddited\n;expect(true).toBe(false);`
-        const fragmentArray = fragment.split('}')
-        const lastFragmentArrayElement = fragmentArray[fragmentArray.length - 2]
-        const fragmentArrayWithoutLastElement = fragmentArray.slice(0, fragmentArray.length - 2)
-        const newFragmentArray = [...fragmentArrayWithoutLastElement, lastFragmentArrayElement + failCode, ""]
-        return newFragmentArray.join('}')
-    }
-
     private static executeLogicForControllingFunctionalRequirementFile({ 
         file: fileReceived, fileContent: fileContentReceived, label: labelReceived
     } : {
         file: IFileStructure, fileContent: string, label: string
-    }) {
+    }): string | undefined {
         const fRequirement: IFunctionalRequirement = fileReceived.content as IFunctionalRequirement
         const startTestPositionMark = `// ${fRequirement.id}`
         const endTestPositionMark = `// ${fRequirement.id}`
@@ -351,8 +355,8 @@ export class TestsWriter {
             + `\n${testCode}`
             + `\n${testCodeEndPositionMark}`
             + `\n${compareStringTestPositionMark}`
-            + `\n${labelStringTestPositionMark}`
             + `\n${endTestPositionMark}`
+            + `\n${labelStringTestPositionMark}`
             return stringToReturn
         }
 
@@ -383,8 +387,8 @@ export class TestsWriter {
             }
 
             if (thisTestFragmentMatchComparisonString) {
-                console.log('writing same fRequirement test')
-                return thisTestFragment
+                console.log('writing nothing')
+                return undefined
             }
 
             throw new Error(`something went wrong and this fRequirement was not controlled: ${fRequirement.id} & ${fRequirement.name}`)
