@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest --colors",
-    "docker:test": "docker run --rm -v $(pwd):/app -w /app --network e_commerce_simplified_layer-a --env-file .env.test node:18.12",
+    "docker:test": "docker run --rm -it -v $(pwd):/app -w /app --network e_commerce_simplified_layer-a --env-file .env.test node:18.12",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn ./src/server.ts",
     "build": "tsc",
     "start": "node ./build/src/server.js"
@@ -39,6 +39,7 @@
     "@types/express": "^4.17.13",
     "@types/jest": "^28.1.4",
     "@types/jsonwebtoken": "^8.5.8",
+    "@types/node": "^18.11.9",
     "@types/node-fetch": "^2.6.2",
     "@types/uuid": "^8.3.4",
     "jest": "^28.1.2",

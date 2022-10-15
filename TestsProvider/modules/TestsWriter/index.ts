@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { AskQuestion } from '../../lib/AskQuestion';
 import { IFileStructure, IFolderStructure, ITestsFolder } from '../../types/TestsFolder';
 import { IFunctionalRequirement, INestedUseCase, IUseCase } from '../../types/ucfrLists';
 
@@ -395,5 +396,99 @@ export class TestsWriter {
         }
 
         throw new Error(`something went wrong and this fRequirement was not controlled: ${fRequirement.id} & ${fRequirement.name}`) 
+    }
+
+    public static async checkAndDeleteUnlistedFilesForAllFoldersAndSubFolders( {
+        depthLimit: depthLimitReceived, currentDepth: currentDepthReceived, 
+        currentPath: currentPathReceived, currentFolder: currentFolderReceived,
+    } : {
+        depthLimit: number, currentDepth: number, 
+        currentPath: string, currentFolder: IFolderStructure,
+    }) {
+
+
+        this.ensureDepthLimit({ depthLimit: depthLimitReceived, currentDepth: currentDepthReceived })
+
+        // check path subfolders and files, then delete unlisted ones
+        const currentPathSubFolders = fs.readdirSync(currentPathReceived, { withFileTypes: true }).filter(dirent => dirent.isDirectory())
+        const currentPathSubFiles = fs.readdirSync(currentPathReceived, { withFileTypes: true }).filter(dirent => dirent.isFile())
+
+        const currentFolderSubFolders = currentFolderReceived.subFolders
+        const currentFolderFiles = currentFolderReceived.files
+
+        for (const subFolder of currentPathSubFolders) {
+            const subFolderName = subFolder.name
+            const subFolderPath = `${currentPathReceived}/${subFolderName}`
+            if (currentFolderSubFolders === null ) {
+                // delete all currentPathSubFolders
+                const answer = await AskQuestion(`delete folder ${subFolderPath} ?  y/n`)
+                if (answer.toLowerCase().trim() === 'y') {
+                    fs.rmSync(subFolderPath, { recursive: true })
+                    console.log(
+                        // log in red
+                        `\x1b[31m%s\x1b[0m`,
+                        `folder ${subFolderPath} deleted`
+                    )
+                }
+                continue
+            }
+            const subFolderStructure = currentFolderSubFolders.find((subFolderStructure) => subFolderStructure.name === subFolderName)
+            if (!subFolderStructure) {
+                // delete this subFolder
+                const answer = await AskQuestion(`delete folder ${subFolderPath} ?  y/n`)
+                if (answer.toLowerCase().trim() === 'y') {
+                    fs.rmSync(subFolderPath, { recursive: true })
+                    console.log(
+                        // log in red
+                        `\x1b[31m%s\x1b[0m`,
+                        `folder ${subFolderPath} deleted`
+                    )
+                }
+                continue
+            }
+        }
+
+        for (const subFile of currentPathSubFiles) {
+            const subFileName = subFile.name
+            const subFilePath = `${currentPathReceived}/${subFileName}`
+            if (currentFolderFiles === null ) {
+                // delete all currentPathFiles
+                const answer = await AskQuestion(`delete file ${subFilePath} ?  y/n`)
+                if (answer.toLowerCase().trim() === 'y') {
+                    fs.unlinkSync(subFilePath)
+                    console.log(
+                        // log in red
+                        `\x1b[31m%s\x1b[0m`,
+                        `file ${subFilePath} deleted`
+                    )
+                }
+                continue
+            }
+            const subFileStructure = currentFolderFiles.find((subFileStructure) => subFileStructure.name === subFileName)
+            if (!subFileStructure) {
+                // delete this subFile
+                const answer = await AskQuestion(`delete file ${subFilePath} ?  y/n`)
+                if (answer.toLowerCase().trim() === 'y') {
+                    fs.unlinkSync(subFilePath)
+                    console.log(
+                        // log in red
+                        `\x1b[31m%s\x1b[0m`,
+                        `file ${subFilePath} deleted`
+                    )
+                }
+                continue
+            }
+        }
+
+        const thisFolderHaveSubFolders = currentFolderReceived.subFolders
+        if (thisFolderHaveSubFolders) {
+            currentFolderReceived.subFolders?.forEach(subFolder => {
+                const pathToSubFolder = `${currentPathReceived}/${subFolder.name}`
+                this.checkAndDeleteUnlistedFilesForAllFoldersAndSubFolders({
+                    depthLimit: depthLimitReceived, currentDepth: currentDepthReceived + 1,
+                    currentPath: pathToSubFolder, currentFolder: subFolder,
+                })
+            })
+        }
     }
 }
