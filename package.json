@@ -8,7 +8,13 @@
   "license": "MIT",
   "scripts": {
     "test": "jest --colors",
-    "docker:test": "docker run --rm -it -v $(pwd):/app -w /app --network e_commerce_simplified_layer-a --env-file .env.test node:18.12",
+    "docker:tests-provider": 
+    "docker run --rm -it -v $(pwd):/app -w /app --network e_commerce_simplified_layer-a --env-file .env.test node:18.12 sh -cx \"yarn ts-node TestsProvider/index.ts\"",
+    "docker:testPrep": 
+    "docker run --rm -it -v $(pwd):/app -w /app --network e_commerce_simplified_layer-a --env-file .env.test node:18.12 sh -cx \"yarn jest --colors __testsPrep__\"",
+    "docker:test": 
+    "docker run --rm -it -v $(pwd):/app -w /app --network e_commerce_simplified_layer-a --env-file .env.test node:18.12 sh -cx \"yarn jest --colors\"",
+    "docker": "docker run --rm -it -v $(pwd):/app -w /app --network e_commerce_simplified_layer-a --env-file .env.test node:18.12",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn ./src/server.ts",
     "build": "tsc",
     "start": "node ./build/src/server.js"
