@@ -1,5 +1,5 @@
 import fs from 'node:fs'
-import StringGenerator from "./modules/StringGenerator"
+import StringGenerator from "./lib/StringGenerator"
 import { TestsWriter } from "./modules/TestsWriter"
 import TestsSpecHandler from "./modules/TestsSpecHandler"
 import ControlFileAnalyzer from "./modules/ControlFileAnalyzer"
