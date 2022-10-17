@@ -38,12 +38,10 @@ export class TestsWriter {
     public static checkAndCreateMissingFilesForAllFoldersAndSubFolders( {
         depthLimit: depthLimitReceived, currentDepth: currentDepthReceived, 
         currentPath: currentPathReceived, currentFolder: currentFolderReceived,
-        updatedLabelToControlFileInfo: updatedLabelToControlFileInfoReceived,
         contentForEmptyFile: contentForEmptyFileReceived,
     } : {
         depthLimit: number, currentDepth: number, 
         currentPath: string, currentFolder: IFolderStructure,
-        updatedLabelToControlFileInfo: string,
         contentForEmptyFile: string,
     }) {
 
@@ -71,7 +69,6 @@ export class TestsWriter {
                 this.checkAndCreateMissingFilesForAllFoldersAndSubFolders({
                     depthLimit: depthLimitReceived, currentDepth: currentDepthReceived + 1,
                     currentPath: pathToSubFolder, currentFolder: subFolder,
-                    updatedLabelToControlFileInfo: updatedLabelToControlFileInfoReceived,
                     contentForEmptyFile: contentForEmptyFileReceived,
                 })
             })
@@ -81,14 +78,10 @@ export class TestsWriter {
     public static enterFilesToCheckAndWriteControlledLines({
         depthLimit: depthLimitReceived, currentDepth: currentDepthReceived,
         currentPath: currentPathReceived, currentFolder: currentFolderReceived,
-        oldLabelToControlFileInfo: oldLabelToControlFileInfoReceived,
-        updatedLabelToControlFileInfo: updatedLabelToControlFileInfoReceived,
         parsedTestsSpecification: parsedTestsSpecificationReceived,
     } : {
         depthLimit: number, currentDepth: number, 
         currentPath: string, currentFolder: IFolderStructure,
-        oldLabelToControlFileInfo: string,
-        updatedLabelToControlFileInfo: string,
         parsedTestsSpecification: ITestsFolder,
     }) {
 
@@ -97,8 +90,6 @@ export class TestsWriter {
         this.recursiveCallForAllSubFoldersEnterFilesToCheckAndWriteControlledLines({
             depthLimit: depthLimitReceived, currentDepth: currentDepthReceived,
             currentPath: currentPathReceived, currentFolder: currentFolderReceived,
-            oldLabelToControlFileInfo: oldLabelToControlFileInfoReceived,
-            updatedLabelToControlFileInfo: updatedLabelToControlFileInfoReceived,
             parsedTestsSpecification: parsedTestsSpecificationReceived,
         })
 
@@ -111,18 +102,18 @@ export class TestsWriter {
 
                 switch (scopedFile.type) {
                     case 'useCase': {
-                        const fullContent = this.executeLogicForControllingUseCaseFile({file: scopedFile, fileContent: fileContent, label: updatedLabelToControlFileInfoReceived})
+                        const fullContent = this.executeLogicForControllingUseCaseFile({file: scopedFile, fileContent: fileContent})
                         if (!fullContent) { return }
                         fs.writeFileSync(pathToFile, fullContent)
                         break;
                     }
                     case 'nestedUseCase': {
-                        const fullContent = this.executeLogicForControllingNestedUseCaseFile({file: scopedFile, fileContent: fileContent, label: updatedLabelToControlFileInfoReceived})
+                        const fullContent = this.executeLogicForControllingNestedUseCaseFile({file: scopedFile, fileContent: fileContent})
                         fs.writeFileSync(pathToFile, fullContent)
                         break
                     }
                     case 'functionalRequirement': {
-                        const fullContent = this.executeLogicForControllingFunctionalRequirementFile({file: scopedFile, fileContent: fileContent, label: updatedLabelToControlFileInfoReceived})
+                        const fullContent = this.executeLogicForControllingFunctionalRequirementFile({file: scopedFile, fileContent: fileContent})
                         if (!fullContent) { return }
                         fs.writeFileSync(pathToFile, fullContent)
                         break
@@ -146,14 +137,10 @@ export class TestsWriter {
     private static recursiveCallForAllSubFoldersEnterFilesToCheckAndWriteControlledLines({
         depthLimit: depthLimitReceived, currentDepth: currentDepthReceived,
         currentPath: currentPathReceived, currentFolder: currentFolderReceived,
-        oldLabelToControlFileInfo: oldLabelToControlFileInfoReceived,
-        updatedLabelToControlFileInfo: updatedLabelToControlFileInfoReceived,
         parsedTestsSpecification: parsedTestsSpecificationReceived,
     } : {
         depthLimit: number, currentDepth: number,
         currentPath: string, currentFolder: IFolderStructure,
-        oldLabelToControlFileInfo: string,
-        updatedLabelToControlFileInfo: string,
         parsedTestsSpecification: ITestsFolder,
     }) {
         const thisFolderHaveSubFolders = currentFolderReceived.subFolders
@@ -163,8 +150,6 @@ export class TestsWriter {
                 this.enterFilesToCheckAndWriteControlledLines({
                     depthLimit: depthLimitReceived, currentDepth: currentDepthReceived + 1,
                     currentPath: pathToSubFolder, currentFolder: subFolder,
-                    oldLabelToControlFileInfo: oldLabelToControlFileInfoReceived,
-                    updatedLabelToControlFileInfo: updatedLabelToControlFileInfoReceived,
                     parsedTestsSpecification: parsedTestsSpecificationReceived,
                 })
             })
@@ -181,15 +166,14 @@ export class TestsWriter {
     }
 
     private static executeLogicForControllingUseCaseFile({
-        file: fileReceived, fileContent: fileContentReceived, label: labelReceived
+        file: fileReceived, fileContent: fileContentReceived
     } : {
-        file: IFileStructure, fileContent: string, label: string
+        file: IFileStructure, fileContent: string
     }): string | undefined {
         const useCase: IUseCase = fileReceived.content as IUseCase
         const startTestPositionMark = `// ${useCase.id}`
         const endTestPositionMark = `// ${useCase.id}`
         const compareStringTestPositionMark = `// positionLabel1-${useCase.name}-positionLabel2`
-        const labelStringTestPositionMark = `// positionLabel3-${labelReceived}-positionLabel4`
         const testNameStartPositionMark = `// positionLabel5`
         const testNameEndPositionMark = `// positionLabel6`
         const testCodeStartPositionMark = `// positionLabel7`
@@ -207,7 +191,6 @@ export class TestsWriter {
             + `\n${testCodeEndPositionMark}`
             + `\n${compareStringTestPositionMark}`
             + `\n${endTestPositionMark}`
-            + `\n${labelStringTestPositionMark}`
             return stringToReturn
         }
 
@@ -249,9 +232,9 @@ export class TestsWriter {
     }
 
     private static executeLogicForControllingNestedUseCaseFile({
-        file: fileReceived, fileContent: fileContentReceived, label: labelReceived
+        file: fileReceived, fileContent: fileContentReceived
     } : {
-        file: IFileStructure, fileContent: string, label: string
+        file: IFileStructure, fileContent: string
     }) {
         const nestedUseCases: INestedUseCase[] = fileReceived.content as INestedUseCase[]
 
@@ -264,7 +247,6 @@ export class TestsWriter {
             const startTestPositionMark = `// ${nestedUseCase.id}`
             const endTestPositionMark = `// ${nestedUseCase.id}`
             const compareStringTestPositionMark = `// positionLabel1-${nestedUseCase.name}-positionLabel2`
-            const labelStringTestPositionMark = `// positionLabel3-${labelReceived}-positionLabel4`
             const testNameStartPositionMark = `// positionLabel5`
             const testNameEndPositionMark = `// positionLabel6`
             const testCodeStartPositionMark = `// positionLabel7`
@@ -283,7 +265,6 @@ export class TestsWriter {
                 + `\n${testCodeEndPositionMark}`
                 + `\n${compareStringTestPositionMark}`
                 + `\n${endTestPositionMark}`
-                + `\n${labelStringTestPositionMark}`
                 return stringToReturn
             }
 
@@ -330,15 +311,14 @@ export class TestsWriter {
     }
 
     private static executeLogicForControllingFunctionalRequirementFile({ 
-        file: fileReceived, fileContent: fileContentReceived, label: labelReceived
+        file: fileReceived, fileContent: fileContentReceived
     } : {
-        file: IFileStructure, fileContent: string, label: string
+        file: IFileStructure, fileContent: string
     }): string | undefined {
         const fRequirement: IFunctionalRequirement = fileReceived.content as IFunctionalRequirement
         const startTestPositionMark = `// ${fRequirement.id}`
         const endTestPositionMark = `// ${fRequirement.id}`
         const compareStringTestPositionMark = `// positionLabel1-${fRequirement.name}-positionLabel2`
-        const labelStringTestPositionMark = `// positionLabel3-${labelReceived}-positionLabel4`
         const testNameStartPositionMark = `// positionLabel5`
         const testNameEndPositionMark = `// positionLabel6`
         const testCodeStartPositionMark = `// positionLabel7`
@@ -357,7 +337,6 @@ export class TestsWriter {
             + `\n${testCodeEndPositionMark}`
             + `\n${compareStringTestPositionMark}`
             + `\n${endTestPositionMark}`
-            + `\n${labelStringTestPositionMark}`
             return stringToReturn
         }
 
