@@ -1,8 +1,8 @@
 module.exports = async function () {
    if(!process.env.UNIT) {
       await new Promise(resolve => {
-         const {__testServer__} = globalThis as any
-         __testServer__.close(() => {
+         const {_testServer_} = globalThis as any
+         _testServer_.close(() => {
             // styling log
             const message = `TeardownFile: Server is closing`
             const styleTab = '-'.repeat(message.length + 2)
@@ -12,6 +12,7 @@ module.exports = async function () {
             console.log(`\x1b[37m`, message)
             console.log(color,`\n${styleTab}\n${styleTab}`)
             // styling log
+
             resolve('done')
          })
       })

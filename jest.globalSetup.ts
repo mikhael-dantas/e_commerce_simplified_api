@@ -2,27 +2,6 @@ import {execSync} from 'child_process';
 import {returnApp} from './src/app'
 import "dotenv"
 
-export interface IMyCustomOptions {
-   reqDefaultOptions: {
-      headers: any,
-      hostname: string,
-      port: number,
-      baseURL: string,
-   },
-   graphqlPath: string,
-}
-let myCustomOptions = {
-   reqDefaultOptions: {
-      hostname: process.env.SERVER_HOST ? process.env.SERVER_HOST : "localhost",
-      port: process.env.SERVER_PORT ? parseInt(process.env.SERVER_PORT) : 3000,
-      baseURL: `http://${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`,
-      headers: {
-         "Content-Type": "application/json",
-      }
-   },
-   graphqlPath: '/graphql',
-} as IMyCustomOptions
-
 const port = process.env.SERVER_PORT
 
 export default async function setupServerToIntegrationTests() {
@@ -50,8 +29,7 @@ export default async function setupServerToIntegrationTests() {
       })
 
       Object.assign(globalThis, {
-         __testServer__: serverToBeClosedAfter,
-         __myCustomOptions__: myCustomOptions,
+         _testServer_: serverToBeClosedAfter,
       })
    }
 };
