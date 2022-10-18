@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import http from 'http';
+import { PrismaClient } from '@prisma/client';
 
 class ApiRequest {
     public static async post(query: string, options?: http.RequestOptions) {
@@ -32,6 +33,9 @@ class ApiRequest {
     }
 }
 
+const prismaClient = new PrismaClient()
+
 Object.assign(global, {
-    api__: ApiRequest
+    api__: ApiRequest,
+    prismaClient,
 });
