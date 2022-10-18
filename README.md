@@ -1,15 +1,56 @@
 // SuperLogotype.image
-// The super project is a little example of a robust project structure,
+// The super application is a little example of a robust application structure,
 // in this case a e-commerce with simulated processes like payment and delivery.
 // If you have any suggestion or feedback, feel free to give it here: link.link.com
 
 // getting started:
 // yarn install
-// create and populate env variables based on .env.example
-// create and populate variables based on compose.example.yaml
-// run docker compose up for running with docker, or check compose.example.yaml for local environment setup
+// create and populate variables based on compose.example.yaml .env.example
+// for tests: .env.test
+// for local: .env
+// for docker: compose.yaml on ../. directory
+// run docker compose up backend for running with docker
 
-// ### How this project basic TDD workflow works:
+// folder structure and files:
+// /__tests** -> tests folder
+// /.vscode -> Visual Studio Code features configuration
+// /node_modules -> packages used and managed by yarn
+// /prisma -> prisma orm folder structure
+// /src -> source for this application code
+// - /modules -> application features divided by modules
+// - - /[modulename] -> a module containing all features corresponding to it's name
+// - - - /repositories -> contain all the code for db communication
+// - - - - I[name]Repository.ts -> contain the interface for the repository class
+// - - - - [name]Repository.ts -> contain the class with all repository features
+// - - - /resolvers -> contain all the code for this module resolvers
+// - - - - [name]Resolver.ts -> contain the resolvers code
+// - - - - [name]ResolverResults.ts -> contain resolvers result types
+// - - - /typeDefs -> contain type definitions for this module graphql model
+// - - - - [name].ts -> contain the graphql model type definition itself
+// - - - /useCases -> contain all business logic of this module features
+// - - - - /[featureName]UseCase -> contain all the use case code
+// - - - - - [name]UseCase.ts -> contain the logic of the use case
+// - - - - - I[name]UseCase.ts -> contain the interface for the use case
+// - /shared -> pieces of code or features shared between modules
+// - - /authCheck -> token authentication function
+// - - /errors -> application error specifications
+// - - /graphql -> graphql general type definitions
+// - - /tsyringeContainer -> singleton pattern setup
+// - app.ts -> application object
+// - routes.ts -> api routes configuration 
+// - server.ts -> server startup file
+// **.example** -> examples for confidential information configs
+// .env.test -> environment variables for test env
+// .git** -> repository management files
+// dockerfile -> docker image specs
+// jest.** -> jest/test environment setup handlers
+// package.json -> package informations of this application
+// README.md -> guide for this application development
+// tsconfig.json -> typescript configuration
+// yarn** -> yarn package manager auto managed files
+
+
+// ### How this application basic TDD workflow works:
 // Every application have features that can be treated as a isolated module 
 // or a group of isolated modules to implement. This workflow
 // is based on this principle.
@@ -50,17 +91,23 @@
 // - running the test generator script in testmaker.ts ```ts-node testmaker.ts```
 // and make sure to check the script logs to maintain tests folder structure.
 
-// yaehhhhhh this is a super project!
+// yaehhhhhh this is a super application!
 // this way, we have everything ready to start implementing our application from the tests.
 // to make sure the app is ready to go to production without detectable bugs, run the tests and make sure they pass.
 // - using jest: ```yarn jest```
+// - using docker: ```yarn docker:test```
 
 // ### Main technologies used:
+// code:
 // - node.js
 // - TypeScript
 // - GraphQL
 // - Jest
 // - Postgres
+
+// infra:
+// - docker
+
 
 ## customer
 have a proper schema with: id, possessorId
