@@ -1,1 +1,1 @@
-test("no nested use cases", () => {expect(true).toBe(true)})
+test.concurrent("no nested use cases", () => {expect(true).toBe(true)})

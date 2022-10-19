@@ -162,7 +162,8 @@ export class TestsWriter {
         const lastFragmentArrayElement = fragmentArray[fragmentArray.length - 2]
         const fragmentArrayWithoutLastElement = fragmentArray.slice(0, fragmentArray.length - 2)
         const newFragmentArray = [...fragmentArrayWithoutLastElement, lastFragmentArrayElement + failCode, ""]
-        return newFragmentArray.join('}')
+        const finalpiece = newFragmentArray.join('}') + '\n)'
+        return finalpiece
     }
 
     private static executeLogicForControllingUseCaseFile({
@@ -184,7 +185,7 @@ export class TestsWriter {
         const newTestStringMaker = (testCode: string) => {
             const stringToReturn = `\n${startTestPositionMark}`
             + `\n${testNameStartPositionMark}`
-            + `\ntest(\n'${useCase.name}',`
+            + `\ntest.concurrent(\n'${useCase.name}',`
             + `\n${testNameEndPositionMark}`
             + `\n${testCodeStartPositionMark}`
             + `\n${testCode}`
@@ -241,7 +242,7 @@ export class TestsWriter {
         let accumulatedNewTestsWrittenString = ''
 
         if (nestedUseCases.length === 0) {
-            return 'test("no nested use cases", () => {expect(true).toBe(true)})'
+            return 'test.concurrent("no nested use cases", () => {expect(true).toBe(true)})'
         }
         nestedUseCases.forEach(nestedUseCase => {
             const startTestPositionMark = `// ${nestedUseCase.id}`
@@ -258,7 +259,7 @@ export class TestsWriter {
             const newTestStringMaker = (testCode: string) => {
                 const stringToReturn = `\n${startTestPositionMark}`
                 + `\n${testNameStartPositionMark}`
-                + `\ntest(\n'${nestedUseCase.name}',`
+                + `\ntest.concurrent(\n'${nestedUseCase.name}',`
                 + `\n${testNameEndPositionMark}`
                 + `\n${testCodeStartPositionMark}`
                 + `\n${testCode}`
@@ -330,7 +331,7 @@ export class TestsWriter {
             
             const stringToReturn = `\n${startTestPositionMark}`
             + `\n${testNameStartPositionMark}`
-            + `\ntest(\n'${fRequirement.name}',`
+            + `\ntest.concurrent(\n'${fRequirement.name}',`
             + `\n${testNameEndPositionMark}`
             + `\n${testCodeStartPositionMark}`
             + `\n${testCode}`

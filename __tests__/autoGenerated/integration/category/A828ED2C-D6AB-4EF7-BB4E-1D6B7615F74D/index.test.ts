@@ -1,9 +1,11 @@
+
 // A828ED2C-D6AB-4EF7-BB4E-1D6B7615F74D
 // positionLabel5
-test(
+test.concurrent(
 'list all categories',
 // positionLabel6
 // positionLabel7
+
 
 async () => {
 
@@ -56,6 +58,7 @@ async () => {
     expect(parsedRes.data?.categories[0]).toHaveProperty('image_url')
     expect(parsedRes.data?.categories[0]).toHaveProperty('created_at')
     expect(parsedRes.data?.categories[0]).toHaveProperty('updated_at')
+
 }
 )
 // positionLabel8
