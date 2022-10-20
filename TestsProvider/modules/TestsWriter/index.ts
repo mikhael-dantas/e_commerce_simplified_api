@@ -1,5 +1,6 @@
 import fs from 'fs';
 import { AskQuestion } from '../../lib/AskQuestion';
+import { EscapeRegExp } from '../../lib/RegExpEscape';
 import { IFileStructure, IFolderStructure, ITestsFolder } from '../../types/TestsFolder';
 import { IFunctionalRequirement, INestedUseCase, IUseCase } from '../../types/ucfrLists';
 
@@ -195,7 +196,7 @@ export class TestsWriter {
             return stringToReturn
         }
 
-        const thisTestIsAlreadyWritten = fileContentReceived.match(new RegExp(startTestPositionMark, 'g'))
+        const thisTestIsAlreadyWritten = fileContentReceived.match(new RegExp(EscapeRegExp(startTestPositionMark), 'g'))
 
         if (!thisTestIsAlreadyWritten) {
             console.log('no use case test found, writing new test')
@@ -203,19 +204,19 @@ export class TestsWriter {
         }
 
         if (thisTestIsAlreadyWritten) {
-            const thisTestFragment = fileContentReceived.match(new RegExp(`${startTestPositionMark}.*${endTestPositionMark}`, 's'))?.[0]
+            const thisTestFragment = fileContentReceived.match(new RegExp(`${EscapeRegExp(startTestPositionMark)}.*${EscapeRegExp(endTestPositionMark)}`, 's'))?.[0]
             if (!thisTestFragment) {
                 throw new Error(`something went wrong and thisTestFragment was not found for use case id & name: ${useCase.id} & ${useCase.name}`)
             }
 
-            const thisTestFragmentMatchComparisonString = thisTestFragment.match(new RegExp(compareStringTestPositionMark, 'g'))
+            const thisTestFragmentMatchComparisonString = thisTestFragment.match(new RegExp(EscapeRegExp(compareStringTestPositionMark), "g"))
             if (!thisTestFragmentMatchComparisonString) {
-                console.log('no matching in this use case test, writing new test')
-                const fragmentCode = thisTestFragment.match(new RegExp(`${testCodeStartPositionMark}.*${testCodeEndPositionMark}`, 's'))?.[0]
+                console.log(`no matching in this use case test, writing new test for use case id & name:\n${useCase.id}\n${useCase.name}`)
+                const fragmentCode = thisTestFragment.match(new RegExp(`${EscapeRegExp(testCodeStartPositionMark)}.*${EscapeRegExp(testCodeEndPositionMark)}`, 's'))?.[0]
                 if (!fragmentCode) {
                     throw new Error(`something went wrong and fragmentCode was not found for use case id & name: ${useCase.id} & ${useCase.name}`)
                 }
-                const fragmentWihtoutPositionMarks = fragmentCode.replace(new RegExp(`${testCodeStartPositionMark}`, 'g'), '').replace(new RegExp(`${testCodeEndPositionMark}`, 'g'), '')
+                const fragmentWihtoutPositionMarks = fragmentCode.replace(new RegExp(`${EscapeRegExp(testCodeStartPositionMark)}`, 'g'), '').replace(new RegExp(`${EscapeRegExp(testCodeEndPositionMark)}`, 'g'), '')
                 
                 const codeMarkedWithFail = this.putFailCodeInFragment(fragmentWihtoutPositionMarks)
                 return newTestStringMaker(codeMarkedWithFail)
@@ -269,7 +270,7 @@ export class TestsWriter {
                 return stringToReturn
             }
 
-            const thisTestIsAlreadyWritten = fileContentReceived.match(new RegExp(startTestPositionMark, 'g'))
+            const thisTestIsAlreadyWritten = fileContentReceived.match(new RegExp(EscapeRegExp(startTestPositionMark), 'g'))
 
             if (!thisTestIsAlreadyWritten) {
                 console.log('no nested use case test found, writing new test')
@@ -278,19 +279,19 @@ export class TestsWriter {
             }
 
             if (thisTestIsAlreadyWritten) {
-                const thisTestFragment = fileContentReceived.match(new RegExp(`${startTestPositionMark}.*${endTestPositionMark}`, 's'))?.[0]
+                const thisTestFragment = fileContentReceived.match(new RegExp(`${EscapeRegExp(startTestPositionMark)}.*${EscapeRegExp(endTestPositionMark)}`, 's'))?.[0]
                 if (!thisTestFragment) {
                     throw new Error(`something went wrong and thisTestFragment was not found for nested use case id & name: ${nestedUseCase.id} & ${nestedUseCase.name}`)
                 }
 
-                const thisTestFragmentMatchComparisonString = thisTestFragment.match(new RegExp(compareStringTestPositionMark, 'g'))
+                const thisTestFragmentMatchComparisonString = thisTestFragment.match(new RegExp(EscapeRegExp(compareStringTestPositionMark), 'g'))
                 if (!thisTestFragmentMatchComparisonString) {
-                    console.log('no matching in this nested use case test, writing new test')
-                    const fragmentCode = thisTestFragment.match(new RegExp(`${testCodeStartPositionMark}.*${testCodeEndPositionMark}`, 's'))?.[0]
+                    console.log(`no matching in this nested use case test, writing new test for nested use case id & name:\n${nestedUseCase.id}\n${nestedUseCase.name}`)
+                    const fragmentCode = thisTestFragment.match(new RegExp(`${EscapeRegExp(testCodeStartPositionMark)}.*${EscapeRegExp(testCodeEndPositionMark)}`, 's'))?.[0]
                     if (!fragmentCode) {
                         throw new Error(`something went wrong and fragmentCode was not found for nested use case id & name: ${nestedUseCase.id} & ${nestedUseCase.name}`)
                     }
-                    const fragmentWihtoutPositionMarks = fragmentCode.replace(new RegExp(`${testCodeStartPositionMark}`, 'g'), '').replace(new RegExp(`${testCodeEndPositionMark}`, 'g'), '')
+                    const fragmentWihtoutPositionMarks = fragmentCode.replace(new RegExp(`${EscapeRegExp(testCodeStartPositionMark)}`, 'g'), '').replace(new RegExp(`${EscapeRegExp(testCodeEndPositionMark)}`, 'g'), '')
                     const codeMarkedWithFail = this.putFailCodeInFragment(fragmentWihtoutPositionMarks)
                     accumulatedNewTestsWrittenString += newTestStringMaker(codeMarkedWithFail)
                     return
@@ -341,7 +342,7 @@ export class TestsWriter {
             return stringToReturn
         }
 
-        const thisTestIsAlreadyWritten = fileContentReceived.match(new RegExp(startTestPositionMark, 'g'))
+        const thisTestIsAlreadyWritten = fileContentReceived.match(new RegExp(EscapeRegExp(startTestPositionMark), 'g'))
 
         if (!thisTestIsAlreadyWritten) {
             console.log('no fRequirement test found, writing new test')
@@ -349,19 +350,19 @@ export class TestsWriter {
         }
 
         if (thisTestIsAlreadyWritten) {
-            const thisTestFragment = fileContentReceived.match(new RegExp(`${startTestPositionMark}.*${endTestPositionMark}`, 's'))?.[0]
+            const thisTestFragment = fileContentReceived.match(new RegExp(`${EscapeRegExp(startTestPositionMark)}.*${EscapeRegExp(endTestPositionMark)}`, 's'))?.[0]
             if (!thisTestFragment) {
                 throw new Error(`something went wrong and thisTestFragment was not found for fRequirement id & name: ${fRequirement.id} & ${fRequirement.name}`)
             }
 
-            const thisTestFragmentMatchComparisonString = thisTestFragment.match(new RegExp(compareStringTestPositionMark, 'g'))
+            const thisTestFragmentMatchComparisonString = thisTestFragment.match(new RegExp(EscapeRegExp(compareStringTestPositionMark), 'g'))
             if (!thisTestFragmentMatchComparisonString) {
-                console.log('no matching in this fRequirement test, writing new test')
-                const fragmentCode = thisTestFragment.match(new RegExp(`${testCodeStartPositionMark}.*${testCodeEndPositionMark}`, 's'))?.[0]
+                console.log(`no matching in this fRequirement test, writing new test for fRequirement id & name:\n${fRequirement.id}\n${fRequirement.name}`)
+                const fragmentCode = thisTestFragment.match(new RegExp(`${EscapeRegExp(testCodeStartPositionMark)}.*${EscapeRegExp(testCodeEndPositionMark)}`, 's'))?.[0]
                 if (!fragmentCode) {
                     throw new Error(`something went wrong and fragmentCode was not found for fRequirement id & name: ${fRequirement.id} & ${fRequirement.name}`)
                 }
-                const fragmentWihtoutPositionMarks = fragmentCode.replace(new RegExp(`${testCodeStartPositionMark}`, 'g'), '').replace(new RegExp(`${testCodeEndPositionMark}`, 'g'), '')
+                const fragmentWihtoutPositionMarks = fragmentCode.replace(new RegExp(`${EscapeRegExp(testCodeStartPositionMark)}`, 'g'), '').replace(new RegExp(`${EscapeRegExp(testCodeEndPositionMark)}`, 'g'), '')
                 
                 const codeMarkedWithFail = this.putFailCodeInFragment(fragmentWihtoutPositionMarks)
                 return newTestStringMaker(codeMarkedWithFail)
