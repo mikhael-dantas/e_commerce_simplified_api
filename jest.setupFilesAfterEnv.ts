@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import http from 'http';
 import { PrismaClient } from '@prisma/client';
+import { mockDeep, DeepMockProxy } from 'jest-mock-extended'
 
 class ApiRequest {
     public static async post(query: string, options?: http.RequestOptions) {
@@ -35,7 +36,18 @@ class ApiRequest {
 
 const prismaClient = new PrismaClient()
 
+type MockContext = {
+    prisma: DeepMockProxy<PrismaClient>
+}
+
+const createMockContext = (): MockContext => {
+    return {
+        prisma: mockDeep<PrismaClient>(),
+    }
+}
+
 Object.assign(global, {
     api__: ApiRequest,
     prismaClient,
+    mockedPrisma: createMockContext().prisma,
 });
