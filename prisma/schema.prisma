@@ -52,3 +52,15 @@ model Product {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
+
+model Category {
+  model String @default("category")
+  id      String   @id
+  name    String   @unique
+  description String @db.Text
+  image_id String?
+  image_url String?
+  inactive Boolean @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
