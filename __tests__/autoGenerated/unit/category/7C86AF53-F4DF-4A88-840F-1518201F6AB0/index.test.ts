@@ -15,6 +15,7 @@ async () => {
 
     const categoryObjectFields = {
         id: '7C86AF53-F4DF-4A88-840F-1518201F6AB0',
+        model: 'category',
         name: 'category name',
         description: 'category description',
         image_id: '7C86AF53-F4DF-4A88-840F-1518201F6AB0',
@@ -26,6 +27,7 @@ async () => {
     mockedPrisma.category.create.mockImplementationOnce((data: any): any => {
         return {
             id: categoryObjectFields.id,
+            model: 'category',
             name: data.data.name,
             description: data.data.description,
             image_id: data.data.image_id,
