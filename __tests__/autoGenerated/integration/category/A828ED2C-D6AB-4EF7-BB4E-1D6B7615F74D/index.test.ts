@@ -15,6 +15,7 @@ async () => {
                 __typename
                 ...on Category {
                     id,
+                    model,
                     name,
                     description,
                     image_id,
@@ -52,12 +53,15 @@ async () => {
 
     expect(parsedRes.data?.categories).toBeDefined()
     expect(parsedRes.data?.categories[0]).toHaveProperty('id')
+    expect(parsedRes.data?.categories[0]).toHaveProperty('model')
     expect(parsedRes.data?.categories[0]).toHaveProperty('name')
     expect(parsedRes.data?.categories[0]).toHaveProperty('description')
     expect(parsedRes.data?.categories[0]).toHaveProperty('image_path')
     expect(parsedRes.data?.categories[0]).toHaveProperty('image_url')
     expect(parsedRes.data?.categories[0]).toHaveProperty('created_at')
     expect(parsedRes.data?.categories[0]).toHaveProperty('updated_at')
+
+
 
 }
 )
