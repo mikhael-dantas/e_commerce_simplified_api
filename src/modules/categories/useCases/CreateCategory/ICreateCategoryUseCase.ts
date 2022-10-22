@@ -1,7 +1,8 @@
+import { InvalidInputErrorTypeDef } from '@src/shared/graphql/GraphqlErrorDefs/InvalidInputsError';
 import { Category } from './../../typeDefs/Category';
 
 export interface ICreateCategoryUseCase {
-    execute: (data: ICreateCategoryUseCaseDTO) => Promise<Category>
+    execute: (data: ICreateCategoryUseCaseDTO) => Promise<Category | InvalidInputErrorTypeDef>
 }
 
 export type ICreateCategoryUseCaseDTO = {
