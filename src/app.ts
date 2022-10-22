@@ -13,6 +13,7 @@ import { buildSchema } from 'type-graphql';
 
 import { ProductsResolver } from './modules/products/resolvers/ProductsResolver';
 import { ManagersResolver } from './modules/managers/resolvers/ManagersResolver';
+import { CategoriesResolver } from './modules/categories/resolvers';
 
 export interface IContext {
    req: Request;
@@ -30,7 +31,8 @@ export const returnApp: () => Promise<express.Application> = async () => {
    const GraphqlSchema = await buildSchema({
       resolvers: [
          ProductsResolver,
-         ManagersResolver
+         ManagersResolver,
+         CategoriesResolver
       ],
    });
 

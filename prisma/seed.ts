@@ -41,32 +41,32 @@ const fakeObjectArrayGenerator = (
       return fakeObjectArray
 }
 async function prismaSeed() {
-   const prisma = new PrismaClient()
-   // drop database
-   // push database schema
-   // push data
-   const products = await prisma.product.create(
-      {
-         data: {
-            id: '1',
-            name: 'Product 1',
-            price: 1,
-            description: 'Product 1 description',
-            stock: 1,
-         },
-      }
-   )
-   const products2 = await prisma.product.create(
-      {
-         data: {
-            id: '2',
-            name: 'Product 2',
-            price: 1,
-            description: 'Product 2 description',
-            stock: 1,
-         },
-      }
-   )
+   // const prisma = new PrismaClient()
+   // // drop database
+   // // push database schema
+   // // push data
+   // const products = await prisma.product.create(
+   //    {
+   //       data: {
+   //          id: '1',
+   //          name: 'Product 1',
+   //          price: 1,
+   //          description: 'Product 1 description',
+   //          stock: 1,
+   //       },
+   //    }
+   // )
+   // const products2 = await prisma.product.create(
+   //    {
+   //       data: {
+   //          id: '2',
+   //          name: 'Product 2',
+   //          price: 1,
+   //          description: 'Product 2 description',
+   //          stock: 1,
+   //       },
+   //    }
+   // )
    console.log('Seeding succeeded')
 }
 

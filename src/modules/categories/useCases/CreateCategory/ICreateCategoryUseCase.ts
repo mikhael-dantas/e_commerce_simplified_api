@@ -1,4 +1,4 @@
-import { InvalidInputErrorTypeDef } from '@src/shared/graphql/GraphqlErrorDefs/InvalidInputsError';
+import { InvalidInputErrorTypeDef } from '../../../../shared/graphql/GraphqlErrorDefs/InvalidInputsError';
 import { Category } from './../../typeDefs/Category';
 
 export interface ICreateCategoryUseCase {

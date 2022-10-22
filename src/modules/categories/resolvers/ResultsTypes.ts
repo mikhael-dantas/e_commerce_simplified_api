@@ -1,5 +1,5 @@
-import { InvalidInputErrorTypeDef } from "@root/src/shared/graphql/GraphqlErrorDefs/InvalidInputsError";
 import { createUnionType } from "type-graphql";
+import { InvalidInputErrorTypeDef } from "../../../shared/graphql/GraphqlErrorDefs/InvalidInputsError";
 import { Category } from "../typeDefs/Category";
 
 export const CreateCategoryResults = createUnionType({
