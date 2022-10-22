@@ -5,7 +5,7 @@ import "dotenv"
 const port = process.env.SERVER_PORT
 
 export default async function setupServerToIntegrationTests() {
-   if(process.env.INTEGRATION) {
+   if(process.env.DB) {
       execSync('yarn prisma migrate reset -f')
 
       let serverToBeClosedAfter: any

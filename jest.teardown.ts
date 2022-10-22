@@ -1,5 +1,5 @@
 module.exports = async function () {
-   if(process.env.INTEGRATION) {
+   if(process.env.DB) {
       await new Promise(resolve => {
          const {_testServer_} = globalThis as any
          _testServer_.close(() => {
