@@ -1,13 +1,13 @@
 import { ICategoriesRepository } from '../../../../../src/modules/categories/repositories/ICategoriesRepository';
 import { CategoriesRepository } from '../../../../../src/modules/categories/repositories/CategoriesRepository';
 
-
 // 7C86AF53-F4DF-4A88-840F-1518201F6AB0
 // positionLabel5
 test.concurrent(
-'category repository.create method should create by passing name, description, image_id, image_url, inactive, and return the category with additional id, created_at and updated_at',
+'category repository.create method should create and return category',
 // positionLabel6
 // positionLabel7
+
 
 async () => {
     const {mockedPrisma} = global as any
@@ -47,8 +47,10 @@ async () => {
     })
 
     expect(category).toEqual(categoryObjectFields)
-}
+
+// this code fail was put in here because this test name was eddited
+;expect(true).toBe(false);}
 )
 // positionLabel8
-// positionLabel1-category repository.create method should create by passing name, description, image_id, image_url, inactive, and return the category with additional id, created_at and updated_at-positionLabel2
+// positionLabel1-category repository.create method should create and return category-positionLabel2
 // 7C86AF53-F4DF-4A88-840F-1518201F6AB0
