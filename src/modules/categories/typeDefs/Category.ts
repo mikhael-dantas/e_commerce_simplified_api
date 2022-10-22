@@ -5,6 +5,9 @@ export class Category {
     @Field()
     id: string
 
+    @Field({defaultValue: "category"})
+    model: string
+
     @Field()
     name: string
 
@@ -12,10 +15,10 @@ export class Category {
     description: string
 
     @Field({nullable: true})
-    image_id: string | null
+    image_id: string
 
     @Field({nullable: true})
-    image_url: string | null
+    image_url: string
 
     @Field()
     inactive: boolean
