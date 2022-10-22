@@ -48,8 +48,7 @@ async () => {
 
     expect(category).toEqual(categoryObjectFields)
 
-// this code fail was put in here because this test name was eddited
-;expect(true).toBe(false);}
+}
 )
 // positionLabel8
 // positionLabel1-category repository.create method should create and return category-positionLabel2
