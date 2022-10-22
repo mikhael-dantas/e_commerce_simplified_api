@@ -103,20 +103,23 @@ export class TestsWriter {
 
                 switch (scopedFile.type) {
                     case 'useCase': {
+                        const importLines = this.returnImportLines(fileContent)
                         const fullContent = this.executeLogicForControllingUseCaseFile({file: scopedFile, fileContent: fileContent})
                         if (!fullContent) { return }
-                        fs.writeFileSync(pathToFile, fullContent)
+                        fs.writeFileSync(pathToFile, `${importLines}\n${fullContent}`)
                         break;
                     }
                     case 'nestedUseCase': {
+                        const importLines = this.returnImportLines(fileContent)
                         const fullContent = this.executeLogicForControllingNestedUseCaseFile({file: scopedFile, fileContent: fileContent})
-                        fs.writeFileSync(pathToFile, fullContent)
+                        fs.writeFileSync(pathToFile, `${importLines}\n${fullContent}`)
                         break
                     }
                     case 'functionalRequirement': {
+                        const importLines = this.returnImportLines(fileContent)
                         const fullContent = this.executeLogicForControllingFunctionalRequirementFile({file: scopedFile, fileContent: fileContent})
                         if (!fullContent) { return }
-                        fs.writeFileSync(pathToFile, fullContent)
+                        fs.writeFileSync(pathToFile, `${importLines}\n${fullContent}`)
                         break
                     }
                     default:
@@ -377,6 +380,13 @@ export class TestsWriter {
         }
 
         throw new Error(`something went wrong and this fRequirement was not controlled: ${fRequirement.id} & ${fRequirement.name}`) 
+    }
+
+    private static returnImportLines(fileContent: string): string {
+        const lines = fileContent.split('\n')
+        const importLines = lines.filter(line => line.includes('import'))
+
+        return importLines.join('\n')
     }
 
     public static async checkAndDeleteUnlistedFilesForAllFoldersAndSubFolders( {
