@@ -1,5 +1,7 @@
 import { Field, ObjectType } from "type-graphql"
 
+type IStringOrNull = string | null
+
 @ObjectType()
 export class Category {
     @Field()
@@ -14,11 +16,11 @@ export class Category {
     @Field()
     description: string
 
-    @Field({nullable: true})
-    image_id: string
+    @Field(()=> String, {nullable: true})
+    image_id: string | null
 
-    @Field({nullable: true})
-    image_url: string
+    @Field(()=> String, {nullable: true})
+    image_url: string | null
 
     @Field()
     inactive: boolean
