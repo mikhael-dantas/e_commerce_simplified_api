@@ -104,262 +104,262 @@
 // FRx3.x7 - be created using name email and password [UCx3.x7]
 // FRx3.x7 - searchable listing every field besides password (only admin) [UCx3.x7.1]
 // FRx3.x8 - able to be activated (only admin) [UCx3.x7.2]
+test('example', () => { expect(true).toBe(true) })
+// import { PrismaClient } from "@prisma/client"
+// import { mockDeep, DeepMockProxy } from 'jest-mock-extended'
 
-import { PrismaClient } from "@prisma/client"
-import { mockDeep, DeepMockProxy } from 'jest-mock-extended'
+// import { Manager } from "../../src/modules/managers/typeDefs/Manager"
+// import { IManagersRepository } from "../../src/modules/managers/repositories/IManagersRepository"
+// import { ManagersRepository } from "../../src/modules/managers/repositories/ManagersRepository"
+// import { ICreateManagerUseCase } from "../../src/modules/managers/useCases/CreateManagerUseCase/ICreateManagerUseCase"
+// import { CreateManagerUseCase } from "../../src/modules/managers/useCases/CreateManagerUseCase/CreateManagerUseCase"
 
-import { Manager } from "../../src/modules/managers/typeDefs/Manager"
-import { IManagersRepository } from "../../src/modules/managers/repositories/IManagersRepository"
-import { ManagersRepository } from "../../src/modules/managers/repositories/ManagersRepository"
-import { ICreateManagerUseCase } from "../../src/modules/managers/useCases/CreateManagerUseCase/ICreateManagerUseCase"
-import { CreateManagerUseCase } from "../../src/modules/managers/useCases/CreateManagerUseCase/CreateManagerUseCase"
+// import { Product } from "../../src/modules/products/typeDefs/Product"
+// import { IProductsRepository } from "../../src/modules/products/repositories/IProductsRepository"
+// import { FindProductUseCase } from "../../src/modules/products/useCases/FindProduct/FindProduct"
+// import { ListProductsUseCase } from "../../src/modules/products/useCases/ListProducts/ListProducts"
+// import { ManagersResolver } from "../../src/modules/managers/resolvers/ManagersResolver"
 
-import { Product } from "../../src/modules/products/typeDefs/Product"
-import { IProductsRepository } from "../../src/modules/products/repositories/IProductsRepository"
-import { FindProductUseCase } from "../../src/modules/products/useCases/FindProduct/FindProduct"
-import { ListProductsUseCase } from "../../src/modules/products/useCases/ListProducts/ListProducts"
-import { ManagersResolver } from "../../src/modules/managers/resolvers/ManagersResolver"
+// const fakeObjectArrayGenerator = (
+//    haveId: boolean,
+//    fieldNamesAndTypes: {[key: string]: string}[],
+//    numberOfObjects: number,
+//    haveCreatedAt: boolean,
+//    haveUpdatedAt: boolean,
+//    ): any[] => {
+//       const fakeObjectArray: any[] = []
+//       for (let i = 0; i < numberOfObjects; i++) {
+//          const fakeObject: any = {}
+//          if (haveId) {
+//             fakeObject.id = `${i}`
+//          }
+//          if (haveCreatedAt) {
+//             fakeObject.createdAt = new Date()
+//          }
+//          if (haveUpdatedAt) {
+//             fakeObject.updatedAt = new Date()
+//          }
+//          for (const fieldNameAndType of fieldNamesAndTypes) {
+//             const fieldName = Object.keys(fieldNameAndType)[0]
+//             const fieldType = fieldNameAndType[fieldName]
+//             switch (fieldType) {
+//                case 'string':
+//                   fakeObject[fieldName] = `${fieldName}_${i}`
+//                   break
+//                case 'number':
+//                   fakeObject[fieldName] = i
+//                   break
+//                case 'boolean':
+//                   fakeObject[fieldName] = i % 2 === 0
+//                   break
+//                default:
+//                   throw new Error(`Unknown field type ${fieldType}`)
+//             }
+//          }
+//          fakeObjectArray.push(fakeObject)
+//       }
+//       return fakeObjectArray
+// }
+// const fakeStringGenerator = (length: number): string => {
+//    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+//    let result = ''
+//    for (let i = 0; i < length; i++) {
+//       result += characters.charAt(Math.floor(Math.random() * characters.length))
+//    }
+//    return result
+// }
 
-const fakeObjectArrayGenerator = (
-   haveId: boolean,
-   fieldNamesAndTypes: {[key: string]: string}[],
-   numberOfObjects: number,
-   haveCreatedAt: boolean,
-   haveUpdatedAt: boolean,
-   ): any[] => {
-      const fakeObjectArray: any[] = []
-      for (let i = 0; i < numberOfObjects; i++) {
-         const fakeObject: any = {}
-         if (haveId) {
-            fakeObject.id = `${i}`
-         }
-         if (haveCreatedAt) {
-            fakeObject.createdAt = new Date()
-         }
-         if (haveUpdatedAt) {
-            fakeObject.updatedAt = new Date()
-         }
-         for (const fieldNameAndType of fieldNamesAndTypes) {
-            const fieldName = Object.keys(fieldNameAndType)[0]
-            const fieldType = fieldNameAndType[fieldName]
-            switch (fieldType) {
-               case 'string':
-                  fakeObject[fieldName] = `${fieldName}_${i}`
-                  break
-               case 'number':
-                  fakeObject[fieldName] = i
-                  break
-               case 'boolean':
-                  fakeObject[fieldName] = i % 2 === 0
-                  break
-               default:
-                  throw new Error(`Unknown field type ${fieldType}`)
-            }
-         }
-         fakeObjectArray.push(fakeObject)
-      }
-      return fakeObjectArray
-}
-const fakeStringGenerator = (length: number): string => {
-   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-   let result = ''
-   for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length))
-   }
-   return result
-}
+// type MockContext = {
+//    prisma: DeepMockProxy<PrismaClient>
+// }
 
-type MockContext = {
-   prisma: DeepMockProxy<PrismaClient>
-}
-
-const createMockContext = (): MockContext => {
-   return {
-      prisma: mockDeep<PrismaClient>(),
-   }
-}
+// const createMockContext = (): MockContext => {
+//    return {
+//       prisma: mockDeep<PrismaClient>(),
+//    }
+// }
 
 
-// tests that follows the functional requirements
-const mockedPrisma = createMockContext().prisma
+// // tests that follows the functional requirements
+// const mockedPrisma = createMockContext().prisma
 
-describe('Functional requirements', () => {
+// describe('Functional requirements', () => {
 
-   describe('Managers', () => {
+//    describe('Managers', () => {
 
-      describe("ManagersRepository", () => {
-         let managersRepository: IManagersRepository
-         beforeEach(() => {
-            managersRepository = new ManagersRepository(mockedPrisma)
-         })
+//       describe("ManagersRepository", () => {
+//          let managersRepository: IManagersRepository
+//          beforeEach(() => {
+//             managersRepository = new ManagersRepository(mockedPrisma)
+//          })
 
-         describe('createManagers', () => {
-            it('should return a created manager', async () => {
-               const managerToCreate = {
-                  name: 'test',
-                  email: 'test@test.com',
-                  password: 'test',
-               }
-               mockedPrisma.manager.create.mockImplementationOnce((data: any): any => {
-                  return {
-                     id: data.data.id,
-                     name: data.data.name,
-                     email: data.data.email,
-                     password: data.data.password,
-                     deleted: false,
-                     inactive: false,
-                     admin: false,
-                     created_at: new Date(),
-                     updated_at: new Date(),
-                  }
-               })
-               const results = await managersRepository.create(
-                  managerToCreate.name,
-                  managerToCreate.email,
-                  managerToCreate.password,
-               )
-               expect(results).toBeDefined()
-               expect(results).toHaveProperty('id')
-               expect(results).toHaveProperty('name')
-               expect(results).toHaveProperty('email')
-               expect(results).toHaveProperty('password')
-               expect(results).toHaveProperty('deleted')
-               expect(results).toHaveProperty('inactive')
-               expect(results).toHaveProperty('admin')
-               expect(results).toHaveProperty('created_at')
-               expect(results).toHaveProperty('updated_at')
-               expect(results.name).toEqual(managerToCreate.name)
-            })
-         })
-      })
+//          describe('createManagers', () => {
+//             it('should return a created manager', async () => {
+//                const managerToCreate = {
+//                   name: 'test',
+//                   email: 'test@test.com',
+//                   password: 'test',
+//                }
+//                mockedPrisma.manager.create.mockImplementationOnce((data: any): any => {
+//                   return {
+//                      id: data.data.id,
+//                      name: data.data.name,
+//                      email: data.data.email,
+//                      password: data.data.password,
+//                      deleted: false,
+//                      inactive: false,
+//                      admin: false,
+//                      created_at: new Date(),
+//                      updated_at: new Date(),
+//                   }
+//                })
+//                const results = await managersRepository.create(
+//                   managerToCreate.name,
+//                   managerToCreate.email,
+//                   managerToCreate.password,
+//                )
+//                expect(results).toBeDefined()
+//                expect(results).toHaveProperty('id')
+//                expect(results).toHaveProperty('name')
+//                expect(results).toHaveProperty('email')
+//                expect(results).toHaveProperty('password')
+//                expect(results).toHaveProperty('deleted')
+//                expect(results).toHaveProperty('inactive')
+//                expect(results).toHaveProperty('admin')
+//                expect(results).toHaveProperty('created_at')
+//                expect(results).toHaveProperty('updated_at')
+//                expect(results.name).toEqual(managerToCreate.name)
+//             })
+//          })
+//       })
 
-      describe('ManagersUseCases', () => {
-         describe('CreateManagerUseCase', () => {
-            const mockManagersRepository: jest.Mocked<IManagersRepository> = {
-               create: jest.fn(
-                  (name: string, email: string, password: string): Promise<Manager> => {
-                     return Promise.resolve({
-                        id: '1',
-                        model: 'manager',
-                        name,
-                        email,
-                        password,
-                        admin: false,
-                        inactive: false,
-                        deleted: false,
-                        created_at: new Date(),
-                        updated_at: new Date(),
-                     })
-                  }
-               ),
-            }
+//       describe('ManagersUseCases', () => {
+//          describe('CreateManagerUseCase', () => {
+//             const mockManagersRepository: jest.Mocked<IManagersRepository> = {
+//                create: jest.fn(
+//                   (name: string, email: string, password: string): Promise<Manager> => {
+//                      return Promise.resolve({
+//                         id: '1',
+//                         model: 'manager',
+//                         name,
+//                         email,
+//                         password,
+//                         admin: false,
+//                         inactive: false,
+//                         deleted: false,
+//                         created_at: new Date(),
+//                         updated_at: new Date(),
+//                      })
+//                   }
+//                ),
+//             }
 
-            it('should create a manager', async () => {
-               const fakeManager = {
-                  name: 'fakeManager',
-                  email: 'test@test.com',
-                  password: 'test',
-               }
+//             it('should create a manager', async () => {
+//                const fakeManager = {
+//                   name: 'fakeManager',
+//                   email: 'test@test.com',
+//                   password: 'test',
+//                }
             
-               const createManagerUseCase: ICreateManagerUseCase = new CreateManagerUseCase(mockManagersRepository)
-               const result = await createManagerUseCase.execute(fakeManager)
+//                const createManagerUseCase: ICreateManagerUseCase = new CreateManagerUseCase(mockManagersRepository)
+//                const result = await createManagerUseCase.execute(fakeManager)
             
-               expect(result).toMatchObject(fakeManager)
-            })
-         })
-      })
+//                expect(result).toMatchObject(fakeManager)
+//             })
+//          })
+//       })
 
-      describe('ManagersResolver', () => {
-         describe('createManager', () => {
-            const mockCreateManagerUseCase: jest.Mocked<ICreateManagerUseCase> = {
-               execute: jest.fn(),
-            }
+//       describe('ManagersResolver', () => {
+//          describe('createManager', () => {
+//             const mockCreateManagerUseCase: jest.Mocked<ICreateManagerUseCase> = {
+//                execute: jest.fn(),
+//             }
          
-            it('should create a manager', async () => {
-               const fakeManager = {
-                  name: 'fakeManager',
-                  email: 'fakemanager@gmail.com',
-                  password: 'fakemanager',
-               }
+//             it('should create a manager', async () => {
+//                const fakeManager = {
+//                   name: 'fakeManager',
+//                   email: 'fakemanager@gmail.com',
+//                   password: 'fakemanager',
+//                }
 
-               let resolver = new ManagersResolver({
-                  createManagerUseCase: mockCreateManagerUseCase as any,
-               })
+//                let resolver = new ManagersResolver({
+//                   createManagerUseCase: mockCreateManagerUseCase as any,
+//                })
 
-               mockCreateManagerUseCase.execute.mockResolvedValueOnce({
-                  id: '1',
-                  model: 'manager',
-                  name: fakeManager.name,
-                  email: fakeManager.email,
-                  password: fakeManager.password,
-                  admin: false,
-                  inactive: false,
-                  deleted: false,
-                  created_at: new Date(),
-                  updated_at: new Date(),
-               })
+//                mockCreateManagerUseCase.execute.mockResolvedValueOnce({
+//                   id: '1',
+//                   model: 'manager',
+//                   name: fakeManager.name,
+//                   email: fakeManager.email,
+//                   password: fakeManager.password,
+//                   admin: false,
+//                   inactive: false,
+//                   deleted: false,
+//                   created_at: new Date(),
+//                   updated_at: new Date(),
+//                })
             
-               const fakeManagerCreated = await resolver.createManager(
-                  fakeManager.name,
-                  fakeManager.email,
-                  fakeManager.password,
-               )
+//                const fakeManagerCreated = await resolver.createManager(
+//                   fakeManager.name,
+//                   fakeManager.email,
+//                   fakeManager.password,
+//                )
 
-               expect(fakeManagerCreated).toMatchObject(fakeManager)
+//                expect(fakeManagerCreated).toMatchObject(fakeManager)
 
-            })
-         })
-      })
-   })
+//             })
+//          })
+//       })
+//    })
 
-   describe('Products', () => {
-      const fakeProducts = fakeObjectArrayGenerator(
-         true,
-         [
-            { name: 'string'},
-            { price: 'number'},
-            { description: 'string'},
-            { stock: 'number'},
-         ],
-         10,
-         true,
-         true,
-      )
-      const MockProductsRepository: jest.Mocked<IProductsRepository> = {
-         getAll: jest.fn((skip, take) => {
-            return Promise.resolve(fakeProducts.slice(skip, skip + take))
-         }),
-         getById: jest.fn(id => {
-            return Promise.resolve(fakeProducts.find(product => product.id === id))
-         }),
-      }
+//    describe('Products', () => {
+//       const fakeProducts = fakeObjectArrayGenerator(
+//          true,
+//          [
+//             { name: 'string'},
+//             { price: 'number'},
+//             { description: 'string'},
+//             { stock: 'number'},
+//          ],
+//          10,
+//          true,
+//          true,
+//       )
+//       const MockProductsRepository: jest.Mocked<IProductsRepository> = {
+//          getAll: jest.fn((skip, take) => {
+//             return Promise.resolve(fakeProducts.slice(skip, skip + take))
+//          }),
+//          getById: jest.fn(id => {
+//             return Promise.resolve(fakeProducts.find(product => product.id === id))
+//          }),
+//       }
       
-      test('should have all the defined properties - [FRx1.x1, FRx1.x1.1, FRx1.x2, FRx1.x2.1, FRx1.x3, FRx1.x4]', async () => {
-         const product = new Product
-      })
-      test('UCx1.x1 - should be able to get a list of products', async () => {
+//       test('should have all the defined properties - [FRx1.x1, FRx1.x1.1, FRx1.x2, FRx1.x2.1, FRx1.x3, FRx1.x4]', async () => {
+//          const product = new Product
+//       })
+//       test('UCx1.x1 - should be able to get a list of products', async () => {
 
-         const listProductsUseCase = new ListProductsUseCase(MockProductsRepository);
+//          const listProductsUseCase = new ListProductsUseCase(MockProductsRepository);
 
-         const returnedProducts = await listProductsUseCase.execute({
-            authHeader: '',
-            skip: 1,
-            take: 6
-         });
-         expect(returnedProducts).toHaveLength(6);
-         expect(returnedProducts[0].id).toBe("1");
-      })
+//          const returnedProducts = await listProductsUseCase.execute({
+//             authHeader: '',
+//             skip: 1,
+//             take: 6
+//          });
+//          expect(returnedProducts).toHaveLength(6);
+//          expect(returnedProducts[0].id).toBe("1");
+//       })
 
-      test('UCx1.x2 - should be able to get one product by id', async () => {
-         const findProductUseCase = new FindProductUseCase(MockProductsRepository);
+//       test('UCx1.x2 - should be able to get one product by id', async () => {
+//          const findProductUseCase = new FindProductUseCase(MockProductsRepository);
 
-         const returnedProduct = (await findProductUseCase.execute("2"))[0];
-         expect(returnedProduct).toHaveProperty("id");
-         expect(returnedProduct).toHaveProperty("name");
-         expect(returnedProduct).toHaveProperty("price");
-         expect(returnedProduct).toHaveProperty("description");
-         expect(returnedProduct).toHaveProperty("stock");
-         expect(returnedProduct?.id).toBe("2");
-      })
-   })
-})
+//          const returnedProduct = (await findProductUseCase.execute("2"))[0];
+//          expect(returnedProduct).toHaveProperty("id");
+//          expect(returnedProduct).toHaveProperty("name");
+//          expect(returnedProduct).toHaveProperty("price");
+//          expect(returnedProduct).toHaveProperty("description");
+//          expect(returnedProduct).toHaveProperty("stock");
+//          expect(returnedProduct?.id).toBe("2");
+//       })
+//    })
+// })
