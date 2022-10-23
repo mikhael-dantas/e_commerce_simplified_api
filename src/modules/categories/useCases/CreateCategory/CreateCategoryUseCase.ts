@@ -1,4 +1,4 @@
-import { InvalidInputErrorTypeDef } from './../../../../shared/graphql/GraphqlErrorDefs/InvalidInputsError';
+import { InvalidInputsError } from './../../../../shared/graphql/GraphqlErrorDefs/InvalidInputsError';
 import { Category } from './../../typeDefs/Category';
 import { ICreateCategoryUseCaseDTO } from './ICreateCategoryUseCase';
 import { ICategoriesRepository } from './../../repositories/ICategoriesRepository';
@@ -12,23 +12,26 @@ export class CreateCategoryUseCase {
         private categoriesRepository: ICategoriesRepository
     ) {}
 
-    public async execute(data: ICreateCategoryUseCaseDTO): Promise<Category | InvalidInputErrorTypeDef> {
-
-        if (!this.validateInput(data)) {
-            const error = new InvalidInputErrorTypeDef();
-            error.message = 'Invalid input';
-            error.location = 'name';
+    public async execute(data: ICreateCategoryUseCaseDTO): Promise<Category | InvalidInputsError> {
+        const invalidInputs = this.validateInput(data)
+        if (invalidInputs.length > 0) {
+            const error = new InvalidInputsError();
+            error.inputs = this.validateInput(data);
             return error;
         }
 
         return await this.categoriesRepository.create(data);
     }
 
-    private validateInput(data: ICreateCategoryUseCaseDTO): boolean {
+    private validateInput(data: ICreateCategoryUseCaseDTO): {location: string, message: string}[] {
+        const invalidInputs = []
         if (data.name.length > 253) {
-            return false
+            invalidInputs.push({
+                location: 'name',
+                message: 'max 253 characters'
+            })
         }
-
-        return true
+        
+        return invalidInputs
     }
 }

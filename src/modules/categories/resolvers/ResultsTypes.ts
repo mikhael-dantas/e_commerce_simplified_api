@@ -1,19 +1,19 @@
 import { createUnionType } from "type-graphql";
-import { InvalidInputErrorTypeDef } from "../../../shared/graphql/GraphqlErrorDefs/InvalidInputsError";
+import { InvalidInputsError } from "../../../shared/graphql/GraphqlErrorDefs/InvalidInputsError";
 import { Category } from "../typeDefs/Category";
 
 export const CreateCategoryResults = createUnionType({
     name: "CreateCategoryResults",
     types: () => [
         Category,
-        InvalidInputErrorTypeDef
+        InvalidInputsError
     ] as const,  
     resolveType: value => {
         if (value.model == "category") {
             return Category;
         }
-        if (value instanceof InvalidInputErrorTypeDef) {
-            return InvalidInputErrorTypeDef;
+        if (value instanceof InvalidInputsError) {
+            return InvalidInputsError;
         }
         undefined;
     },

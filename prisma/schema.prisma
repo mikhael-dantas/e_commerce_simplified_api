@@ -29,29 +29,29 @@ datasource db {
 //   user_id String @unique
 // }
 
-model Manager {
-  model String @default("manager")
-  id      String   @id
-  email   String   @unique
-  name    String
-  password String  @db.VarChar(255)
-  admin   Boolean  @default(false)
-  inactive Boolean @default(false)
-  deleted Boolean @default(false)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-}
+// model Manager {
+//   model String @default("manager")
+//   id      String   @id
+//   email   String   @unique
+//   name    String
+//   password String  @db.VarChar(255)
+//   admin   Boolean  @default(false)
+//   inactive Boolean @default(false)
+//   deleted Boolean @default(false)
+//   created_at DateTime @default(now())
+//   updated_at DateTime @updatedAt
+// }
 
-model Product {
-  model String @default("product")
-  id      String   @id
-  name    String   @unique
-  price   Int
-  description String @db.Text
-  stock   Int
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-}
+// model Product {
+//   model String @default("product")
+//   id      String   @id
+//   name    String   @unique
+//   price   Int
+//   description String @db.Text
+//   stock   Int
+//   created_at DateTime @default(now())
+//   updated_at DateTime @updatedAt
+// }
 
 model Category {
   model String @default("category")

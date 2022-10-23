@@ -1,3 +1,5 @@
+import { CategoriesRepository } from './../../modules/categories/repositories/CategoriesRepository';
+import { ICategoriesRepository } from './../../modules/categories/repositories/ICategoriesRepository';
 import { container } from 'tsyringe';
 import { PrismaClient } from '@prisma/client';
 import { IProductsRepository } from '../../modules/products/repositories/IProductsRepository';
@@ -33,6 +35,11 @@ container.registerSingleton<IProductsRepository>(
 container.registerSingleton<IManagersRepository>(
    "ManagersRepository",
    ManagersRepository,
+);
+
+container.registerSingleton<ICategoriesRepository>(
+   "CategoriesRepository",
+   CategoriesRepository,
 );
 
 // container.registerSingleton<IProfilesRepository>(
