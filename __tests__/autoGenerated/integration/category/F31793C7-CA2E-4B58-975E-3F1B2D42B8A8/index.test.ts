@@ -27,6 +27,12 @@ async () => {
                     created_at,
                     updated_at,
                 }
+                ...on InvalidInputsError {
+                    inputs {
+                        location,
+                        message,
+                    }
+                }
             }
         }
     `
@@ -42,7 +48,7 @@ async () => {
     expect(parsedRes.data?.createCategory).toHaveProperty('id')
     expect(parsedRes.data?.createCategory).toHaveProperty('name')
     expect(parsedRes.data?.createCategory).toHaveProperty('description')
-    expect(parsedRes.data?.createCategory).toHaveProperty('image_path')
+    expect(parsedRes.data?.createCategory).toHaveProperty('image_id')
     expect(parsedRes.data?.createCategory).toHaveProperty('image_url')
     expect(parsedRes.data?.createCategory).toHaveProperty('inactive')
     expect(parsedRes.data?.createCategory).toHaveProperty('created_at')
