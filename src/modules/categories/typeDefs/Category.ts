@@ -1,6 +1,5 @@
 import { Field, ObjectType } from "type-graphql"
 
-type IStringOrNull = string | null
 
 @ObjectType()
 export class Category {

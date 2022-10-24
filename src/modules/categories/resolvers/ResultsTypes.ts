@@ -18,3 +18,16 @@ export const CreateCategoryResults = createUnionType({
         undefined;
     },
 })
+
+export const CategoriesResults = createUnionType({
+    name: "CategoriesResults",
+    types: () => [
+        Category,
+    ] as const,
+    resolveType: value => {
+        if (value.model == "category") {
+            return Category;
+        }
+        undefined;
+    }
+})

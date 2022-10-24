@@ -1,4 +1,4 @@
-import { InvalidInputErrorTypeDef } from './../../../../../src/shared/graphql/GraphqlErrorDefs/InvalidInputsError';
+import { InvalidInputsError } from './../../../../../src/shared/graphql/GraphqlErrorDefs/InvalidInputsError';
 import { CreateCategoryUseCase } from './../../../../../src/modules/categories/useCases/CreateCategory/CreateCategoryUseCase';
 import { Category } from './../../../../../src/modules/categories/typeDefs/Category';
 import { ICategoriesRepository, ICreateCategoryDTO } from './../../../../../src/modules/categories/repositories/ICategoriesRepository';
@@ -50,12 +50,11 @@ async () => {
         inactive: categoryObjectFields.inactive,
     })
 
-    const {location} = returnedObject as InvalidInputErrorTypeDef
+    const {inputs} = returnedObject as InvalidInputsError
 
-    expect(returnedObject).toBeInstanceOf(InvalidInputErrorTypeDef)
-    expect(returnedObject).toHaveProperty('message')
-    expect(returnedObject).toHaveProperty('location')
-    expect(location).toBe('name')
+    expect(returnedObject).toHaveProperty('inputs')
+    expect(inputs[0]).toHaveProperty('location')
+    expect(inputs[0]).toHaveProperty('message')
 }
 )
 // positionLabel8

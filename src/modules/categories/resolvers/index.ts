@@ -1,7 +1,7 @@
 import { container } from 'tsyringe';
-import { Arg, Mutation } from "type-graphql";
+import { Arg, Mutation, Query } from "type-graphql";
 import { CreateCategoryUseCase } from "../useCases/CreateCategory/CreateCategoryUseCase";
-import { CreateCategoryResults } from './ResultsTypes';
+import { CategoriesResults, CreateCategoryResults } from './ResultsTypes';
 
 export class CategoriesResolver {
     constructor(
@@ -35,4 +35,9 @@ export class CategoriesResolver {
         });
         return createCategoryResponse
     }
+
+    @Query(returns => [CategoriesResults])
+    async categories(): Promise<typeof CategoriesResults[]> {
+        return []
     }
+}

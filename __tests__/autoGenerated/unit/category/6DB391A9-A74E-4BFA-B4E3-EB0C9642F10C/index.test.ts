@@ -1,4 +1,4 @@
-import { InvalidInputErrorTypeDef } from './../../../../../src/shared/graphql/GraphqlErrorDefs/InvalidInputsError';
+import { InvalidInputsError } from './../../../../../src/shared/graphql/GraphqlErrorDefs/InvalidInputsError';
 import { CreateCategoryUseCase } from './../../../../../src/modules/categories/useCases/CreateCategory/CreateCategoryUseCase';
 import { ICreateCategoryUseCase, ICreateCategoryUseCaseDTO } from './../../../../../src/modules/categories/useCases/CreateCategory/ICreateCategoryUseCase';
 import { CategoriesResolver } from './../../../../../src/modules/categories/resolvers/index';
@@ -54,9 +54,13 @@ async () => {
 
     mockCreateCategoryUseCase.execute = jest.fn(
         async (data: ICreateCategoryUseCaseDTO) => {
-            const errorToReturn = new InvalidInputErrorTypeDef()
-            errorToReturn.message = 'example error message'
-            errorToReturn.location = 'example error location'
+            const errorToReturn = new InvalidInputsError()
+            errorToReturn.inputs = [
+                {
+                    location: 'name',
+                    message: 'name is required',
+                },
+            ]
             return errorToReturn
         }
     );
@@ -69,12 +73,12 @@ async () => {
         categoryFields.inactive,
     );
 
-    expect(result2).toBeInstanceOf(InvalidInputErrorTypeDef);
+    expect(result2).toBeInstanceOf(InvalidInputsError);
 
-    const {message, location} = result2 as InvalidInputErrorTypeDef
+    const {inputs} = result2 as InvalidInputsError
 
-    expect(message).toEqual('example error message')
-    expect(location).toEqual('example error location')
+    expect(inputs[0].message).toEqual('name is required');
+    expect(inputs[0].location).toEqual('name');
 
 }
 )
