@@ -10,7 +10,7 @@ async () => {
     const CREATE_CATEGORY = `
         mutation {
             createCategory(
-                name: ${"a".repeat(256)},
+                name: "${"a".repeat(256)}",
                 description: "test description",
                 image_id: "test image id",
                 image_url: "test image url",
@@ -44,10 +44,10 @@ async () => {
     const {api__} = global as any
     const parsedRes = JSON.parse(await api__.post(JSON.stringify(query)))
 
-    expect(parsedRes.data.createCategory.__typename).toBe('InvalidInputsError')
-    expect(parsedRes.data.createCategory.inputs.length).toBe(1)
-    expect(parsedRes.data.createCategory.inputs[0].location).toBe('name')
-    expect(parsedRes.data.createCategory.inputs[0].message).toBeDefined()
+    expect(parsedRes.data?.createCategory.__typename).toBe('InvalidInputsError')
+    expect(parsedRes.data?.createCategory.inputs.length).toBe(1)
+    expect(parsedRes.data?.createCategory.inputs[0].location).toBe('name')
+    expect(parsedRes.data?.createCategory.inputs[0].message).toBeDefined()
 }
 )
 // positionLabel8
