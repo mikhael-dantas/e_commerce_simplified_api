@@ -2,10 +2,10 @@ import { CategoriesRepository } from './../../modules/categories/repositories/Ca
 import { ICategoriesRepository } from './../../modules/categories/repositories/ICategoriesRepository';
 import { container } from 'tsyringe';
 import { PrismaClient } from '@prisma/client';
-import { IProductsRepository } from '../../modules/products/repositories/IProductsRepository';
-import { ProductsRepository } from '../../modules/products/repositories/ProductsRepository';
-import { IManagersRepository } from '../../modules/managers/repositories/IManagersRepository';
-import { ManagersRepository } from '../../modules/managers/repositories/ManagersRepository';
+// import { IProductsRepository } from '../../modules/products/repositories/IProductsRepository';
+// import { ProductsRepository } from '../../modules/products/repositories/ProductsRepository';
+// import { IManagersRepository } from '../../modules/managers/repositories/IManagersRepository';
+// import { ManagersRepository } from '../../modules/managers/repositories/ManagersRepository';
 
 // import { IUsersRepository } from '../../modules/users/repositories/IUsersRepository';
 // import { UsersRepository } from '../../modules/users/repositories/UsersRepository';
@@ -27,15 +27,15 @@ container.registerSingleton<GlobalPrisma>(
 //    UsersRepository,
 // );
 
-container.registerSingleton<IProductsRepository>(
-   "ProductsRepository",
-   ProductsRepository,
-);
+// container.registerSingleton<IProductsRepository>(
+//    "ProductsRepository",
+//    ProductsRepository,
+// );
 
-container.registerSingleton<IManagersRepository>(
-   "ManagersRepository",
-   ManagersRepository,
-);
+// container.registerSingleton<IManagersRepository>(
+//    "ManagersRepository",
+//    ManagersRepository,
+// );
 
 container.registerSingleton<ICategoriesRepository>(
    "CategoriesRepository",
