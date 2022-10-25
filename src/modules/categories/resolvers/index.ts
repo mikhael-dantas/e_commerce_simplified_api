@@ -45,7 +45,7 @@ export class CategoriesResolver {
     async categories(
         @Arg("skip") skip: number,
         @Arg("take") take: number,
-    ): Promise<typeof CategoriesResults | Category[]> {
+    ): Promise<typeof CategoriesResults[]> {
         let useCase
         if (!this.injections?.listCategoriesUseCase) {
             useCase = container.resolve(ListCategoriesUseCase);
