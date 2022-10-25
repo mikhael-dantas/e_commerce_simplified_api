@@ -30,4 +30,11 @@ export class CategoriesRepository implements ICategoriesRepository {
             }
         })
     }
+
+    async list({ skip, take }: { skip: number; take: number }): Promise<Category[]> {
+        return await this.prisma.category.findMany({
+            skip,
+            take
+        })
+    }
 }

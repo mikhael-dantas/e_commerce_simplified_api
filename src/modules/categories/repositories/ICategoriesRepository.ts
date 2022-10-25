@@ -16,4 +16,6 @@ export interface ICategoriesRepository {
             image_url,
             inactive,
         }: ICreateCategoryDTO): Promise<Category>;
+
+    list({ skip, take }: { skip: number; take: number }): Promise<Category[]>;
 }
