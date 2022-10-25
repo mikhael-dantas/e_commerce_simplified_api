@@ -23,10 +23,14 @@ export const CategoriesResults = createUnionType({
     name: "CategoriesResults",
     types: () => [
         Category,
+        InvalidInputsError
     ] as const,
     resolveType: value => {
         if (value.model == "category") {
             return Category;
+        }
+        if (value.model.toLowerCase() == "invalidInputsError".toLowerCase()) {
+            return InvalidInputsError;
         }
         undefined;
     }
