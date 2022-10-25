@@ -1,3 +1,4 @@
+import { Category } from './../typeDefs/Category';
 import { ListCategoriesUseCase } from './../useCases/ListCategories/index';
 import { container } from 'tsyringe';
 import { Arg, Mutation, Query } from "type-graphql";
@@ -38,11 +39,13 @@ export class CategoriesResolver {
         return createCategoryResponse
     }
 
-    @Query(returns => [CategoriesResults])
+    @Query((returns) =>
+        [CategoriesResults]
+    )
     async categories(
         @Arg("skip") skip: number,
         @Arg("take") take: number,
-    ): Promise<typeof CategoriesResults | typeof CategoriesResults[]> {
+    ): Promise<typeof CategoriesResults | Category[]> {
         let useCase
         if (!this.injections?.listCategoriesUseCase) {
             useCase = container.resolve(ListCategoriesUseCase);

@@ -12,7 +12,7 @@ export const CreateCategoryResults = createUnionType({
         if (value.model == "category") {
             return Category;
         }
-        if (value instanceof InvalidInputsError) {
+        if (value.model == "InvalidInputsError") {
             return InvalidInputsError;
         }
         undefined;
@@ -29,7 +29,7 @@ export const CategoriesResults = createUnionType({
         if (value.model == "category") {
             return Category;
         }
-        if (value.model.toLowerCase() == "invalidInputsError".toLowerCase()) {
+        if (value.model == "InvalidInputsError") {
             return InvalidInputsError;
         }
         undefined;

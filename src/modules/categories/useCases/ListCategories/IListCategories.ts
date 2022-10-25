@@ -3,7 +3,7 @@ import { Category } from './../../typeDefs/Category';
 
 
 export interface IListCategoriesUseCase {
-    execute: (data: IListCategoriesUseCaseDTO) => Promise<Category[] | InvalidInputsError>
+    execute: (data: IListCategoriesUseCaseDTO) => Promise<Category[] | InvalidInputsError[]>
 }
 
 export type IListCategoriesUseCaseDTO = {

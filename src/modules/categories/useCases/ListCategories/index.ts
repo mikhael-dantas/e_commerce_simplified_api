@@ -12,14 +12,14 @@ export class ListCategoriesUseCase implements IListCategoriesUseCase {
         private categoriesRepository: ICategoriesRepository
     ) { }
 
-    async execute({ skip, take }: IListCategoriesUseCaseDTO): Promise<Category[] | InvalidInputsError> {
+    async execute({ skip, take }: IListCategoriesUseCaseDTO): Promise<Category[] | InvalidInputsError[]> {
 
         const invalidInputs = this.validateInputs({ skip, take })
 
         if (invalidInputs.length > 0) {
             const error = new InvalidInputsError()
             error.inputs = invalidInputs
-            return error
+            return [error]
         }
 
         const categories = await this.categoriesRepository.list({ skip, take })
