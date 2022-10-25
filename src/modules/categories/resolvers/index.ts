@@ -1,6 +1,6 @@
 import { container } from 'tsyringe';
 import { Arg, Mutation, Query } from "type-graphql";
-import { CreateCategoryUseCase } from "../useCases/CreateCategory/CreateCategoryUseCase";
+import { CreateCategoryUseCase } from "../useCases/CreateCategory";
 import { CategoriesResults, CreateCategoryResults } from './ResultsTypes';
 
 export class CategoriesResolver {

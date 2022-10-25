@@ -1,6 +1,6 @@
-import { CreateCategoryUseCase } from './../../../../../src/modules/categories/useCases/CreateCategory/CreateCategoryUseCase';
+import { CreateCategoryUseCase } from './../../../../../src/modules/categories/useCases/CreateCategory/';
 import { Category } from './../../../../../src/modules/categories/typeDefs/Category';
-import { ICategoriesRepository, ICreateCategoryDTO } from './../../../../../src/modules/categories/repositories/ICategoriesRepository';
+import { ICreateCategoryDTO } from './../../../../../src/modules/categories/repositories/ICategoriesRepository';
 
 // DEC3158F-27EE-43FD-B982-8767F0E788AA
 // positionLabel5
@@ -21,7 +21,7 @@ async () => {
         created_at: new Date(),
         updated_at: new Date(),
     }
-    const mockCategoriesRepository: jest.Mocked<ICategoriesRepository> = {
+    const mockCategoriesRepository: jest.Mocked<any> = {
         create: jest.fn(
             (data: ICreateCategoryDTO): Promise<Category> => {
                 const categoryScoped = {

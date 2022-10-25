@@ -1,3 +1,4 @@
+import { JestApiPost } from "../../../../../../jestTestsUtils"
 
 // 9CA11B02-C481-46CC-B300-E25DB8FC37F9
 // positionLabel5
@@ -41,8 +42,7 @@ async () => {
         query: CREATE_CATEGORY,
     }
 
-    const {api__} = global as any
-    const parsedRes = JSON.parse(await api__.post(JSON.stringify(query)))
+    const parsedRes = JSON.parse(await JestApiPost(JSON.stringify(query)))
 
     expect(parsedRes.data?.createCategory.__typename).toBe('InvalidInputsError')
     expect(parsedRes.data?.createCategory.inputs.length).toBe(1)

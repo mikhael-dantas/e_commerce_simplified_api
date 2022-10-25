@@ -1,8 +1,11 @@
 
+import { JestApiPost } from "../../../../../jestTestsUtils"
+
+
 // F31793C7-CA2E-4B58-975E-3F1B2D42B8A8
 // positionLabel5
 test.concurrent(
-'create a category by passing name, description, image_id?, image_url?, inactive',
+'mutation createCategory(name: string, description: string, image_id: string. image_url: string, inactive: boolean) should create a category',
 // positionLabel6
 // positionLabel7
 
@@ -41,8 +44,7 @@ async () => {
         query: CREATE_CATEGORY,
     }
 
-    const {api__} = global as any
-    const parsedRes = JSON.parse(await api__.post(JSON.stringify(query)))
+    const parsedRes = JSON.parse(await JestApiPost(JSON.stringify(query)))
 
     expect(parsedRes.data?.createCategory).toBeDefined()
     expect(parsedRes.data?.createCategory).toHaveProperty('id')
@@ -59,5 +61,5 @@ async () => {
 }
 )
 // positionLabel8
-// positionLabel1-create a category by passing name, description, image_id?, image_url?, inactive-positionLabel2
+// positionLabel1-mutation createCategory(name: string, description: string, image_id: string. image_url: string, inactive: boolean) should create a category-positionLabel2
 // F31793C7-CA2E-4B58-975E-3F1B2D42B8A8

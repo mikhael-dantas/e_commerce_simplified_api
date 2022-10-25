@@ -1,6 +1,6 @@
+import { CreateCategoryUseCase } from './../../../../../src/modules/categories/useCases/CreateCategory/index';
+import { ICreateCategoryUseCaseDTO } from './../../../../../src/modules/categories/useCases/CreateCategory/ICreateCategory';
 import { InvalidInputsError } from './../../../../../src/shared/graphql/GraphqlErrorDefs/InvalidInputsError';
-import { CreateCategoryUseCase } from './../../../../../src/modules/categories/useCases/CreateCategory/CreateCategoryUseCase';
-import { ICreateCategoryUseCase, ICreateCategoryUseCaseDTO } from './../../../../../src/modules/categories/useCases/CreateCategory/ICreateCategoryUseCase';
 import { CategoriesResolver } from './../../../../../src/modules/categories/resolvers/index';
 
 
@@ -23,7 +23,7 @@ async () => {
         created_at: new Date(),
         updated_at: new Date(),
     }
-    const mockCreateCategoryUseCase: jest.Mocked<ICreateCategoryUseCase> = {
+    const mockCreateCategoryUseCase: jest.Mocked<any> = {
         execute: jest.fn(
             async (data: ICreateCategoryUseCaseDTO) => {
                 return {

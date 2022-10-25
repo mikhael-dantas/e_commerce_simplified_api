@@ -1,7 +1,7 @@
 import { InvalidInputsError } from './../../../../../src/shared/graphql/GraphqlErrorDefs/InvalidInputsError';
-import { CreateCategoryUseCase } from './../../../../../src/modules/categories/useCases/CreateCategory/CreateCategoryUseCase';
+import { CreateCategoryUseCase } from './../../../../../src/modules/categories/useCases/CreateCategory/';
 import { Category } from './../../../../../src/modules/categories/typeDefs/Category';
-import { ICategoriesRepository, ICreateCategoryDTO } from './../../../../../src/modules/categories/repositories/ICategoriesRepository';
+import { ICreateCategoryDTO } from './../../../../../src/modules/categories/repositories/ICategoriesRepository';
 
 // 14CDD5BA-056C-4CCC-BAA3-B4A0D3B5F822
 // positionLabel5
@@ -23,7 +23,7 @@ async () => {
         created_at: new Date(),
         updated_at: new Date(),
     }
-    const mockCategoriesRepository: jest.Mocked<ICategoriesRepository> = {
+    const mockCategoriesRepository: jest.Mocked<any> = {
         create: jest.fn(
             (data: ICreateCategoryDTO): Promise<Category> => {
                 return Promise.resolve({

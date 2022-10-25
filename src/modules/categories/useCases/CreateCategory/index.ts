@@ -1,7 +1,7 @@
-import { InvalidInputsError } from './../../../../shared/graphql/GraphqlErrorDefs/InvalidInputsError';
-import { Category } from './../../typeDefs/Category';
-import { ICreateCategoryUseCaseDTO } from './ICreateCategoryUseCase';
-import { ICategoriesRepository } from './../../repositories/ICategoriesRepository';
+import { InvalidInputsError } from '../../../../shared/graphql/GraphqlErrorDefs/InvalidInputsError';
+import { Category } from '../../typeDefs/Category';
+import { ICreateCategoryUseCaseDTO } from './ICreateCategory';
+import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
 import { inject, injectable } from "tsyringe";
 
 

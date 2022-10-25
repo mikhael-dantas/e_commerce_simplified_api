@@ -1,5 +1,6 @@
 import { ICategoriesRepository } from '../../../../../src/modules/categories/repositories/ICategoriesRepository';
 import { CategoriesRepository } from '../../../../../src/modules/categories/repositories/CategoriesRepository';
+import { CreateMockContext } from '../../../../../jestTestsUtils';
 
 // 7C86AF53-F4DF-4A88-840F-1518201F6AB0
 // positionLabel5
@@ -10,7 +11,7 @@ test.concurrent(
 
 
 async () => {
-    const {mockedPrisma} = global as any
+    const mockedPrisma = CreateMockContext().prisma
     const categoryRepository: ICategoriesRepository = new CategoriesRepository(mockedPrisma)
 
     const categoryObjectFields = {
