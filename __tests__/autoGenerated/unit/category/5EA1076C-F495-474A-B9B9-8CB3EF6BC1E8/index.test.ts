@@ -28,7 +28,7 @@ async () => {
 
     const response = await listCategoriesUseCase.execute({skip: 0, take: 1001})
 
-    expect(response).toMatchObject(errorExample)
+    expect(response[0]).toMatchObject(errorExample)
     const {inputs} = (response as InvalidInputsError[])[0]
 
     expect(inputs[0]?.location).toBe('take')
