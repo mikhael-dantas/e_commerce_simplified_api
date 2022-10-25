@@ -1,3 +1,4 @@
+import { ListCategoriesUseCase } from './../useCases/ListCategories/index';
 import { container } from 'tsyringe';
 import { Arg, Mutation, Query } from "type-graphql";
 import { CreateCategoryUseCase } from "../useCases/CreateCategory";
@@ -7,6 +8,7 @@ export class CategoriesResolver {
     constructor(
         private injections?: {
             createCategoryUseCase?: CreateCategoryUseCase;
+            listCategoriesUseCase?: ListCategoriesUseCase;
         }
     ) {}
     @Mutation(returns => CreateCategoryResults)
@@ -37,7 +39,22 @@ export class CategoriesResolver {
     }
 
     @Query(returns => [CategoriesResults])
-    async categories(): Promise<typeof CategoriesResults[]> {
-        return []
+    async categories(
+        @Arg("skip") skip: number,
+        @Arg("take") take: number,
+    ): Promise<typeof CategoriesResults[]> {
+        let useCase
+        if (!this.injections?.listCategoriesUseCase) {
+            useCase = container.resolve(ListCategoriesUseCase);
+        } else {
+            useCase = this.injections.listCategoriesUseCase;
+        }
+
+        const listCategoriesResponse = await useCase.execute({
+            skip,
+            take,
+        });
+
+        return listCategoriesResponse;
     }
 }
