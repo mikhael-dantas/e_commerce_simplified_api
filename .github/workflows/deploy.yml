@@ -7,7 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     # Docker Hub image that `postgres-job` executes in
     container: node:18.12
-
     # service containers to run with `postgres-job`
     services:
       # label used to access the service container
@@ -37,15 +36,15 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18.12'
-      - env:
-            # postgress password is required; alternatively, you can run:
-            # `PGPASSWORD=postgres_password psql ...`
-            DB: 1
-            DATABASE_URL: postgresql://postgres:postgres@db:5432/jest
       - run: corepack enable
       - run: yarn install
       - run: yarn prisma generate
       - run: yarn jest /__tests__
+        env:
+            # postgress password is required; alternatively, you can run:
+            # `PGPASSWORD=postgres_password psql ...`
+            DB: 1
+            DATABASE_URL: postgresql://postgres:postgres@db:5432/jest
       # - name: Install PostgreSQL client
       #   run: |
       #     apt-get update
