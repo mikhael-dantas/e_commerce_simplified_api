@@ -44,7 +44,7 @@ jobs:
             # postgress password is required; alternatively, you can run:
             # `PGPASSWORD=postgres_password psql ...`
             DB: 1
-            DATABASE_URL: postgresql://postgres:postgres@localhost:5432/jest
+            DATABASE_URL: postgresql://postgres:postgres@postgres:5432/jest
       # - name: Install PostgreSQL client
       #   run: |
       #     apt-get update
