@@ -38,19 +38,27 @@ jobs:
           SERVER_HOST: localhost
           SERVER_PORT: 3038
           API_URL: http://localhost:3038
-      # - name: Deploy para meu servidor
-      # uses: easingthemes/ssh-deploy@main
-      #   env: 
-      #     SSH_PRIVATE_KEY: ${{secrets.VPSSSH}}
-      #     ARGS: "-rltgoDzvO --delete"
-      #     SOURCE: 'dist/'
-      #     REMOTE_HOST: ${{secrets.REMOTE_HOST}}
-      #     REMOTE_USER: ${{secrets.REMOTE_USER}}
-      #     REMOTE_PORT: ${{secrets.REMOTE_PORT}}
-      #     TARGET: ${{secrets.REMOTE_TARGET}}
-  # deploy-runner:
-  #   runs-on: ubuntu-latest
-  #     steps:
+  deploy-runner:
+    runs-on: ubuntu-latest
+    steps:
+      name: Deploy para meu servidor
+      uses: actions/checkout@v3
+      uses: actions/setup-node@v3
+        with:
+          node-version: '18.12'
+      - run: corepack enable
+      - run: yarn install
+      - run: yarn prisma generate
+      - run: yarn tsc
+      uses: easingthemes/ssh-deploy@main
+      env: 
+        SSH_PRIVATE_KEY: ${{secrets.VPSSSH}}
+        ARGS: "-rltgoDzvO --delete"
+        SOURCE: 'dist/'
+        REMOTE_HOST: ${{secrets.REMOTE_HOST}}
+        REMOTE_USER: ${{secrets.REMOTE_USER}}
+        REMOTE_PORT: ${{secrets.REMOTE_PORT}}
+        TARGET: ${{secrets.REMOTE_TARGET}}
 
 
   # test:
