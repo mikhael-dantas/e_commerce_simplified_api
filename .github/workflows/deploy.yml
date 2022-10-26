@@ -1,29 +1,21 @@
 name: Test & Deploy
 run-name: ${{ github.actor }} is pushing
-on: [push]
+on: 
+  push: 
+    branches:
+      - main
 jobs:
-  # label of the container job
   postgres-job:
     runs-on: ubuntu-latest
-    # Docker Hub image that `postgres-job` executes in
     container: node:18.12
-    # service containers to run with `postgres-job`
     services:
-      # label used to access the service container
       postgres:
-        # Docker Hub image
         image: postgres:latest
-        # service environment variables
-        # `POSTGRES_HOST` is `postgres`
         env:
-          # required
           POSTGRES_PASSWORD: postgres
-          # optional (defaults to `5432`)
-          POSTGRES_PORT: 5432
-          # optional (defaults to `postgres`)
+          # POSTGRES_PORT: 5432
           POSTGRES_USER: postgres
         ports:
-          # maps tcp port 5432 on service container to the host
           - 5432:5432
         # set health checks to wait until postgres has started
         options: >-
@@ -40,26 +32,25 @@ jobs:
       - run: yarn install
       - run: yarn prisma generate
       - run: yarn jest /__tests__
+      - run: yarn tsc
         env:
-            # postgress password is required; alternatively, you can run:
-            # `PGPASSWORD=postgres_password psql ...`
             DB: 1
             DATABASE_URL: postgresql://postgres:postgres@postgres:5432/jest
             SERVER_HOST: localhost
             SERVER_PORT: 3038
             API_URL: http://localhost:3038
-      # - name: Install PostgreSQL client
-      #   run: |
-      #     apt-get update
-      #     apt-get install --yes postgresql-client
+      - name: Deploy para meu servidor
+        uses: easingthemes/ssh-deploy@main
+        env: 
+          SSH_PRIVATE_KEY: ${{secrets.VPSSSH}}
+          ARGS: "-rltgoDzvO --delete"
+          SOURCE: 'dist/'
+          REMOTE_HOST: ${{secrets.REMOTE_HOST}}
+          REMOTE_USER: ${{secrets.REMOTE_USER}}
+          REMOTE_PORT: ${{secrets.REMOTE_PORT}}
+          TARGET: ${{secrets.REMOTE_TARGET}}
 
-      # # queries database with postgres client
-      # - name: Query database
-      #   run: psql -h postgres -d postgres_db -U postgres_user -c 'SELECT 1;'
-        # env:
-        #   # postgress password is required; alternatively, you can run:
-        #   # `PGPASSWORD=postgres_password psql ...`
-        #   PGPASSWORD: postgres_password
+
   # test:
   #   runs-on: ubuntu-latest
   #   steps:
