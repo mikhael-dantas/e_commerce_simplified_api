@@ -45,6 +45,9 @@ jobs:
             # `PGPASSWORD=postgres_password psql ...`
             DB: 1
             DATABASE_URL: postgresql://postgres:postgres@postgres:5432/jest
+            SERVER_HOST: localhost
+            SERVER_PORT: 3038
+            API_URL: http://localhost:3038
       # - name: Install PostgreSQL client
       #   run: |
       #     apt-get update
