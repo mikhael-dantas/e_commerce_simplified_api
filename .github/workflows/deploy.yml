@@ -33,14 +33,15 @@ jobs:
       - run: yarn prisma generate
       - run: yarn jest /__tests__
       - run: yarn
-      - name: Deploy para meu servidor
-        uses: easingthemes/ssh-deploy@main
         env:
           DB: 1
           DATABASE_URL: postgresql://postgres:postgres@postgres:5432/jest
           SERVER_HOST: localhost
           SERVER_PORT: 3038
           API_URL: http://localhost:3038
+      - name: Deploy para meu servidor
+        uses: easingthemes/ssh-deploy@main
+        env: 
           SSH_PRIVATE_KEY: ${{secrets.VPSSSH}}
           ARGS: "-rltgoDzvO --delete"
           SOURCE: 'dist/'
