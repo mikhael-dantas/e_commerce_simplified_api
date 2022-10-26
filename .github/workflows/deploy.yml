@@ -32,8 +32,20 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
     steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.12'
+      - env:
+            # postgress password is required; alternatively, you can run:
+            # `PGPASSWORD=postgres_password psql ...`
+            DB: 1
+            DATABASE_URL: postgresql://postgres:postgres@db:5432/jest
+      - run: corepack enable
+      - run: yarn install
+      - run: yarn prisma generate
+      - run: yarn jest /__tests__
       # - name: Install PostgreSQL client
       #   run: |
       #     apt-get update
@@ -49,17 +61,4 @@ jobs:
   # test:
   #   runs-on: ubuntu-latest
   #   steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18.12'
-      - env:
-            # postgress password is required; alternatively, you can run:
-            # `PGPASSWORD=postgres_password psql ...`
-            DB: 1
-            DATABASE_URL: postgresql://postgres:postgres@db:5432/jest
-      - run: corepack enable
-      - run: yarn install
-      - run: yarn prisma generate
-      - run: yarn jest /__tests__
 # .github/workflows/postgres.yml
