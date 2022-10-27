@@ -77,5 +77,6 @@
       "build",
       "__tests__",
       "__testsPrep__",
+      "jest.**"
    ]
 }
