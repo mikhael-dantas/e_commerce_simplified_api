@@ -38,30 +38,12 @@ jobs:
           SERVER_HOST: localhost
           SERVER_PORT: 3038
           API_URL: http://localhost:3038
-  # deploy-runner:
-  #   needs: tests-runner
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: '18.12'
-  #     - run: corepack enable
-  #     - run: yarn install
-  #     - run: yarn prisma generate
-  #     - run: yarn tsc
-  #     - uses: easingthemes/ssh-deploy@main
-  #       env: 
-  #         SSH_PRIVATE_KEY: ${{secrets.VPSSSH}}
-  #         ARGS: "-rltgoDzvO --delete"
-  #         SOURCE: 'dist/'
-  #         REMOTE_HOST: ${{secrets.REMOTE_HOST}}
-  #         REMOTE_USER: ${{secrets.REMOTE_USER}}
-  #         REMOTE_PORT: ${{secrets.REMOTE_PORT}}
-  #         TARGET: ${{secrets.REMOTE_TARGET}}
-
-
-  # test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-# .github/workflows/postgres.yml
+  deploy:
+    needs: tests-runner
+    uses: appleboy/ssh-action@master
+    with:
+      host: ${{ secrets.VPSHOST }}
+      username: ${{ secrets.VPSUSERNAME }}
+      key: ${{ secrets.VPSSSH }}
+      port: ${{ secrets.VPSPORT }}
+      script: /root/ecommerce_simplified/redeploy.sh
