@@ -38,7 +38,7 @@ jobs:
           SERVER_HOST: localhost
           SERVER_PORT: 3038
           API_URL: http://localhost:3038
-  deploy:
+  deploy-runner:
     needs: tests-runner
     uses: appleboy/ssh-action@master
     with:
@@ -47,3 +47,5 @@ jobs:
       key: ${{ secrets.VPSSSH }}
       port: ${{ secrets.VPSPORT }}
       script: /root/ecommerce_simplified/redeploy.sh
+
+# .github/workflows/postgres.yml
