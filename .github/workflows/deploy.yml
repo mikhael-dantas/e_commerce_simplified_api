@@ -43,10 +43,10 @@ jobs:
     name: Deploy to VPS
     runs-on: ubuntu-latest
     steps:
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.VPSHOST }}
-        username: ${{ secrets.VPSUSERNAME }}
-        key: ${{ secrets.VPSSSH }}
-        port: ${{ secrets.VPSPORT }}
-        script: /root/ecommerce_simplified/redeploy.sh
+      - uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPSHOST }}
+          username: ${{ secrets.VPSUSERNAME }}
+          key: ${{ secrets.VPSSSH }}
+          port: ${{ secrets.VPSPORT }}
+          script: /root/ecommerce_simplified/redeploy.sh
