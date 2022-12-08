@@ -48,7 +48,8 @@ export const returnApp: () => Promise<express.Application> = async () => {
    );
 
    app.get('/', async (req, res) => {
-      res.send("root page of ecommerce api")
+      res.redirect('https://personal-site-gules-five.vercel.app')
+      // res.send("root page of ecommerce api")
    })
 
    app.use(
