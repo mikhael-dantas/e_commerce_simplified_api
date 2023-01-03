@@ -93,11 +93,11 @@ Redux -->
 
 - 🌱 Next big feature implementation: **Elastic Search**
 
-- 👨‍💻 Related Projects: <a href="https://www.mikhaeldantas.com" target="_blank" rel="noreferrer">mikhaeldantas.com</a>
+- 📄 Consuming API Documentation: As this is a GraphQL API, you can use the GraphQL Playground in /graphiql path or use any documentation stractor like SpectaQL to generate a separate static documentation.
 
-- 📄 Consuming Documentation: <a href="https://www.mikhaeldantas.com" target="_blank" rel="noreferrer">mikhaeldantas.com</a>
+- 👨‍💻 Related Projects: <a href="https://www.mikhaeldantas.com/mikhael/projects/e_commerce_simplified_api/related" target="_blank" rel="noreferrer">Projects Related to E-Commerce Simplified API</a>
 
-- 📫 Contact the author of this project: <a href="https://www.mikhaeldantas.com" target="_blank" rel="noreferrer">mikhaeldantas.com</a>
+- 📫 Contact the author of this project: <a href="https://www.mikhaeldantas.com/mikhael/contact" target="_blank" rel="noreferrer">mikhaeldantas.com</a>
 
 - ⚡ Fun fact: **This is a never stop improving project, it will always get new features and implementations, always with the best things of the development world.**
 
@@ -266,7 +266,7 @@ maintainable and organized way.
 <h3 align="left">Links:</h3>
 <p align="left">
 
-- 💬 Give feedback or suggestions at <a href="https://www.mikhaeldantas.com" target="_blank" rel="noreferrer">mikhaeldantas.com</a>
+- 💬 Give feedback or suggestions at <a href="https://www.mikhaeldantas.com/mikhael/feedback?topic=e_commerce_simplified_api" target="_blank" rel="noreferrer">mikhaeldantas.com</a>
 
-- 📫 Contact the project author <a href="https://www.mikhaeldantas.com" target="_blank" rel="noreferrer">mikhaeldantas.com</a> or <a href="https://www.linkedin.com/in/mikhael-dantas" target="_blank" rel="noreferrer">linkedin.com/in/mikhael-dantas</a>
+- 📫 Contact the project author at: <a href="https://www.mikhaeldantas.com/contact" target="_blank" rel="noreferrer">mikhaeldantas.com</a> or <a href="https://www.linkedin.com/in/mikhael-dantas" target="_blank" rel="noreferrer">linkedin.com/in/mikhael-dantas</a>
 </p>
