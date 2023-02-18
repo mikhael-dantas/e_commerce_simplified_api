@@ -58,7 +58,7 @@ export default class TestsSpecHandler {
                 if (!frScoped.tagIds) {
                     throw new Error(`The fr ${frScoped.name} does not have tagIds`)
                 }
-                if (frScoped.done === undefined) {
+                if (frScoped.completed === undefined) {
                     throw new Error(`The fr ${frScoped.name} does not have a done`)
                 }
                 if (!frScoped.frDependencies) {
@@ -277,12 +277,12 @@ export default class TestsSpecHandler {
                 // const frNameScoped = frScoped.name;
                 // const frTagIdsScoped = frScoped.tagIds;
                 // const frModuleIdScoped = frScoped.moduleId;
-                // const frDoneScoped = frScoped.done;
+                // const frDoneScoped = frScoped.completed;
                 // const frDependenciesScoped = frScoped.frDependencies;
 
 
                 // check if the fr is done
-                if (!frScoped.done) { return }
+                if (!frScoped.completed) { return }
 
                 // check if the category exists and create it if not
                 if (!(unitTestsFolder.subFolders.find(categoryFolderScoped => categoryFolderScoped.name === moduleNameScoped))) {
