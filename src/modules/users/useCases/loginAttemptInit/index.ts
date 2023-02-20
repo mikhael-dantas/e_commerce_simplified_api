@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
 import { inject } from "tsyringe";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
-import { ILoginAttemptInit, ILoginAttemptInitResponse} from "./Interface";
+import { ILoginAttemptInit, IState} from "./Interface";
 
 
 export class LoginAttemptInit implements ILoginAttemptInit {
@@ -10,7 +10,7 @@ export class LoginAttemptInit implements ILoginAttemptInit {
         private usersRepository: IUsersRepository,
     ) {}
 
-    async execute(): Promise<ILoginAttemptInitResponse> {
+    async execute(): Promise<IState> {
         const state = randomUUID()
 
         const loginAttempt = await this.usersRepository.createState({
@@ -19,7 +19,7 @@ export class LoginAttemptInit implements ILoginAttemptInit {
         });
 
         return {
-            model: 'LoginAttemptInitResponse',
+            model: 'state',
             state: loginAttempt.state,
             expiration: loginAttempt.expiration,
         };

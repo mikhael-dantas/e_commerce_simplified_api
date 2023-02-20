@@ -1,9 +1,9 @@
-export type ILoginAttemptInitResponse = {
-    model: 'LoginAttemptInitResponse'
+export type IState = {
+    model: 'state'
     state: string;
     expiration: string;
 };
 
 export interface ILoginAttemptInit {
-    execute(): Promise<ILoginAttemptInitResponse>
+    execute(): Promise<IState>
 }
