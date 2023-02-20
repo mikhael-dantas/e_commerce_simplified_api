@@ -28,7 +28,7 @@ async () => {
     expect(result).toBeDefined();
     expect(result.state).toBeDefined();
     expect(result.expiration).toBeDefined();
-    expect(result.model).toBe('LoginAttemptInitResponse');
+    expect(result.model).toBe('state');
 }
 )
 // positionLabel8
