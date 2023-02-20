@@ -1,6 +1,7 @@
 import {execSync} from 'child_process';
 import {returnApp} from './src/app'
 import "dotenv"
+import { container } from 'tsyringe';
 
 const port = process.env.SERVER_PORT
 
@@ -25,6 +26,8 @@ export default async function setupServerToIntegrationTests() {
          }).on('error', (err) => {
             console.error(err)
             process.exit(1)
+         }).on('close', () => {
+            container.reset()
          })
       })
 
