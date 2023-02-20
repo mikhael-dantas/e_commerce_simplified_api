@@ -1,8 +1,10 @@
 
 export interface IUsersRepository {
     createState({
-        expiration
+        state,
+        expiration,
     }:{
+        state: string,
         expiration: string
     }): Promise<{ state: string; expiration: string }>
 }
