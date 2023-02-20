@@ -4,6 +4,8 @@ import { container } from 'tsyringe';
 import { PrismaClient } from '@prisma/client';
 import { Redis } from 'ioredis';
 import mongoose from 'mongoose';
+import { IUsersRepository } from '../../modules/users/repositories/IUsersRepository';
+import { UsersRepository } from '../../modules/users/repositories/UsersRepository';
 
 class GlobalPrisma extends PrismaClient {
    constructor() { super({ log: [ "query" ] }) }
@@ -39,3 +41,7 @@ container.registerSingleton<ICategoriesRepository>(
    CategoriesRepository,
 );
 
+container.registerSingleton<IUsersRepository>(
+   "UsersRepository",
+   UsersRepository,
+);
