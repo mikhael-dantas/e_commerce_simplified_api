@@ -1,9 +1,9 @@
 import { randomUUID } from 'crypto';
-import { inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { ILoginAttemptInit, IState} from "./Interface";
 
-
+@injectable()
 export class LoginAttemptInit implements ILoginAttemptInit {
     constructor(
         @inject('UsersRepository')
