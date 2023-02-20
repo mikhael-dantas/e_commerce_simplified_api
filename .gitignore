@@ -5,3 +5,4 @@ compose.yaml
 yarn-error.log
 build
 __backupTests__
+test.ts
