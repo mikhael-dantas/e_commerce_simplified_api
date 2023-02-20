@@ -11,15 +11,15 @@ test.concurrent(
 async () => {
     
     const GET_STATE = `
-    query LoginAttempt {
-        loginAttempt {
+    query {
+        loginAttemptInit {
             __typename
-            ... on SuccessResponse {
+            ... on State {
                 state
-                expirationTime
+                expiration
             }
-            ... on BlockedResponse {
-                reason
+            ... on BlockedErrorTypeDef {
+                message
             }
         }
     }
@@ -30,9 +30,10 @@ async () => {
     // const {prismaClient} = global as any
     const parsedRes = JSON.parse(await JestApiPost(JSON.stringify(query)))
 
-    expect(parsedRes.data?.loginAttempt).toBeDefined()
-    expect(parsedRes.data?.loginAttempt).toHaveProperty('state')
-    expect(parsedRes.data?.loginAttempt).toHaveProperty('expirationTime')
+    expect(parsedRes).toHaveProperty('data')
+    expect(parsedRes.data?.loginAttemptInit).toBeDefined()
+    expect(parsedRes.data?.loginAttemptInit).toHaveProperty('state')
+    expect(parsedRes.data?.loginAttemptInit).toHaveProperty('expiration')
 
 }
 )
