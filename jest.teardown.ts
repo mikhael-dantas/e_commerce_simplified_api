@@ -1,7 +1,5 @@
 module.exports = async function () {
    if(process.env.DB) {
-      const {redisClient} = globalThis as any
-      await redisClient.quit()
 
       await new Promise(resolve => {
          const {_testServer_} = globalThis as any
