@@ -39,7 +39,7 @@ async () => {
     mutation {
         loginAttemptRetrieve(state: "test") {
             __typename
-            ... on operationResponse {
+            ... on OperationResponse {
                 status
                 message
             }
