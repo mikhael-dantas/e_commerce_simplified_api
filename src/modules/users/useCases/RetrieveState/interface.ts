@@ -1,5 +1,5 @@
-import { OperationResponseTypeDef } from "../../../../shared/graphql/OperationResponse";
+import { OperationResponse } from "../../../../shared/graphql/OperationResponse";
 
 export interface IRetrieveStateUseCase {
-    execute(state: string): Promise<OperationResponseTypeDef>
+    execute(state: string): Promise<OperationResponse>
 }

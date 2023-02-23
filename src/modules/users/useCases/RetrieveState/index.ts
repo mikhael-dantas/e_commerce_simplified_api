@@ -1,7 +1,7 @@
 import { inject } from 'tsyringe';
 import { IRetrieveStateUseCase } from "./interface";
 import { IUsersRepository } from '../../repositories/IUsersRepository';
-import { OperationResponseTypeDef } from '../../../../shared/graphql/OperationResponse';
+import { OperationResponse } from '../../../../shared/graphql/OperationResponse';
 
 
 export class RetrieveStateUseCase implements IRetrieveStateUseCase {
@@ -10,17 +10,17 @@ export class RetrieveStateUseCase implements IRetrieveStateUseCase {
         private usersRepository: IUsersRepository
     ) {}
 
-    async execute(state: string): Promise<OperationResponseTypeDef> {
+    async execute(state: string): Promise<OperationResponse> {
         const retrievedState = await this.usersRepository.retrieveState(state);
         if (!retrievedState) {
             return {
-                model: 'operationResponseTypeDef',
+                model: 'operationResponse',
                 message: 'Could not retrieve state',
                 status: 'fail'
             };
         }
         return {
-            model: 'operationResponseTypeDef',
+            model: 'operationResponse',
             message: 'State retrieved successfully',
             status: 'success'
         };

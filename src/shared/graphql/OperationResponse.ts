@@ -1,9 +1,9 @@
 import { ObjectType, Field } from "type-graphql";
 
 @ObjectType()
-export class OperationResponseTypeDef {
+export class OperationResponse {
     @Field()
-    model: string ="operationResponseTypeDef";
+    model: string ="operationResponse";
 
     @Field()
     message: string
