@@ -1,9 +1,9 @@
-import { inject } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 import { IRetrieveStateUseCase } from "./interface";
 import { IUsersRepository } from '../../repositories/IUsersRepository';
 import { OperationResponse } from '../../../../shared/graphql/OperationResponse';
 
-
+@injectable()
 export class RetrieveStateUseCase implements IRetrieveStateUseCase {
     constructor(
         @inject('UsersRepository')
