@@ -7,4 +7,7 @@ export class User {
 
     @Field()
     id: string;
+
+    @Field()
+    created_at: Date;
 }

@@ -24,7 +24,7 @@ export interface IUsersRepository {
         id: string
     }): Promise<User | null>
 
-    crateLoginRegistry({
+    createLoginRegistry({
         userId,
     }:{
         userId: string

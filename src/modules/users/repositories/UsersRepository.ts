@@ -63,7 +63,7 @@ export class UsersRepository implements IUsersRepository {
         return user;
     }
 
-    async crateLoginRegistry({
+    async createLoginRegistry({
         userId,
     }:{
         userId: string
