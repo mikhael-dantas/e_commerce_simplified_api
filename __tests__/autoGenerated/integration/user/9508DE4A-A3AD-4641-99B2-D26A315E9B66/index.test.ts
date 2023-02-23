@@ -34,10 +34,11 @@ async () => {
 
     expect(parsedRes).toHaveProperty('data')
     expect(parsedRes.data?.loginRegistration).toBeDefined()
-    expect(parsedRes.data?.loginRegistration).toHaveProperty('id')
-    expect(parsedRes.data?.loginRegistration).toHaveProperty('date')
-    expect(parsedRes.data?.loginRegistration).toHaveProperty('user')
-    expect(parsedRes.data?.loginRegistration.user).toHaveProperty('id')
+    expect(parsedRes.data?.loginRegistration[0]).toBeDefined()
+    expect(parsedRes.data?.loginRegistration[0]).toHaveProperty('id')
+    expect(parsedRes.data?.loginRegistration[0]).toHaveProperty('date')
+    expect(parsedRes.data?.loginRegistration[0]).toHaveProperty('user')
+    expect(parsedRes.data?.loginRegistration[0].user).toHaveProperty('id')
 }
 )
 // positionLabel8
