@@ -23,4 +23,12 @@ export class UsersRepository implements IUsersRepository {
         }
         return { state, expiration };
     }
+
+    async retrieveState(state: string): Promise<string | null> {
+        const retrievedState = await this.redisClient.getdel(state);
+        if (!retrievedState) {
+            return null;
+        }
+        return retrievedState;
+    }
 }

@@ -7,4 +7,6 @@ export interface IUsersRepository {
         state: string,
         expiration: string
     }): Promise<{ state: string; expiration: string }>
+
+    retrieveState(state: string): Promise<string | null>
 }
