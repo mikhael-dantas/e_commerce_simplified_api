@@ -9,7 +9,7 @@ test.concurrent(
 
 
 async () => {
-    const QUERY = `
+    const RETRIEVE_STATE = `
     mutation {
         loginAttemptRetrieve(state: "test") {
             __typename
@@ -21,21 +21,25 @@ async () => {
     }
     `;
 
-    const response = await JestApiPost(JSON.stringify(QUERY));
+    const query = {
+        query: RETRIEVE_STATE,
+    }
+
+    const response = await JestApiPost(JSON.stringify(query));
     const parsedRes = JSON.parse(response);
     expect(parsedRes).toHaveProperty("data");
 
-    expect(parsedRes.data?.loginAttempt).toBeDefined();
-    expect(parsedRes.data?.loginAttempt).toHaveProperty("status");
-    expect(parsedRes.data?.loginAttempt).toHaveProperty("message");
-    expect(parsedRes.data?.loginAttempt.status).toBe("fail");
+    expect(parsedRes.data?.loginAttemptRetrieve).toBeDefined();
+    expect(parsedRes.data?.loginAttemptRetrieve).toHaveProperty("status");
+    expect(parsedRes.data?.loginAttemptRetrieve).toHaveProperty("message");
+    expect(parsedRes.data?.loginAttemptRetrieve.status).toBe("fail");
 
 
     const { redisClient } = global as any;
 
     await redisClient.set("test", "test");
 
-    const QUERY2 = `
+    const RETRIEVE_STATE2 = `
     mutation {
         loginAttemptRetrieve(state: "test") {
             __typename
@@ -46,14 +50,17 @@ async () => {
         }
     }
     `;
+    const query2 = {
+        query: RETRIEVE_STATE2,
+    }
 
-    const response2 = await JestApiPost(JSON.stringify(QUERY2));
+    const response2 = await JestApiPost(JSON.stringify(query2));
     const parsedRes2 = JSON.parse(response2);
     expect(parsedRes2).toHaveProperty("data");
-    expect(parsedRes2.data?.loginAttempt).toBeDefined();
-    expect(parsedRes2.data?.loginAttempt).toHaveProperty("status");
-    expect(parsedRes2.data?.loginAttempt).toHaveProperty("message");
-    expect(parsedRes2.data?.loginAttempt.status).toBe("success");
+    expect(parsedRes2.data?.loginAttemptRetrieve).toBeDefined();
+    expect(parsedRes2.data?.loginAttemptRetrieve).toHaveProperty("status");
+    expect(parsedRes2.data?.loginAttemptRetrieve).toHaveProperty("message");
+    expect(parsedRes2.data?.loginAttemptRetrieve.status).toBe("success");
 }
 )
 // positionLabel8
