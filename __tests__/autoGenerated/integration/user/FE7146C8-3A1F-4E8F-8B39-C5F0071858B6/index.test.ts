@@ -1,3 +1,4 @@
+import { Redis } from "ioredis";
 import { JestApiPost } from "../../../../../jestTestsUtils";
 
 // FE7146C8-3A1F-4E8F-8B39-C5F0071858B6
@@ -35,9 +36,11 @@ async () => {
     expect(parsedRes.data?.loginAttemptRetrieve.status).toBe("fail");
 
 
-    const { redisClient } = global as any;
-
+    const { redisOptions } = global as any;
+    const redisClient = new Redis(redisOptions);
     await redisClient.set("test", "test");
+    await redisClient.quit();
+    redisClient.disconnect();
 
     const RETRIEVE_STATE2 = `
     mutation {
