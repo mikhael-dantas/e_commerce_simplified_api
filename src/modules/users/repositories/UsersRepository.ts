@@ -12,7 +12,7 @@ export class UsersRepository implements IUsersRepository {
         @inject('Redis')
         private redisClient: Redis,
         @inject('PrismaClient')
-        private prismaClient: PrismaClient,
+        private prismaClient?: PrismaClient,
     ) {}
 
     async createState({
@@ -42,6 +42,7 @@ export class UsersRepository implements IUsersRepository {
     }:{
         id: string
     }): Promise<User> {
+        if (!this.prismaClient) {throw new Error('Prisma client not initialized');}
         const user = await this.prismaClient.user.create({
             data: {
                 id,
@@ -55,6 +56,7 @@ export class UsersRepository implements IUsersRepository {
     }:{
         id: string
     }): Promise<User | null> {
+        if (!this.prismaClient) {throw new Error('Prisma client not initialized');}
         const user = await this.prismaClient.user.findUnique({
             where: {
                 id,
@@ -68,6 +70,7 @@ export class UsersRepository implements IUsersRepository {
     }:{
         userId: string
     }): Promise<LoginRegistry> {
+        if (!this.prismaClient) {throw new Error('Prisma client not initialized');}
         const loginRegistry = await this.prismaClient.loginRegistry.create({
             data: {
                 id : randomUUID(),
@@ -87,6 +90,7 @@ export class UsersRepository implements IUsersRepository {
         take: number,
         skip: number
     }): Promise<LoginRegistry[]> {
+        if (!this.prismaClient) {throw new Error('Prisma client not initialized');}
         const loginRegistries = await this.prismaClient.loginRegistry.findMany({
             where: {
                 user_id: userId,
