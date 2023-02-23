@@ -20,7 +20,7 @@ async () => {
     }
 
     const resolver = new UsersResolver({
-        CreateLoginRegistryUseCase: mockedCreateRegistryUseCase as any,
+        createLoginRegistryUseCase: mockedCreateRegistryUseCase as any,
     })
 
     const loginRegistry = await resolver.loginRegistration( 'mytoken' )
