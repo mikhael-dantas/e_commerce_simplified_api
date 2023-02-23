@@ -1,13 +1,18 @@
 import { Redis } from "ioredis";
 import { IUsersRepository } from "./IUsersRepository";
 import { inject, injectable } from "tsyringe";
+import { User } from "../typeDefs/User";
+import { PrismaClient } from "@prisma/client";
+import { LoginRegistry } from "../typeDefs/LoginRegistry";
+import { randomUUID } from "node:crypto";
 
 @injectable()
 export class UsersRepository implements IUsersRepository {
-    
     constructor(
         @inject('Redis')
-        private redisClient: Redis
+        private redisClient: Redis,
+        @inject('PrismaClient')
+        private prismaClient: PrismaClient,
     ) {}
 
     async createState({
@@ -30,5 +35,65 @@ export class UsersRepository implements IUsersRepository {
             return null;
         }
         return retrievedState;
+    }
+
+    async createUser({
+        id,
+    }:{
+        id: string
+    }): Promise<User> {
+        const user = await this.prismaClient.user.create({
+            data: {
+                id,
+            }
+        });
+        return user;
+    }
+
+    async findUserById({
+        id,
+    }:{
+        id: string
+    }): Promise<User | null> {
+        const user = await this.prismaClient.user.findUnique({
+            where: {
+                id,
+            }
+        });
+        return user;
+    }
+
+    async crateLoginRegistry({
+        userId,
+    }:{
+        userId: string
+    }): Promise<LoginRegistry> {
+        const loginRegistry = await this.prismaClient.loginRegistry.create({
+            data: {
+                id : randomUUID(),
+                user_id: userId,
+            }
+        });
+
+        return loginRegistry;
+    }
+
+    async listLoginRegistries({
+        userId,
+        take,
+        skip,
+    }:{
+        userId: string,
+        take: number,
+        skip: number
+    }): Promise<LoginRegistry[]> {
+        const loginRegistries = await this.prismaClient.loginRegistry.findMany({
+            where: {
+                user_id: userId,
+            },
+            take,
+            skip,
+        });
+        return loginRegistries;
     }
 }
