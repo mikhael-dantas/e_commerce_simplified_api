@@ -16,7 +16,7 @@ export class RetrieveStateUseCase implements IRetrieveStateUseCase {
             return {
                 model: 'operationResponseTypeDef',
                 message: 'Could not retrieve state',
-                status: 'error'
+                status: 'fail'
             };
         }
         return {
