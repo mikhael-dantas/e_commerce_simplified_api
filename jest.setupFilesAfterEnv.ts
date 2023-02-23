@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import { Redis } from 'ioredis';
 import 'reflect-metadata';
 
 
@@ -9,13 +8,13 @@ if (!redisPort) {
 }
 
 const prismaClient = new PrismaClient()
-const redisClient = new Redis({
+const redisOptions = {
     host: process.env.REDIS_HOST,
     port: parseInt(redisPort),
-})
+}
 
 Object.assign(global, {
     prismaClient,
-    redisClient,
+    redisOptions,
 });
 
