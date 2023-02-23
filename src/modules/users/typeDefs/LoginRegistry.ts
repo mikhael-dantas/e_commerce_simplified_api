@@ -3,7 +3,7 @@ import { Field, ObjectType } from "type-graphql";
 @ObjectType()
 export class LoginRegistry {
     @Field()
-    model: string = "login_registry";
+    model: string = "loginRegistry";
 
     @Field()
     id: string;
