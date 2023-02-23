@@ -24,12 +24,16 @@ export class CreateLoginRegistryUseCase implements ICreateLoginRegistryUseCase {
         secret: string
     }): Promise<LoginRegistry> {
         let passed = true
-        const decodedToken = await this.checkAccessTokenUseCase.execute({
-            token: accessToken,
-            secret,
-        }).catch(() => {
+        let decodedToken
+
+        try {
+            decodedToken = await this.checkAccessTokenUseCase.execute({
+                token: accessToken,
+                secret,
+            })
+        } catch (err) {
             passed = false
-        });
+        }
         if (!passed) {
             throw new Error("Invalid token");
         }
