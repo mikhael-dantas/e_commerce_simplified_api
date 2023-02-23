@@ -1,25 +1,25 @@
 import { UsersResolver } from './../../../../../src/modules/users/resolvers/index';
 
-
 // DCF06390-5DD8-4A8B-B452-B54BB2527D10
 // positionLabel5
 test.concurrent(
-'resolver for mutation loginAttempt should return operationResponse with status string success if state exist, fail if dont, and the message',
+'resolver for mutation loginAttemptRetrieve should return operationResponse with status string success if state exist, fail if dont, and the message',
 // positionLabel6
 // positionLabel7
+
 
 async () => {
     const mockedUseCase = {
         execute: jest.fn().mockImplementation((value) => {
             if (value === 'test') {
                 return {
-                    model: 'operationResponseTypeDef',
+                    model: 'operationResponse',
                     status: 'success',
                     message: 'test'
                 }
             }
             return {
-                model: 'operationResponseTypeDef',
+                model: 'operationResponse',
                 status: 'fail',
                 message: 'test'
             }
@@ -46,5 +46,5 @@ async () => {
 }
 )
 // positionLabel8
-// positionLabel1-resolver for mutation loginAttempt should return operationResponse with status string success if state exist, fail if dont, and the message-positionLabel2
+// positionLabel1-resolver for mutation loginAttemptRetrieve should return operationResponse with status string success if state exist, fail if dont, and the message-positionLabel2
 // DCF06390-5DD8-4A8B-B452-B54BB2527D10

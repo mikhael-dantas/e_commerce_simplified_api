@@ -1,19 +1,17 @@
-
-
-// FE7146C8-3A1F-4E8F-8B39-C5F0071858B6
-
 import { JestApiPost } from "../../../../../jestTestsUtils";
 
+// FE7146C8-3A1F-4E8F-8B39-C5F0071858B6
 // positionLabel5
 test.concurrent(
-"receive a mutation with [state:string] for loginAttempt, and after checking and deleting the record for that state, return operationResponse with status sucess, and if state check don't pass return status fail with the message",
+'receive a mutation with [state:string] for loginAttemptRetrieve, and after checking and deleting the record for that state, return operationResponse with status sucess, and if state check don\'t pass return status fail with the message',
 // positionLabel6
 // positionLabel7
+
 
 async () => {
     const QUERY = `
     mutation {
-        loginAttempt(state: "test") {
+        loginAttemptRetrieve(state: "test") {
             __typename
             ... on OperationResponse {
                 status
@@ -39,9 +37,9 @@ async () => {
 
     const QUERY2 = `
     mutation {
-        loginAttempt(state: "test") {
+        loginAttemptRetrieve(state: "test") {
             __typename
-            ... on OperationResponse {
+            ... on operationResponse {
                 status
                 message
             }
@@ -56,9 +54,8 @@ async () => {
     expect(parsedRes2.data?.loginAttempt).toHaveProperty("status");
     expect(parsedRes2.data?.loginAttempt).toHaveProperty("message");
     expect(parsedRes2.data?.loginAttempt.status).toBe("success");
-
 }
 )
 // positionLabel8
-// positionLabel1-receive a mutation with [state:string] for loginAttempt, and after checking and deleting the record for that state, return operationResponse with status sucess, and if state check don't pass return status fail with the message-positionLabel2
+// positionLabel1-receive a mutation with [state:string] for loginAttemptRetrieve, and after checking and deleting the record for that state, return operationResponse with status sucess, and if state check don't pass return status fail with the message-positionLabel2
 // FE7146C8-3A1F-4E8F-8B39-C5F0071858B6
