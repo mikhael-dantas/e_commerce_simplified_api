@@ -6,6 +6,9 @@ export class LoginRegistry {
     model: string = "login_registry";
 
     @Field()
+    id: string;
+
+    @Field()
     created_at: Date;
 
     @Field()
