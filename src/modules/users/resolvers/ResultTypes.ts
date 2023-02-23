@@ -2,6 +2,7 @@ import { createUnionType } from "type-graphql";
 import { BlockedErrorTypeDef } from "../../../shared/graphql/GraphqlErrorDefs/BlockedError";
 import { State } from "../typeDefs/State";
 import { OperationResponse } from "../../../shared/graphql/OperationResponse";
+import { LoginRegistry } from "../typeDefs/LoginRegistry";
 
 
 export const LoginAttemptInitResults = createUnionType({
@@ -29,6 +30,19 @@ export const LoginAttemptRetrieveResults = createUnionType({
     resolveType: value => {
         if (value.model == "operationResponse") {
             return OperationResponse;
+        }
+        undefined;
+    }
+})
+
+export const LoginRegistrationResults = createUnionType({
+    name: "LoginRegistrationResults",
+    types: () => [
+        LoginRegistry,
+    ] as const,
+    resolveType: value => {
+        if (value.model == "loginRegistry") {
+            return LoginRegistry;
         }
         undefined;
     }
