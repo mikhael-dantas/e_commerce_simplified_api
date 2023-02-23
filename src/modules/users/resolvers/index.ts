@@ -2,9 +2,11 @@ import { CreateLoginRegistryUseCase } from './../useCases/CreateLoginRegistry/in
 import { container } from 'tsyringe';
 import { LoginAttemptInit } from '../useCases/loginAttemptInit';
 import { RetrieveStateUseCase as LoginAttemptRetrieve } from '../useCases/RetrieveState';
-import { LoginAttemptInitResults, LoginAttemptRetrieveResults, LoginRegistrationResults } from './ResultTypes';
+import { LoginAttemptInitResults, LoginAttemptRetrieveResults, LoginRegistrationResults, LoginRegistryListResults } from './ResultTypes';
 import { Arg, Mutation, Query } from "type-graphql";
 import { ICreateLoginRegistryUseCase } from '../useCases/CreateLoginRegistry/interface';
+import { IListLoginRegistriesUseCase } from '../useCases/ListLoginRegistries/interface';
+import { ListLoginRegistriesUseCase } from '../useCases/ListLoginRegistries';
 
 
 export class UsersResolver {
@@ -12,7 +14,8 @@ export class UsersResolver {
         private injections?: {
             loginAttemptInitUseCase?: LoginAttemptInit;
             loginAttemptRetrieveUseCase?: LoginAttemptRetrieve;
-            CreateLoginRegistryUseCase?: ICreateLoginRegistryUseCase
+            createLoginRegistryUseCase?: ICreateLoginRegistryUseCase;
+            listLoginRegistriesUseCase?: IListLoginRegistriesUseCase
         }
     ) {}
     @Query(returns => LoginAttemptInitResults)
@@ -48,10 +51,10 @@ export class UsersResolver {
         @Arg('accessToken') accessToken: string,
     ): Promise<typeof LoginRegistrationResults> {
         let useCase
-        if (!this.injections?.CreateLoginRegistryUseCase) {
+        if (!this.injections?.createLoginRegistryUseCase) {
             useCase = container.resolve(CreateLoginRegistryUseCase);
         } else {
-            useCase = this.injections.CreateLoginRegistryUseCase;
+            useCase = this.injections.createLoginRegistryUseCase;
         }
 
         const secret = process.env.AUTH0_JWT_SECRET
@@ -63,5 +66,23 @@ export class UsersResolver {
         });
 
         return loginRegistrationResponse
+    }
+
+    @Query(returns => [LoginRegistryListResults])
+    async loginRegistryList(
+        @Arg('userId') userId: string,
+        @Arg('skip') skip: number,
+        @Arg('take') take: number,
+    ): Promise<typeof LoginRegistryListResults[]> {
+        let useCase
+        if (!this.injections?.listLoginRegistriesUseCase) {
+            useCase = container.resolve(ListLoginRegistriesUseCase);
+        } else {
+            useCase = this.injections.listLoginRegistriesUseCase;
+        }
+
+        const loginRegistryListResponse = await useCase.execute({userId, skip, take});
+
+        return loginRegistryListResponse
     }
 }

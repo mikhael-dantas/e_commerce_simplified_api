@@ -47,3 +47,16 @@ export const LoginRegistrationResults = createUnionType({
         undefined;
     }
 })
+
+export const LoginRegistryListResults = createUnionType({
+    name: "LoginRegistryListResults",
+    types: () => [
+        LoginRegistry,
+    ] as const,
+    resolveType: value => {
+        if (value.model == "loginRegistry") {
+            return LoginRegistry;
+        }
+        undefined;
+    }
+})
