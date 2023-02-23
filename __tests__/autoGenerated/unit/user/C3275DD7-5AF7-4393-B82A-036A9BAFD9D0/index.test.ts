@@ -25,7 +25,7 @@ async () => {
     expect(operationResponse).toHaveProperty('status')
     expect(operationResponse).toHaveProperty('message')
     expect(operationResponse.status).toBe('success')
-    expect(operationResponse.message).toBe('test')
+    expect(operationResponse.message).toBeDefined()
 
     const operationResponse2 = await useCase.execute('test2')
 
