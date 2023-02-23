@@ -10,15 +10,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model User {
-//   id      String   @id
-//   email   String   @unique
-//   name    String
-//   password String  @db.VarChar(255)
-//   created_at DateTime @default(now())
-//   updated_at DateTime @updatedAt
-//   profile Profile?
-// }
+model User {
+  model String @default("user")
+  id      String   @id
+  // email   String   @unique
+  // name    String
+  // password String  @db.VarChar(255)
+  LoginRegistry LoginRegistry[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  // profile Profile?
+}
 
 // model Profile {
 //   id     String  @id
@@ -61,6 +63,15 @@ model Category {
   image_id String?
   image_url String?
   inactive Boolean @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model LoginRegistry {
+  model String @default("loginRegistry")
+  id      String   @id
+  user_id String
+  user   User    @relation(fields: [user_id], references: [id])
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
