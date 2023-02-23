@@ -41,12 +41,14 @@ export class CreateLoginRegistryUseCase implements ICreateLoginRegistryUseCase {
 
         const {sub} = decodedToken as any
 
-
-        let user = await this.findUserByIdUseCase.execute({
-            id: sub
-        }).catch(() => {
-            return undefined
-        });
+        let user
+        try {
+            user = await this.findUserByIdUseCase.execute({
+                id: sub
+            })
+        } catch (err) {
+                user = undefined
+        }
 
         if (!user) {
             user = await this.createUserUseCase.execute({
