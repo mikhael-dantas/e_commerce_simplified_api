@@ -36,11 +36,14 @@ async () => {
     expect(parsedRes.data?.loginAttemptRetrieve.status).toBe("fail");
 
 
-    const { redisOptions } = global as any;
-    const redisClient = new Redis(redisOptions);
-    await redisClient.set("test", "test");
-    await redisClient.quit();
-    redisClient.disconnect();
+    async function injectData() {
+        const { redisOptions } = global as any;
+        const redisClient = new Redis(redisOptions);
+        await redisClient.set("test", "test");
+        await redisClient.quit();
+    }
+    await injectData();
+
 
     const RETRIEVE_STATE2 = `
     mutation {
