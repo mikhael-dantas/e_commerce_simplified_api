@@ -4,7 +4,7 @@ import { ICreateUserUseCase } from "./interface";
 import { User } from '../../typeDefs/User';
 
 injectable()
-export class createUserUseCase implements ICreateUserUseCase {
+export class CreateUserUseCase implements ICreateUserUseCase {
     constructor(
         @inject('UsersRepository')
         private usersRepository: IUsersRepository,
