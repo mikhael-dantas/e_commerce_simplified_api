@@ -1,4 +1,4 @@
-import { createUserUseCase } from './../../../../../src/modules/users/useCases/CreateUser/index';
+import { CreateUserUseCase } from './../../../../../src/modules/users/useCases/CreateUser/index';
 
 
 // 5262665F-B2E4-42DF-95B3-FA379204EB08
@@ -17,7 +17,7 @@ async () => {
         })
     }
 
-    const useCase = new createUserUseCase(
+    const useCase = new CreateUserUseCase(
         mockedUsersRepository,
     )
 

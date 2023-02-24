@@ -78,15 +78,15 @@ async () => {
 
     const useCase = new CreateLoginRegistryUseCase(
         mockedUsersRepository as any,
-        mockedCheckAcessTokenUseCase as any,
-        mockedFindUserByIdUseCase as any,
-        mockedCreateUserUseCase as any,
-    )
-
-
-    const response = await useCase.execute({
-        accessToken: 'mytoken',
-        secret: 'mysecret',
+        )
+        
+        
+        const response = await useCase.execute({
+            accessToken: 'mytoken',
+            secret: 'mysecret',
+            checkAccessTokenUseCase: mockedCheckAcessTokenUseCase as any,
+            findUserByIdUseCase: mockedFindUserByIdUseCase as any,
+            createUserUseCase: mockedCreateUserUseCase as any,
     })
 
 
