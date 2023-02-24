@@ -29,6 +29,7 @@ async () => {
                 ... on LoginRegistry {
                     id,
                     created_at,
+                    user_id
                 }
             }
         }
@@ -40,8 +41,6 @@ async () => {
     const parsedRes = JSON.parse(response)
 
     expect(parsedRes).toHaveProperty('data')
-    console.log(parsedRes)
-    expect(parsedRes.data?.loginRegistration).toBeDefined()
     expect(parsedRes.data?.loginRegistration).toBeDefined()
     expect(parsedRes.data?.loginRegistration).toHaveProperty('id')
     expect(parsedRes.data?.loginRegistration).toHaveProperty('created_at')
