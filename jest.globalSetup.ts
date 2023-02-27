@@ -3,10 +3,10 @@ import {returnApp} from './src/app'
 import "dotenv"
 import { container } from 'tsyringe';
 
-const port = process.env.SERVER_PORT
 
 export default async function setupServerToIntegrationTests() {
    if(process.env.DB) {
+      const port = process.env.SERVER_PORT
       execSync('yarn prisma migrate reset -f')
 
       let serverToBeClosedAfter: any
