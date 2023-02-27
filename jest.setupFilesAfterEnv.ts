@@ -1,20 +1,16 @@
-import { PrismaClient } from '@prisma/client';
 import 'reflect-metadata';
-
-
 const redisPort = process.env.REDIS_PORT
-if (!redisPort) {
-    throw new Error('Redis port not set')
-}
 
-const prismaClient = new PrismaClient()
-const redisOptions = {
-    host: process.env.REDIS_HOST,
-    port: parseInt(redisPort),
-}
+beforeAll(async () => {
+    if (!redisPort) {
+        throw new Error('Redis port not set')
+    }
+    const redisOptions = {
+        host: "redis",
+        port: parseInt(redisPort),
+    }
 
-Object.assign(global, {
-    prismaClient,
-    redisOptions,
+    Object.assign(global, {
+        redisOptions,
+    })
 });
-
