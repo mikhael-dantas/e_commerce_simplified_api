@@ -37,7 +37,15 @@ async () => {
 
 
     async function injectData() {
-        const { redisOptions } = global as any;
+        const redisPort = process.env.REDIS_PORT;
+        const redisHost = process.env.REDIS_HOST;
+        if (!redisPort || !redisHost) {
+            throw new Error("REDIS_PORT or REDIS_HOST is not defined");
+        }
+        const redisOptions = {
+            port: parseInt(redisPort),
+            host: redisHost 
+        }
         const redisClient = new Redis(redisOptions);
         await redisClient.set("test", "test");
         await redisClient.quit();
