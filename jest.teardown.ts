@@ -17,6 +17,7 @@ module.exports = async function () {
             resolve('done')
          })
       })
+      await new Promise(resolve => setTimeout(resolve, 7000))
+      process.exit(0)
    }
-   process.exit(0)
 };
