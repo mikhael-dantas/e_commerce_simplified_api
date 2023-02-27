@@ -1,3 +1,4 @@
+import { PrismaClient } from '@prisma/client'
 import { JestApiPost } from '../../../../../jestTestsUtils'
 
 // A828ED2C-D6AB-4EF7-BB4E-1D6B7615F74D
@@ -38,8 +39,8 @@ async () => {
     const query = {
         query: GET_CATEGORIES,
     }
-    
-    const {prismaClient} = global as any
+
+    const prismaClient = new PrismaClient()
 
     // create category 11 times
     async function createOnecategory() {
@@ -59,6 +60,8 @@ async () => {
     for (let i = 0; i < 11; i++) {
         await createOnecategory()
     }
+
+    await prismaClient.$disconnect()
 
     const parsedRes = JSON.parse(await JestApiPost(JSON.stringify(query)))
 
