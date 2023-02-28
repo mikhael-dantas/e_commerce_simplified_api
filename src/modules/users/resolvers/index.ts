@@ -7,6 +7,7 @@ import { Arg, Mutation, Query } from "type-graphql";
 import { ICreateLoginRegistryUseCase } from '../useCases/CreateLoginRegistry/interface';
 import { IListLoginRegistriesUseCase } from '../useCases/ListLoginRegistries/interface';
 import { ListLoginRegistriesUseCase } from '../useCases/ListLoginRegistries';
+import { GetSecret } from '../../../shared/authCheck/auth0/auth';
 
 
 export class UsersResolver {
@@ -57,9 +58,21 @@ export class UsersResolver {
             useCase = this.injections.createLoginRegistryUseCase;
         }
 
-        const secret = process.env.AUTH0_JWT_SECRET
-        if (!secret) { throw new Error("JWT_SECRET not defined") }
-
+        let secret
+        try {
+        if (process.env.NODE_ENV === "test") {
+            secret = process.env.AUTH0_JWT_SECRET_TEST
+            if (!secret) {
+                throw new Error("JWT_SECRET not defined")
+            }
+        } else {
+            secret = await GetSecret(accessToken).catch(err => {
+                throw err
+            })
+        }
+        } catch (err) {
+            throw err
+        }
         const loginRegistrationResponse = await useCase.execute({
             accessToken,
             secret

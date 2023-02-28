@@ -12,7 +12,7 @@ test.concurrent(
 // positionLabel7
 
 async () => {
-    const secret = process.env.AUTH0_JWT_SECRET 
+    const secret = process.env.AUTH0_JWT_SECRET_TEST
     if (!secret) { throw new Error('No secret found in env') }
     const token = sign({
         sub: '1',
