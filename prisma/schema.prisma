@@ -20,6 +20,7 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   // profile Profile?
+  images Image[]
 }
 
 // model Profile {
@@ -74,4 +75,16 @@ model LoginRegistry {
   user   User    @relation(fields: [user_id], references: [id])
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+}
+
+model Image {
+  id           String      @id
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  name         String
+  description  String
+  tags         Json?
+  image_url    String
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
 }
