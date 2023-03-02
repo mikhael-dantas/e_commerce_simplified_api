@@ -189,7 +189,7 @@ export class TestsWriter {
         const newTestStringMaker = (testCode: string) => {
             const stringToReturn = `\n${startTestPositionMark}`
             + `\n${testNameStartPositionMark}`
-            + `\ntest.concurrent(\n'${useCase.name}',`
+            + `\ntest.concurrent(\n\`${useCase.name}\`,`
             + `\n${testNameEndPositionMark}`
             + `\n${testCodeStartPositionMark}`
             + `\n${testCode}`
@@ -263,7 +263,7 @@ export class TestsWriter {
             const newTestStringMaker = (testCode: string) => {
                 const stringToReturn = `\n${startTestPositionMark}`
                 + `\n${testNameStartPositionMark}`
-                + `\ntest.concurrent(\n'${nestedUseCase.name}',`
+                + `\ntest.concurrent(\n\`${nestedUseCase.name}\`,`
                 + `\n${testNameEndPositionMark}`
                 + `\n${testCodeStartPositionMark}`
                 + `\n${testCode}`
@@ -335,7 +335,7 @@ export class TestsWriter {
             
             const stringToReturn = `\n${startTestPositionMark}`
             + `\n${testNameStartPositionMark}`
-            + `\ntest.concurrent(\n'${fRequirement.name}',`
+            + `\ntest.concurrent(\n\`${fRequirement.name}\`,`
             + `\n${testNameEndPositionMark}`
             + `\n${testCodeStartPositionMark}`
             + `\n${testCode}`
