@@ -4,7 +4,7 @@ import { mockDeep, DeepMockProxy } from 'jest-mock-extended'
 
 
 export async function JestApiPost(query: string, options?: http.RequestOptions): Promise<string> {
-    const myOptions: http.RequestOptions = options || {
+    const myOptions: http.RequestOptions = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -12,6 +12,7 @@ export async function JestApiPost(query: string, options?: http.RequestOptions):
         host: process.env.SERVER_HOST || 'localhost',
         port: process.env.SERVER_PORT || 4000,
         path: '/graphql',
+        ...options,
     }
 
     return new Promise((resolve, reject) => {
