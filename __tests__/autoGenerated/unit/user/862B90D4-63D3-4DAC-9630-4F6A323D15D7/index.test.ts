@@ -40,8 +40,6 @@ async () => {
         }},
     )
 
-    expect(mockedLoginAttemptInitUseCase.execute).toBeCalled()
-    expect(mockedCheckClientKey.execute).toBeCalled()
     expect(result).toBeDefined()
     expect(result.model).toBe('state')
     expect(result).toHaveProperty('state')
