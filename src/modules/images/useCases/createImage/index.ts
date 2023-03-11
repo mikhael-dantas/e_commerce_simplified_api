@@ -1,5 +1,5 @@
 import { container, inject, injectable } from "tsyringe"
-import { UnauthorizedError } from "../../../../shared/graphql/GraphqlErrorDefs/UnauthorizedTokenError"
+import { UnauthorizedError } from "../../../../shared/graphql/GraphqlErrorDefs/UnauthorizedError"
 import { CheckAccessTokenUseCase } from "../../../users/useCases/CheckAccessToken"
 import { FindUserByIdUseCase } from "../../../users/useCases/FindUserById"
 import { IImagesRepository } from "../../repositories/interface"
