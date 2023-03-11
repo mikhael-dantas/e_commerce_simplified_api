@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import { mockDeep, DeepMockProxy } from 'jest-mock-extended'
 
 
-export async function JestApiPost(query: string, options?: http.RequestOptions): Promise<string> {
+export async function JestApiPost(query: string, options?: http.RequestOptions, variables?: object): Promise<string> {
     const myOptions: http.RequestOptions = {
         method: 'POST',
         headers: {
@@ -28,7 +28,8 @@ export async function JestApiPost(query: string, options?: http.RequestOptions):
         req.on('error', error => {
             reject(error);
         });
-        req.write(query);
+        const body = JSON.stringify({ query, variables });
+        req.write(body);
         req.end();
     })
 }
