@@ -11,7 +11,7 @@ test.concurrent(
 
 
 async () => {
-    const secret = process.env.AUTH0_JWT_SECRET_TEST
+    const secret = process.env.AUTH0_PUBLIC_KEY
     if (!secret) { throw new Error('No secret found in env') }
     const clientKey = process.env.CLIENT_KEY
     if (!clientKey) { throw new Error('No client key found in env') }
