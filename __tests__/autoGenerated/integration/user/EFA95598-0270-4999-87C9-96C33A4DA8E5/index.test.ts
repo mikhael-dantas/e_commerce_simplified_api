@@ -20,7 +20,7 @@ async () => {
                 state
                 expiration
             }
-            ... on BlockedErrorTypeDef {
+            ... on BlockedError {
                 message
             }
         }
