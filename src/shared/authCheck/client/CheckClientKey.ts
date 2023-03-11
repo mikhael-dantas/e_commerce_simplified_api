@@ -1,4 +1,4 @@
-import { UnauthorizedError } from "../../graphql/GraphqlErrorDefs/UnauthorizedTokenError"
+import { UnauthorizedError } from "../../graphql/GraphqlErrorDefs/UnauthorizedError"
 
 export interface ICheckClientKeyUseCase {
     execute({ clientKey }: { clientKey: string }): {authorized: boolean} | UnauthorizedError
