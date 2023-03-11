@@ -1,9 +1,9 @@
 import { ObjectType, Field } from "type-graphql";
 
 @ObjectType()
-export class UnauthorizedTokenErrorTypeDef {
+export class UnauthorizedError {
    @Field()
-   model: string ="unauthorizedTokenErrorTypeDef";
+   model: string ="unauthorizedError";
 
    @Field()
    message: string = "Permission Denied";
