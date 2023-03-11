@@ -17,7 +17,7 @@ test.concurrent(
     const result = useCase.execute({clientKey: "clientKey"})
 
     expect(result).toBeDefined()
-    expect((result as any).model).toBe('unauthorizedClient')
+    expect((result as any).model).toBe('unauthorizedError')
     expect(result).toHaveProperty('message')
 
     const result2 = useCase.execute({clientKey: clientKey})
