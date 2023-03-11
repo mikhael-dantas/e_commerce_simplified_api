@@ -19,6 +19,5 @@ export async function GetSecret(scopedAccessToken: string): Promise<string> {
     }).getSigningKey(kid)).getPublicKey()
 
 
-    console.log("publicKeyFromCertificate", publicKeyFromCertificate)
     return publicKeyFromCertificate
 }
