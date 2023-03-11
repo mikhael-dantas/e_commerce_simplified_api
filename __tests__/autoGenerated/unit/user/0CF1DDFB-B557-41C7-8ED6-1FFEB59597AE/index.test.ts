@@ -27,7 +27,7 @@ async () => {
     const mockedCheckClientKey = {
         execute: jest.fn().mockImplementation((data) => {
             return {
-                passed: true,
+                authorized: true,
             }
         })
     }
