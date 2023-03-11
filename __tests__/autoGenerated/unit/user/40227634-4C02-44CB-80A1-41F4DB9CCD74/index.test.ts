@@ -34,6 +34,7 @@ async () => {
     const response = await useCase.execute({
         token: jwtToken,
         secret,
+        algorithm: 'HS256',
     })
 
     expect(response).toHaveProperty('sub')
