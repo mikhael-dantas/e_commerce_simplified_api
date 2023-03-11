@@ -46,6 +46,8 @@ async () => {
         }
     }, 'mytoken' )
 
+    expect(mockedCreateRegistryUseCase.execute).toBeCalled()
+    expect(mockedCheckClientKey.execute).toBeCalled()
     expect(loginRegistry).toBeDefined()
     expect(loginRegistry.id).toBe('1')
     expect(loginRegistry.user_id).toBe('user_id1')

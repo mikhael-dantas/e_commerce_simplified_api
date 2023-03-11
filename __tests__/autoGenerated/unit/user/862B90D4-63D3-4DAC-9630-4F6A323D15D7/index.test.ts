@@ -10,7 +10,7 @@ test.concurrent(
 
 async () => {
     const clientKey = process.env.CLIENT_KEY
-    if (!clientKey) { throw new Error('No client key found in env') }
+    if (!clientKey) { throw new Error('No client key found in env') } 
 
     const mockedLoginAttemptInitUseCase = {
         execute: jest.fn().mockReturnValue({
@@ -20,7 +20,16 @@ async () => {
         })
     }
 
-    const resolver = new UsersResolver({loginAttemptInitUseCase: mockedLoginAttemptInitUseCase as any})
+    const mockedCheckClientKey = {
+        execute: jest.fn().mockReturnValue({
+            passed: true,
+        })
+    }
+
+    const resolver = new UsersResolver({
+        loginAttemptInitUseCase: mockedLoginAttemptInitUseCase as any,
+        checkClientKey: mockedCheckClientKey as any,
+    })
 
     const result = await resolver.loginAttemptInit(
         {req: {
@@ -31,13 +40,14 @@ async () => {
         }},
     )
 
+    expect(mockedLoginAttemptInitUseCase.execute).toBeCalled()
+    expect(mockedCheckClientKey.execute).toBeCalled()
     expect(result).toBeDefined()
     expect(result.model).toBe('state')
     expect(result).toHaveProperty('state')
     expect(result).toHaveProperty('expiration')
 
-// this code fail was put in here because this test name was eddited
-;expect(true).toBe(false);}
+}
 )
 // positionLabel8
 // positionLabel1-resolver for query loginAttempt passing clientKey in header authorization bearer, should call Client authorization use case and then return a object with {state:string, expiration: string} property from the operation usecase after executing it-positionLabel2
