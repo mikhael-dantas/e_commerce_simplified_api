@@ -78,12 +78,13 @@ model LoginRegistry {
 }
 
 model Image {
+  model        String    @default("image")
   id           String      @id
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   name         String
   description  String
-  tags         Json?
+  tags         Json
   image_url    String
   userId       String
   user         User     @relation(fields: [userId], references: [id])
