@@ -15,6 +15,20 @@ async () => {
 
     const repo = new ImagesRepository(mockedPrisma)
 
+    const mockedImplementation = async (data) => {
+        return {
+            id: data.data.id,
+            name: data.data.name,
+            description: data.data.description,
+            tags: data.data.tags,
+            image_url: data.data.image_url,
+            user_id: data.data.user_id,
+            created_at: new Date(),
+        }
+    }
+    mockedPrisma.image.create.mockImplementationOnce(mockedImplementation as any)
+
+
     const image = await repo.create({
         name: 'name',
         description: 'description',
@@ -24,13 +38,18 @@ async () => {
     })
 
     expect(image).toBeDefined()
-    expect(image).toHaveProperty('name')
-    expect(image).toHaveProperty('description')
-    expect(image).toHaveProperty('tags')
-    expect(image).toHaveProperty('image_url')
-    expect(image).toHaveProperty('user_id')
     expect(image).toHaveProperty('id')
     expect(image).toHaveProperty('created_at')
+    expect(image).toHaveProperty('name')
+    expect(image.name).toBe('name')
+    expect(image).toHaveProperty('description')
+    expect(image.description).toBe('description')
+    expect(image).toHaveProperty('tags')
+    expect(image.tags).toEqual(['tag1', 'tag2'])
+    expect(image).toHaveProperty('image_url')
+    expect(image.image_url).toBe('image_url')
+    expect(image).toHaveProperty('user_id')
+    expect(image.user_id).toBe('user_id')
 }
 )
 // positionLabel8
