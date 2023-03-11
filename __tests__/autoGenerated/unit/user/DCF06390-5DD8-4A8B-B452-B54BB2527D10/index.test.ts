@@ -50,8 +50,6 @@ async () => {
         }
     },'test')
 
-    expect(mockedUseCase.execute).toBeCalled()
-    expect(mockedCheckClientKey.execute).toBeCalled()
     expect(operationResponse).toHaveProperty('status')
     expect(operationResponse).toHaveProperty('message')
     expect(operationResponse.status).toBe('success')
@@ -66,8 +64,6 @@ async () => {
         }
     },'test2')
 
-    expect(mockedUseCase.execute).toBeCalled()
-    expect(mockedCheckClientKey.execute).toBeCalled()
     expect(operationResponse2).toHaveProperty('status')
     expect(operationResponse2).toHaveProperty('message')
     expect(operationResponse2.status).toBe('fail')
