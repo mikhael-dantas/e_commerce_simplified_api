@@ -3,11 +3,12 @@ import { container } from 'tsyringe';
 import { LoginAttemptInit } from '../useCases/loginAttemptInit';
 import { RetrieveStateUseCase as LoginAttemptRetrieve } from '../useCases/RetrieveState';
 import { LoginAttemptInitResults, LoginAttemptRetrieveResults, LoginRegistrationResults, LoginRegistryListResults } from './ResultTypes';
-import { Arg, Mutation, Query } from "type-graphql";
+import { Arg, Ctx, Mutation, Query } from "type-graphql";
 import { ICreateLoginRegistryUseCase } from '../useCases/CreateLoginRegistry/interface';
 import { IListLoginRegistriesUseCase } from '../useCases/ListLoginRegistries/interface';
 import { ListLoginRegistriesUseCase } from '../useCases/ListLoginRegistries';
-import { GetSecret } from '../../../shared/authCheck/auth0/auth';
+import { CheckClientKeyUseCase, ICheckClientKeyUseCase } from '../../../shared/authCheck/client/CheckClientKey';
+import { UnauthorizedError } from '../../../shared/graphql/GraphqlErrorDefs/UnauthorizedError';
 
 
 export class UsersResolver {
@@ -16,11 +17,29 @@ export class UsersResolver {
             loginAttemptInitUseCase?: LoginAttemptInit;
             loginAttemptRetrieveUseCase?: LoginAttemptRetrieve;
             createLoginRegistryUseCase?: ICreateLoginRegistryUseCase;
-            listLoginRegistriesUseCase?: IListLoginRegistriesUseCase
+            listLoginRegistriesUseCase?: IListLoginRegistriesUseCase;
+            checkClientKey?: ICheckClientKeyUseCase
         }
     ) {}
     @Query(returns => LoginAttemptInitResults)
-    async loginAttemptInit(): Promise<typeof LoginAttemptInitResults> {
+    async loginAttemptInit(
+        @Ctx() context: any
+    ): Promise<typeof LoginAttemptInitResults> {
+        const { req } = context
+        const authorization = req?.headers?.authorization
+        if (!authorization) {return new UnauthorizedError("No authorization header")}
+        const key = authorization.split(' ')[1]
+        if (!key) {return new UnauthorizedError("No authorization header")}
+
+
+        let checkClientKey
+        if (!this.injections?.checkClientKey) {checkClientKey = container.resolve(CheckClientKeyUseCase);} 
+        else {checkClientKey = this.injections.checkClientKey;}
+
+        const check = checkClientKey.execute({clientKey: key})
+        if (!("authorized" in check)) { return check }
+
+
         let useCase
         if (!this.injections?.loginAttemptInitUseCase) {
             useCase = container.resolve(LoginAttemptInit);
@@ -34,8 +53,24 @@ export class UsersResolver {
 
     @Mutation(returns => LoginAttemptRetrieveResults)
     async loginAttemptRetrieve(
+        @Ctx() context: any,
         @Arg('state') state: string
     ): Promise<typeof LoginAttemptRetrieveResults> {
+        const { req } = context
+        const authorization = req?.headers?.authorization
+        if (!authorization) {return new UnauthorizedError("No authorization header")}
+        const key = authorization.split(' ')[1]
+        if (!key) {return new UnauthorizedError("No authorization header")}
+
+
+        let checkClientKey
+        if (!this.injections?.checkClientKey) {checkClientKey = container.resolve(CheckClientKeyUseCase);} 
+        else {checkClientKey = this.injections.checkClientKey;}
+
+        const check = checkClientKey.execute({clientKey: key})
+        if (!("authorized" in check)) { return check }
+
+
         let useCase
         if (!this.injections?.loginAttemptRetrieveUseCase) {
             useCase = container.resolve(LoginAttemptRetrieve);
@@ -49,30 +84,32 @@ export class UsersResolver {
 
     @Mutation(returns => LoginRegistrationResults)
     async loginRegistration(
+        @Ctx() context: any,
         @Arg('accessToken') accessToken: string,
     ): Promise<typeof LoginRegistrationResults> {
-        let useCase
-        if (!this.injections?.createLoginRegistryUseCase) {
-            useCase = container.resolve(CreateLoginRegistryUseCase);
-        } else {
-            useCase = this.injections.createLoginRegistryUseCase;
-        }
+        const { req } = context
+        const authorization = req?.headers?.authorization
+        if (!authorization) {return new UnauthorizedError("No authorization header")}
+        const key = authorization.split(' ')[1]
+        if (!key) {return new UnauthorizedError("No authorization header")}
 
-        let secret
-        try {
-        if (process.env.NODE_ENV === "test") {
-            secret = process.env.AUTH0_JWT_SECRET_TEST
-            if (!secret) {
-                throw new Error("JWT_SECRET not defined")
-            }
-        } else {
-            secret = await GetSecret(accessToken).catch(err => {
-                throw err
-            })
-        }
-        } catch (err) {
-            throw err
-        }
+
+        let checkClientKey
+        if (!this.injections?.checkClientKey) {checkClientKey = container.resolve(CheckClientKeyUseCase);} 
+        else {checkClientKey = this.injections.checkClientKey;}
+
+        const check = checkClientKey.execute({clientKey: key})
+        if (!("authorized" in check)) { return check }
+
+
+        let useCase
+        if (!this.injections?.createLoginRegistryUseCase) {useCase= container.resolve(CreateLoginRegistryUseCase);
+        } else {useCase = this.injections.createLoginRegistryUseCase;}
+
+        const secret = process.env.AUTH0_PUBLIC_KEY
+        if (!secret) {throw new Error("JWT_SECRET not defined")}
+
+
         const loginRegistrationResponse = await useCase.execute({
             accessToken,
             secret
@@ -83,10 +120,26 @@ export class UsersResolver {
 
     @Query(returns => [LoginRegistryListResults])
     async loginRegistryList(
-        @Arg('userId') userId: string,
+        @Ctx() context: any,
+        @Arg('user_id') user_id: string,
         @Arg('skip') skip: number,
         @Arg('take') take: number,
     ): Promise<typeof LoginRegistryListResults[]> {
+        const { req } = context
+        const authorization = req?.headers?.authorization
+        if (!authorization) {return [new UnauthorizedError("No authorization header")]}
+        const key = authorization.split(' ')[1]
+        if (!key) {return [new UnauthorizedError("No authorization header")]}
+
+
+        let checkClientKey
+        if (!this.injections?.checkClientKey) {checkClientKey = container.resolve(CheckClientKeyUseCase);} 
+        else {checkClientKey = this.injections.checkClientKey;}
+
+        const check = checkClientKey.execute({clientKey: key})
+        if (!("authorized" in check)) { return [check] }
+
+
         let useCase
         if (!this.injections?.listLoginRegistriesUseCase) {
             useCase = container.resolve(ListLoginRegistriesUseCase);
@@ -94,7 +147,7 @@ export class UsersResolver {
             useCase = this.injections.listLoginRegistriesUseCase;
         }
 
-        const loginRegistryListResponse = await useCase.execute({userId, skip, take});
+        const loginRegistryListResponse = await useCase.execute({user_id, skip, take});
 
         return loginRegistryListResponse
     }
