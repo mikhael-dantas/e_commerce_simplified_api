@@ -49,7 +49,7 @@ async () => {
         })
     }
 
-    const mockedCheckAcessTokenUseCase = {
+    const mockedCheckAccessTokenUseCase = {
         execute: jest.fn().mockImplementation((data) => {
             return {
                 id: '1',
@@ -84,7 +84,7 @@ async () => {
         const response = await useCase.execute({
             accessToken: 'mytoken',
             secret: 'mysecret',
-            checkAccessTokenUseCase: mockedCheckAcessTokenUseCase as any,
+            checkAccessTokenUseCase: mockedCheckAccessTokenUseCase as any,
             findUserByIdUseCase: mockedFindUserByIdUseCase as any,
             createUserUseCase: mockedCreateUserUseCase as any,
     })
