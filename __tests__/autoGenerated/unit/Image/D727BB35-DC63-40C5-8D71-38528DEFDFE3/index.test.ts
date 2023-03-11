@@ -6,7 +6,7 @@ import { CreateImageUseCase } from './../../../../../src/modules/images/useCases
 
 // positionLabel5
 test.concurrent(
-'use case for createImage receiving userId ,name,  description,  tags, and image_url. returns the created image data.',
+'use case for createImage receiving user_id ,name,  description,  tags, and image_url. returns the created image data.',
 // positionLabel6
 // positionLabel7
 
@@ -19,15 +19,15 @@ async () => {
                 description: data.description,
                 tags: data.tags,
                 image_url: data.image_url,
-                userId: data.userId,
-                createdAt: new Date(),
-                updatedAt: new Date(),
+                user_id: data.user_id,
+                created_at: new Date(),
+                updated_at: new Date(),
             }
         })
     }
 
     const mockedFindUserByIdUseCase = {
-        execute: jest.fn().mockImplementation(async (userId) => {
+        execute: jest.fn().mockImplementation(async (user_id) => {
             return {
                 id: 'id',
             }
@@ -63,9 +63,9 @@ async () => {
     expect(image).toHaveProperty('description')
     expect(image).toHaveProperty('tags')
     expect(image).toHaveProperty('image_url')
-    expect(image).toHaveProperty('userId')
-    expect(image).toHaveProperty('createdAt')
-    expect(image).toHaveProperty('updatedAt')
+    expect(image).toHaveProperty('user_id')
+    expect(image).toHaveProperty('created_at')
+    expect(image).toHaveProperty('updated_at')
 
     expect(mockedImagesRepositories.create).toBeCalledTimes(1)
     expect(mockedAuthorizeAccessToken).toBeCalledTimes(1)
@@ -73,5 +73,5 @@ async () => {
 }
 )
 // positionLabel8
-// positionLabel1-use case for createImage receiving userId ,name,  description,  tags, and image_url. returns the created image data.-positionLabel2
+// positionLabel1-use case for createImage receiving user_id ,name,  description,  tags, and image_url. returns the created image data.-positionLabel2
 // D727BB35-DC63-40C5-8D71-38528DEFDFE3

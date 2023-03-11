@@ -2,11 +2,11 @@ import { LoginRegistry } from "../../typeDefs/LoginRegistry";
 
 export interface IListLoginRegistriesUseCase {
     execute({
-        userId,
+        user_id,
         take,
         skip,
     }:{
-        userId: string,
+        user_id: string,
         take?: number,
         skip?: number
     }): Promise<LoginRegistry[]>

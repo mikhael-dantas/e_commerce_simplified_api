@@ -20,7 +20,7 @@ async () => {
         description: 'description',
         tags: ['tag1', 'tag2'],
         image_url: 'image_url',
-        userId: 'userId',
+        user_id: 'user_id',
     })
 
     expect(image).toBeDefined()
@@ -28,9 +28,9 @@ async () => {
     expect(image).toHaveProperty('description')
     expect(image).toHaveProperty('tags')
     expect(image).toHaveProperty('image_url')
-    expect(image).toHaveProperty('userId')
+    expect(image).toHaveProperty('user_id')
     expect(image).toHaveProperty('id')
-    expect(image).toHaveProperty('createdAt')
+    expect(image).toHaveProperty('created_at')
 }
 )
 // positionLabel8

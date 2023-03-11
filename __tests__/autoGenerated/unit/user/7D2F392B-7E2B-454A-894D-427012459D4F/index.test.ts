@@ -50,7 +50,7 @@ async () => {
     const usersRepo = new UsersRepository(undefined as any, mockedPrisma)
 
     const loginRegistries = await usersRepo.listLoginRegistries({
-        userId: 'user_id1',
+        user_id: 'user_id1',
         take: 2,
         skip: 0,
     })

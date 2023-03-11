@@ -38,7 +38,7 @@ async () => {
 
     const mockedUsersRepo = {
         listLoginRegistries: jest.fn((data) => {
-            const correctLogins = mockedLoginRegistries.filter((login) => login.user_id === data.userId)
+            const correctLogins = mockedLoginRegistries.filter((login) => login.user_id === data.user_id)
             return Promise.resolve(correctLogins.slice(data.skip, data.skip + data.take))
         })
     }
@@ -48,7 +48,7 @@ async () => {
     )
 
     const loginRegistries = await useCase.execute({
-        userId: 'user_id1',
+        user_id: 'user_id1',
     })
 
     expect(loginRegistries).toBeDefined()

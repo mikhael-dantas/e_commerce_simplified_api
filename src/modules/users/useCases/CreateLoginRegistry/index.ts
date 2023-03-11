@@ -80,7 +80,7 @@ export class CreateLoginRegistryUseCase implements ICreateLoginRegistryUseCase {
 
 
         const loginRegistry = await this.usersRepository.createLoginRegistry({
-            userId: sub,
+            user_id: sub,
         });
 
         return loginRegistry;

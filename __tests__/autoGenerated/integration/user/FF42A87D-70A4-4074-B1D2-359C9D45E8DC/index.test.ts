@@ -16,7 +16,7 @@ async () => {
     const query = {
         query:`
         query {
-            loginRegistryList(skip: 0, take: 2, userId: "1") {
+            loginRegistryList(skip: 0, take: 2, user_id: "1") {
                 __typename
                 ... on LoginRegistry {
                     id,

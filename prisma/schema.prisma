@@ -27,7 +27,7 @@ model User {
 //   id     String  @id
 //   bio    String? @db.Text
 //   created_at DateTime @default(now())
-//   updated_at DateTime @updatedAt
+//   updated_at DateTime @updated_at
 //   user   User    @relation(fields: [user_id], references: [id])
 //   user_id String @unique
 // }
@@ -42,7 +42,7 @@ model User {
 //   inactive Boolean @default(false)
 //   deleted Boolean @default(false)
 //   created_at DateTime @default(now())
-//   updated_at DateTime @updatedAt
+//   updated_at DateTime @updated_at
 // }
 
 // model Product {
@@ -53,7 +53,7 @@ model User {
 //   description String @db.Text
 //   stock   Int
 //   created_at DateTime @default(now())
-//   updated_at DateTime @updatedAt
+//   updated_at DateTime @updated_at
 // }
 
 model Category {
@@ -80,12 +80,12 @@ model LoginRegistry {
 model Image {
   model        String    @default("image")
   id           String      @id
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
   name         String
   description  String
   tags         Json
   image_url    String
-  userId       String
-  user         User     @relation(fields: [userId], references: [id])
+  user_id       String
+  user         User     @relation(fields: [user_id], references: [id])
 }

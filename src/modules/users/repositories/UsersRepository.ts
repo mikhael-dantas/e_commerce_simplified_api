@@ -66,15 +66,15 @@ export class UsersRepository implements IUsersRepository {
     }
 
     async createLoginRegistry({
-        userId,
+        user_id,
     }:{
-        userId: string
+        user_id: string
     }): Promise<LoginRegistry> {
         if (!this.prismaClient) {throw new Error('Prisma client not initialized');}
         const loginRegistry = await this.prismaClient.loginRegistry.create({
             data: {
                 id : randomUUID(),
-                user_id: userId,
+                user_id: user_id,
             }
         });
 
@@ -82,18 +82,18 @@ export class UsersRepository implements IUsersRepository {
     }
 
     async listLoginRegistries({
-        userId,
+        user_id,
         take,
         skip,
     }:{
-        userId: string,
+        user_id: string,
         take: number,
         skip: number
     }): Promise<LoginRegistry[]> {
         if (!this.prismaClient) {throw new Error('Prisma client not initialized');}
         const loginRegistries = await this.prismaClient.loginRegistry.findMany({
             where: {
-                user_id: userId,
+                user_id: user_id,
             },
             take,
             skip,

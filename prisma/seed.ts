@@ -14,10 +14,10 @@ const fakeObjectArrayGenerator = (
             fakeObject.id = `${i}`
          }
          if (haveCreatedAt) {
-            fakeObject.createdAt = new Date()
+            fakeObject.created_at = new Date()
          }
          if (haveUpdatedAt) {
-            fakeObject.updatedAt = new Date()
+            fakeObject.updated_at = new Date()
          }
          for (const fieldNameAndType of fieldNamesAndTypes) {
             const fieldName = Object.keys(fieldNameAndType)[0]

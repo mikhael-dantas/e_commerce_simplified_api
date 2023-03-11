@@ -25,7 +25,7 @@ async () => {
     const usersRepo = new UsersRepository(undefined as any, mockedPrismaClient)
 
     const loginRegistry = await usersRepo.createLoginRegistry({
-        userId: 'user_id1',
+        user_id: 'user_id1',
     })
 
     expect(loginRegistry).toBeDefined()

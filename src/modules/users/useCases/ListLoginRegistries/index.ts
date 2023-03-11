@@ -11,16 +11,16 @@ export class ListLoginRegistriesUseCase implements IListLoginRegistriesUseCase {
     ){}
 
     async execute({
-        userId,
+        user_id,
         skip = 0,
         take = 2,
     }:{
-        userId: string,
+        user_id: string,
         skip?: number,
         take?: number
     }): Promise<LoginRegistry[]> {
         const loginRegistries = await this.usersRepository.listLoginRegistries({
-            userId,
+            user_id,
             skip,
             take
         });

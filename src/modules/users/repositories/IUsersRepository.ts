@@ -25,17 +25,17 @@ export interface IUsersRepository {
     }): Promise<User | null>
 
     createLoginRegistry({
-        userId,
+        user_id,
     }:{
-        userId: string
+        user_id: string
     }): Promise<LoginRegistry>
 
     listLoginRegistries({
-        userId,
+        user_id,
         take,
         skip,
     }:{
-        userId: string,
+        user_id: string,
         take: number,
         skip: number
     }): Promise<LoginRegistry[]>

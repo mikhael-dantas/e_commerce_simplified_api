@@ -2,9 +2,9 @@
 import { ObjectType, Field } from "type-graphql";
 
 @ObjectType()
-export class BlockedErrorTypeDef {
+export class BlockedError {
     @Field()
-    model: string ="blockedErrorTypeDef";
+    model: string ="blockedError";
 
     @Field()
     message: string = "Blocked";

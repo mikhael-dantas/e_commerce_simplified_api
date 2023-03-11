@@ -15,7 +15,7 @@ async () => {
             return {
                 id: '1',
                 created_at: new Date(),
-                user_id: data.userId,
+                user_id: data.user_id,
             }
         }),
         createUser: jest.fn().mockImplementation((data) => {
@@ -33,17 +33,17 @@ async () => {
                 {
                     id: '1',
                     created_at: new Date(),
-                    user_id: data.userId,
+                    user_id: data.user_id,
                 },
                 {
                     id: '2',
                     created_at: new Date(),
-                    user_id: data.userId,
+                    user_id: data.user_id,
                 },
                 {
                     id: '3',
                     created_at: new Date(),
-                    user_id: data.userId,
+                    user_id: data.user_id,
                 },
             ]
         })
