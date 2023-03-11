@@ -1,6 +1,6 @@
 import { createUnionType } from "type-graphql";
 import { Image } from "../typeDefs/Image";
-import { UnauthorizedError } from "../../../shared/graphql/GraphqlErrorDefs/UnauthorizedTokenError";
+import { UnauthorizedError } from "../../../shared/graphql/GraphqlErrorDefs/UnauthorizedError";
 
 
 export const createImageResults = createUnionType({
