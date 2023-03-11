@@ -38,7 +38,17 @@ async () => {
         checkClientKey: mockedCheckClientKey as any,
     })
 
-    const operationResponse = await resolver.loginAttemptRetrieve('test')
+    const clientKey = process.env.CLIENT_KEY
+    if (!clientKey) { throw new Error('No client key found in env') }
+
+    const operationResponse = await resolver.loginAttemptRetrieve({
+        req: {
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": "Bearer " + clientKey
+            }
+        }
+    },'test')
 
     expect(mockedUseCase.execute).toBeCalled()
     expect(mockedCheckClientKey.execute).toBeCalled()
@@ -47,7 +57,14 @@ async () => {
     expect(operationResponse.status).toBe('success')
     expect(operationResponse.message).toBe('test')
 
-    const operationResponse2 = await resolver.loginAttemptRetrieve('test2')
+    const operationResponse2 = await resolver.loginAttemptRetrieve({
+        req: {
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": "Bearer " + clientKey
+            }
+        }
+    },'test2')
 
     expect(mockedUseCase.execute).toBeCalled()
     expect(mockedCheckClientKey.execute).toBeCalled()
