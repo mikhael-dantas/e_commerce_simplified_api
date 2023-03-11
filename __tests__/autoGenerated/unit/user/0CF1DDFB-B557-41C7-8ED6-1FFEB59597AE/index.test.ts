@@ -10,7 +10,7 @@ test.concurrent(
 
 
 async () => {
-    const clientKey = process.env.CLIENT_KEY
+    const clientKey = process.env.CLIENT_KEY 
     if (!clientKey) { throw new Error('No client key found in env') }
 
 
@@ -24,8 +24,17 @@ async () => {
         })
     }
 
+    const mockedCheckClientKey = {
+        execute: jest.fn().mockImplementation((data) => {
+            return {
+                passed: true,
+            }
+        })
+    }
+
     const resolver = new UsersResolver({
         createLoginRegistryUseCase: mockedCreateRegistryUseCase as any,
+        checkClientKey: mockedCheckClientKey as any,
     })
 
     const loginRegistry = await resolver.loginRegistration({
