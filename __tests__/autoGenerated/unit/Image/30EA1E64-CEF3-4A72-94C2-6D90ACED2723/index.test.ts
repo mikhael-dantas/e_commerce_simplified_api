@@ -15,7 +15,7 @@ async () => {
 
     const repo = new ImagesRepository(mockedPrisma)
 
-    const mockedImplementation = async (data) => {
+    const mockedImplementation = async (data: any) => {
         return {
             id: data.data.id,
             name: data.data.name,
