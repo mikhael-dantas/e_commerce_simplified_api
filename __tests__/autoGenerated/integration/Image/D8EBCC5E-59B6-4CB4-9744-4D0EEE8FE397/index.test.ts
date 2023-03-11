@@ -23,15 +23,15 @@ async () => {
                     description
                     tags
                     image_url
-                    userId
-                    createdAt
+                    user_id
+                    created_at
                 }
             }
         }
     `
 
     const testAccessToken = sign({
-        sub: 'userId',
+        sub: 'user_id',
     }, process.env.AUTH0_PUBLIC_KEY!, {
         algorithm: 'HS256',
     })
@@ -56,8 +56,8 @@ async () => {
     expect(parsedResponse.data.createImage).toHaveProperty('description')
     expect(parsedResponse.data.createImage).toHaveProperty('tags')
     expect(parsedResponse.data.createImage).toHaveProperty('image_url')
-    expect(parsedResponse.data.createImage).toHaveProperty('userId')
-    expect(parsedResponse.data.createImage).toHaveProperty('createdAt')
+    expect(parsedResponse.data.createImage).toHaveProperty('user_id')
+    expect(parsedResponse.data.createImage).toHaveProperty('created_at')
 }
 )
 // positionLabel8
