@@ -5,11 +5,13 @@ export class CheckAccessTokenUseCase implements ICheckAccessTokenUseCase {
     async execute({
         token,
         secret,
+        algorithm = "RS256"
     }:{
         token: string,
-        secret: string
+        secret: string,
+        algorithm?: "RS256" | "HS256"
     }) {
-        const decodedToken = verify(token, secret);
+        const decodedToken = verify(token, secret, {algorithms: [algorithm]});
         if (typeof decodedToken === "string") {
             throw new Error("Invalid token");
         }
