@@ -2,6 +2,7 @@
 
 // D8EBCC5E-59B6-4CB4-9744-4D0EEE8FE397
 
+import { sign } from "jsonwebtoken"
 import { JestApiPost } from "../../../../../jestTestsUtils"
 
 // positionLabel5
@@ -13,8 +14,8 @@ test.concurrent(
 
 async () => {
     const query = `
-        mutation createImage($name: String!, $description: String!, $tags: [String!]!, $image_url: String!) {
-            createImage(name: $name, description: $description, tags: $tags, image_url: $image_url) {
+        mutation createImage(accessToken: String!, $name: String!, $description: String!, $tags: [String!]!, $image_url: String!) {
+            createImage(accessToken: $accessToken, name: $name, description: $description, tags: $tags, image_url: $image_url) {
                 __typename
                 ... on Image {
                     id
@@ -28,7 +29,15 @@ async () => {
             }
         }
     `
+
+    const testAccessToken = sign({
+        sub: 'userId',
+    }, process.env.AUTH0_PUBLIC_KEY!, {
+        algorithm: 'HS256',
+    })
+
     const variables = {
+        accessToken: testAccessToken,
         name: 'name',
         description: 'description',
         tags: ['tag1', 'tag2'],
