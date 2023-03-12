@@ -6,6 +6,8 @@ import { Redis } from 'ioredis';
 import mongoose from 'mongoose';
 import { IUsersRepository } from '../../modules/users/repositories/IUsersRepository';
 import { UsersRepository } from '../../modules/users/repositories/UsersRepository';
+import { IImagesRepository } from '../../modules/images/repositories/interface';
+import { ImagesRepository } from '../../modules/images/repositories';
 
 class GlobalPrisma extends PrismaClient {
    constructor() { super({ log: [ "query" ] }) }
@@ -44,4 +46,9 @@ container.registerSingleton<ICategoriesRepository>(
 container.registerSingleton<IUsersRepository>(
    "UsersRepository",
    UsersRepository,
+);
+
+container.registerSingleton<IImagesRepository>(
+   "ImagesRepository",
+   ImagesRepository,
 );
