@@ -36,7 +36,7 @@ export class CreateImageUseCase implements ICreateImageUseCase {
         } catch (err) { return new UnauthorizedError() }
 
 
-        const user = await findUserById.execute({ id: sub })
+        const user = await findUserById.execute({ id: sub }).catch(() => {return null})
 
         if (!user) {
             const error = new UnauthorizedError()
