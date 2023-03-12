@@ -17,7 +17,7 @@ export class Image {
     @Field()
     description: string;
 
-    @Field()
+    @Field(() => [String])
     tags: string[];
 
     @Field()

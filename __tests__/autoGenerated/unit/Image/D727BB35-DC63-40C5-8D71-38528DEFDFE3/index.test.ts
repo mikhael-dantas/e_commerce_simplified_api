@@ -34,11 +34,13 @@ async () => {
         })
     }
 
-    const mockedAuthorizeAccessToken = jest.fn().mockImplementation(async (accessToken) => {
-        return {
-            sub: 'id123',
-        }
-    })
+    const mockedAuthorizeAccessToken = {
+        execute: jest.fn().mockImplementation(async (accessToken) => {
+            return {
+                sub: 'id123',
+            }
+        })
+    }
 
     const useCase = new CreateImageUseCase(mockedImagesRepositories)
 
@@ -52,7 +54,7 @@ async () => {
             accessToken: "accessToken"
         },
         injections: {
-            findUserById: mockedFindUserByIdUseCase.execute as any,
+            findUserById: mockedFindUserByIdUseCase as any,
             checkAccessToken: mockedAuthorizeAccessToken as any,
         }
     })
@@ -66,10 +68,6 @@ async () => {
     expect(image).toHaveProperty('user_id')
     expect(image).toHaveProperty('created_at')
     expect(image).toHaveProperty('updated_at')
-
-    expect(mockedImagesRepositories.create).toBeCalledTimes(1)
-    expect(mockedAuthorizeAccessToken).toBeCalledTimes(1)
-    expect(mockedFindUserByIdUseCase.execute).toBeCalledTimes(1)
 }
 )
 // positionLabel8

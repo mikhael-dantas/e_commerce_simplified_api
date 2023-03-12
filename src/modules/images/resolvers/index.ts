@@ -17,7 +17,7 @@ export class ImagesResolver {
         @Arg('name') name: string,
         @Arg('description') description: string,
         @Arg('image_url') image_url: string,
-        @Arg('tags') tags: string[],
+        @Arg('tags', () => [String]) tags: string[],
     ): Promise<typeof createImageResults> {
         let useCase
         if (!this.injections?.createImageUseCase) {
