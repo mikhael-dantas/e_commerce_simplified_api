@@ -29,7 +29,7 @@ export async function JestApiPost(query: string, options?: http.RequestOptions, 
             reject(error);
         });
         const body = JSON.stringify({ query, variables });
-        req.write(body);
+        req.write(variables ? body : query);
         req.end();
     })
 }
