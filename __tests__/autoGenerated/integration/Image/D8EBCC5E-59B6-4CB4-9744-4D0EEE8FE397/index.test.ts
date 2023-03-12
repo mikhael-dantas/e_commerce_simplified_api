@@ -14,7 +14,7 @@ test.concurrent(
 
 async () => {
     const query = `
-        mutation createImage(accessToken: String!, $name: String!, $description: String!, $tags: [String!]!, $image_url: String!) {
+        mutation createImage($accessToken: String!, $name: String!, $description: String!, $tags: [String!]!, $image_url: String!) {
             createImage(accessToken: $accessToken, name: $name, description: $description, tags: $tags, image_url: $image_url) {
                 __typename
                 ... on Image {
