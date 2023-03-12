@@ -26,7 +26,15 @@ async () => {
         query: RETRIEVE_STATE,
     }
 
-    const response = await JestApiPost(JSON.stringify(query));
+    const clientKey = process.env.CLIENT_KEY;
+    if (!clientKey) { throw new Error("CLIENT_KEY is not defined"); }
+
+    const response = await JestApiPost(JSON.stringify(query), {
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": "Bearer " + clientKey
+        }
+    });
     const parsedRes = JSON.parse(response);
     expect(parsedRes).toHaveProperty("data");
 
@@ -68,7 +76,12 @@ async () => {
         query: RETRIEVE_STATE2,
     }
 
-    const response2 = await JestApiPost(JSON.stringify(query2));
+    const response2 = await JestApiPost(JSON.stringify(query2), {
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": "Bearer " + clientKey
+        }
+    });
     const parsedRes2 = JSON.parse(response2);
     expect(parsedRes2).toHaveProperty("data");
     expect(parsedRes2.data?.loginAttemptRetrieve).toBeDefined();

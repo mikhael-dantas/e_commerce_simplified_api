@@ -28,8 +28,15 @@ async () => {
         `
     }
 
+    const clientKey = process.env.CLIENT_KEY
+    if (!clientKey) { throw new Error("CLIENT_KEY is not defined") }
 
-    const response = await JestApiPost(JSON.stringify(query))
+    const response = await JestApiPost(JSON.stringify(query), {
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": "Bearer " + clientKey
+        }
+    })
 
     const parsedRes = JSON.parse(response)
 
