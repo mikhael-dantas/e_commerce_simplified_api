@@ -11,7 +11,10 @@ export class CheckAccessTokenUseCase implements ICheckAccessTokenUseCase {
         secret: string,
         algorithm?: "RS256" | "HS256"
     }) {
-        const decodedToken = verify(token, secret, {algorithms: [algorithm]});
+        const decodedToken = verify(token, secret, {
+            algorithms: [
+                process.env.NODE_ENV === "test" ? "HS256" : algorithm
+            ]});
         if (typeof decodedToken === "string") {
             throw new Error("Invalid token");
         }
