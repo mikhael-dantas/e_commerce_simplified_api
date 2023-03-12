@@ -4,6 +4,7 @@
 
 import { sign } from "jsonwebtoken"
 import { JestApiPost } from "../../../../../jestTestsUtils"
+import { PrismaClient } from "@prisma/client"
 
 // positionLabel5
 test.concurrent(
@@ -30,8 +31,12 @@ async () => {
         }
     `
 
+    const user = {
+        sub: 'userlalala',
+    }
+
     const testAccessToken = sign({
-        sub: 'user_id',
+        sub: user.sub,
     }, process.env.AUTH0_PUBLIC_KEY!, {
         algorithm: 'HS256',
     })
@@ -43,6 +48,16 @@ async () => {
         tags: ['tag1', 'tag2'],
         image_url: 'image_url',
     }
+
+
+    const prismaClient = new PrismaClient()
+    await prismaClient.user.create({
+        data: {
+            id: user.sub,
+        }
+    })
+    await prismaClient.$disconnect()
+
 
     const response = await JestApiPost(query, undefined, variables)
     const parsedResponse = JSON.parse(response)
