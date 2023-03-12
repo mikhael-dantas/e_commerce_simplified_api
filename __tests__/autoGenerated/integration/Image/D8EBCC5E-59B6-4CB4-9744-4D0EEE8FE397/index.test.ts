@@ -48,6 +48,7 @@ async () => {
     const parsedResponse = JSON.parse(response)
 
     expect(parsedResponse).toHaveProperty('data')
+    expect(parsedResponse.errors).toBe(undefined)
     expect(parsedResponse.data).toHaveProperty('createImage')
     expect(parsedResponse.data.createImage).toHaveProperty('__typename')
     expect(parsedResponse.data.createImage.__typename).toBe('Image')
