@@ -20,6 +20,7 @@ export class CreateImageUseCase implements ICreateImageUseCase {
         }
     }: TCreateImageUseCaseDTO) {
         const { findUserById, checkAccessToken } = injections
+        const permissions = ["manager"]
 
         const secret = process.env.AUTH0_PUBLIC_KEY
         if (!secret) {throw new Error("Secret not found")}
@@ -30,7 +31,8 @@ export class CreateImageUseCase implements ICreateImageUseCase {
         const accessTokenCheck = await checkAccessToken.execute({ 
             token : data.accessToken, 
             secret,
-            algorithm: process.env.NODE_ENV === "test" ? "HS256" : "RS256"
+            algorithm: process.env.NODE_ENV === "test" ? "HS256" : "RS256",
+            permissions: permissions
         })
         sub = accessTokenCheck.sub as string
         } catch (err) { return new UnauthorizedError() }
