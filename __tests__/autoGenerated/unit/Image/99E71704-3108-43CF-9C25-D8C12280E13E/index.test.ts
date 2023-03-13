@@ -1,3 +1,4 @@
+import { UnauthorizedError } from '../../../../../src/shared/graphql/GraphqlErrorDefs/UnauthorizedError';
 import { ImagesResolver } from './../../../../../src/modules/images/resolvers/index';
 
 // 99E71704-3108-43CF-9C25-D8C12280E13E
@@ -46,7 +47,7 @@ async () => {
     expect(image).toHaveProperty('updated_at')
 
     mockedUseCase.execute = jest.fn().mockImplementation(async (data) => {
-        throw new Error('unauthorized permissions')
+        return new UnauthorizedError('unauthorized permissions')
     })
 
     resolver = new ImagesResolver({
