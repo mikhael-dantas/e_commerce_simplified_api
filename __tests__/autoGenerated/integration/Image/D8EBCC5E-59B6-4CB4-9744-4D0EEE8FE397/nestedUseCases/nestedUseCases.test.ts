@@ -2,7 +2,6 @@ import { PrismaClient } from "@prisma/client"
 import { sign } from "jsonwebtoken"
 import { JestApiPost } from "../../../../../../jestTestsUtils"
 import { randomUUID } from "crypto"
-
 // BC23B337-B61E-46F4-A689-96BF6A8580A8
 // positionLabel5
 test.concurrent(
