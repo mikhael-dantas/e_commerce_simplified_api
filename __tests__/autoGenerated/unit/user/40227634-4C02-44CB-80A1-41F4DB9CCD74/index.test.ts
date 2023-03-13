@@ -16,6 +16,7 @@ async () => {
         sub: 'myid',
         name: 'fake',
         email: 'fake@fake.com',
+        permissions: ['manager']
     }
 
     const secret = 'secret'
