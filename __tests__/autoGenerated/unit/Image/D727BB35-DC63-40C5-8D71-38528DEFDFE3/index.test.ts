@@ -1,14 +1,12 @@
 import { CreateImageUseCase } from './../../../../../src/modules/images/useCases/createImage/index';
 
-
 // D727BB35-DC63-40C5-8D71-38528DEFDFE3
-
-
 // positionLabel5
 test.concurrent(
-'use case for createImage receiving user_id ,name,  description,  tags, and image_url. returns the created image data.',
+`use case for createImage receiving userId ,name,  description,  tags, and image_url. returns the created image data.`,
 // positionLabel6
 // positionLabel7
+
 
 async () => {
     const mockedImagesRepositories = { 
@@ -68,8 +66,9 @@ async () => {
     expect(image).toHaveProperty('user_id')
     expect(image).toHaveProperty('created_at')
     expect(image).toHaveProperty('updated_at')
+
 }
 )
 // positionLabel8
-// positionLabel1-use case for createImage receiving user_id ,name,  description,  tags, and image_url. returns the created image data.-positionLabel2
+// positionLabel1-use case for createImage receiving userId ,name,  description,  tags, and image_url. returns the created image data.-positionLabel2
 // D727BB35-DC63-40C5-8D71-38528DEFDFE3
