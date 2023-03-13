@@ -5,6 +5,7 @@
 import { sign } from "jsonwebtoken"
 import { JestApiPost } from "../../../../../jestTestsUtils"
 import { PrismaClient } from "@prisma/client"
+import { randomUUID } from "crypto"
 
 // positionLabel5
 test.concurrent(
@@ -32,12 +33,11 @@ async () => {
     `
 
     const user = {
-        sub: 'userlalala',
+        sub: randomUUID(),
+        permissions: ['manager'],
     }
 
-    const testAccessToken = sign({
-        sub: user.sub,
-    }, process.env.AUTH0_PUBLIC_KEY!, {
+    const testAccessToken = sign(user, process.env.AUTH0_PUBLIC_KEY!, {
         algorithm: 'HS256',
     })
 
