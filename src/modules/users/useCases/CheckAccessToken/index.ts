@@ -5,11 +5,13 @@ export class CheckAccessTokenUseCase implements ICheckAccessTokenUseCase {
     async execute({
         token,
         secret,
-        algorithm = "RS256"
+        algorithm = "RS256",
+        permissions
     }:{
         token: string,
         secret: string,
-        algorithm?: "RS256" | "HS256"
+        algorithm?: "RS256" | "HS256",
+        permissions?: string[]
     }) {
         const decodedToken = verify(token, secret, {
             algorithms: [
@@ -17,6 +19,18 @@ export class CheckAccessTokenUseCase implements ICheckAccessTokenUseCase {
             ]});
         if (typeof decodedToken === "string") {
             throw new Error("Invalid token");
+        }
+        if (permissions && permissions.length > 0) {
+            if (!decodedToken.permissions) {
+                throw new Error("Invalid token permissions");
+            }
+            const permissionsValidation = permissions.map(permission => {
+                return decodedToken.permissions.includes(permission);
+            });
+
+            if (permissionsValidation.includes(false)) {
+                throw new Error(`Invalid token permissions`);
+            }
         }
         return decodedToken;
     }
