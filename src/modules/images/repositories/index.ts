@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { IImagesRepository, TCreateImageDTO } from "./interface";
+import { IImagesRepository, TCreateImageDTO, TListImagesFilters, TPaginationOptions } from "./interface";
 import { Image } from "../typeDefs/Image";
 import { PrismaClient } from "@prisma/client";
 import { randomUUID } from "crypto";
@@ -25,5 +25,48 @@ export class ImagesRepository implements IImagesRepository {
         })
 
         return image as Image
+    }
+
+    async list({
+        filters, pagination
+    } : {
+        filters: TListImagesFilters,
+        pagination: TPaginationOptions
+    }) {
+        const images = await this.prismaClient.image.findMany({
+            where: {
+                name: filters.name,
+                description: filters.description,
+                tags: {
+                    array_contains: filters.tags
+                },
+                user_id: filters.user_id,
+                image_url: filters.image_url,
+            },
+            skip: pagination.skip,
+            take: pagination.take,
+            orderBy:{
+                [pagination.orderBy ? pagination.orderBy as string : "created_at"]: 
+                pagination.orderDirection ? pagination.orderDirection as string : "desc"
+            }
+        })
+
+        return images as Image[]
+    }
+
+    async count({ filters }: { filters: TListImagesFilters }) {
+        const count = await this.prismaClient.image.count({
+            where: {
+                name: filters.name,
+                description: filters.description,
+                tags: {
+                    array_contains: filters.tags
+                },
+                user_id: filters.user_id,
+                image_url: filters.image_url,
+            }
+        })
+
+        return count
     }
 }
