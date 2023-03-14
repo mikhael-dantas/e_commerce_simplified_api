@@ -1,8 +1,7 @@
-import { Image } from "@prisma/client";
-import { injectable, inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { IImagesRepository } from "../../repositories/interface";
-import { IListImagesUseCase, IListImagesUseCaseDTO } from "./interface";
 import { ImagesPagination } from "../../typeDefs/ImagesPagination";
+import { IListImagesUseCase, IListImagesUseCaseDTO } from "./interface";
 
 @injectable()
 export class ListImagesUseCase implements IListImagesUseCase {
