@@ -40,7 +40,7 @@ async () => {
         })
     }
 
-    const useCase = new CreateImageUseCase(mockedImagesRepositories)
+    const useCase = new CreateImageUseCase(mockedImagesRepositories as any)
 
 
     const image = await useCase.execute({
