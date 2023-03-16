@@ -13,7 +13,12 @@ export class CheckAccessTokenUseCase implements ICheckAccessTokenUseCase {
         algorithm?: "RS256" | "HS256",
         permissions?: string[]
     }) {
-        const decodedToken = verify(token, secret, {
+
+        secret = secret.replace(/\\n/g, '\n');
+
+        const decodedToken = verify(token, 
+            secret,
+            {
             algorithms: [
                 process.env.NODE_ENV === "test" ? "HS256" : algorithm
             ]});

@@ -1,3 +1,4 @@
+import { UnauthorizedError } from "../../../../shared/graphql/GraphqlErrorDefs/UnauthorizedError";
 import { LoginRegistry } from "../../typeDefs/LoginRegistry";
 
 export interface ICreateLoginRegistryUseCase {
@@ -7,5 +8,5 @@ export interface ICreateLoginRegistryUseCase {
     }:{
         accessToken: string,
         secret: string
-    }): Promise<LoginRegistry>
+    }): Promise<LoginRegistry | UnauthorizedError>
 }

@@ -8,10 +8,11 @@ import { ICreateUserUseCase } from '../CreateUser/interface';
 import { CheckAccessTokenUseCase } from '../CheckAccessToken';
 import { FindUserByIdUseCase } from '../FindUserById';
 import { CreateUserUseCase } from '../CreateUser';
+import { UnauthorizedError } from '../../../../shared/graphql/GraphqlErrorDefs/UnauthorizedError';
 
 @injectable()
 export class CreateLoginRegistryUseCase implements ICreateLoginRegistryUseCase {
-    constructor(
+    constructor( 
         @inject('UsersRepository')
         private usersRepository?: IUsersRepository,
         ) {}
@@ -28,7 +29,7 @@ export class CreateLoginRegistryUseCase implements ICreateLoginRegistryUseCase {
             checkAccessTokenUseCase?: ICheckAccessTokenUseCase,
             findUserByIdUseCase?: IFindUserByIdUseCase,
             createUserUseCase?: ICreateUserUseCase,
-    }): Promise<LoginRegistry> {
+    }): Promise<LoginRegistry | UnauthorizedError> {
         if (!this.usersRepository) {
             throw new Error("Users repository not provided");
         }
@@ -56,7 +57,7 @@ export class CreateLoginRegistryUseCase implements ICreateLoginRegistryUseCase {
             passed = false
         }
         if (!passed) {
-            throw new Error("Invalid token");
+            return new UnauthorizedError("Invalid token")
         }
 
 

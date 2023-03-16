@@ -91,10 +91,10 @@ async () => {
 
 
     expect(response).toHaveProperty('id')
-    expect(response.id).toBe('1')
+    expect((response as any).id).toBe('1')
     expect(response).toHaveProperty('created_at')
     expect(response).toHaveProperty('user_id')
-    expect(response.user_id).toBe('myid')
+    expect((response as any).user_id).toBe('myid')
 }
 )
 // positionLabel8
