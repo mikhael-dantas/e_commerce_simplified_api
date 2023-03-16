@@ -17,11 +17,11 @@ async () => {
         return [
             {
                 id: randomUUID(),
-                name: data?.where?.name,
-                description: data?.where?.description,
-                tags: data?.where?.tags?.array_contains,
-                image_url: data?.where?.image_url,
-                user_id: data?.where?.user_id,
+                name: (data?.where?.AND as any).find((item: any) => item?.name)?.name.contains,
+                description: (data?.where?.AND as any).find((item: any) => item?.description)?.description.contains,
+                tags: (data?.where?.AND as any).find((item: any) => item?.tags)?.tags.array_contains,
+                image_url: (data?.where?.AND as any).find((item: any) => item?.image_url)?.image_url.contains,
+                user_id: (data?.where?.AND as any).find((item: any) => item?.user_id)?.user_id,
                 created_at: new Date(),
             },
         ]
@@ -47,6 +47,11 @@ async () => {
 
     const result = await repo.list({filters, pagination})
 
+    console.log("result")
+    console.log("result")
+    console.log(result)
+    console.log("result")
+    console.log("result")
     expect(result).toEqual([
         {
             id: expect.any(String),

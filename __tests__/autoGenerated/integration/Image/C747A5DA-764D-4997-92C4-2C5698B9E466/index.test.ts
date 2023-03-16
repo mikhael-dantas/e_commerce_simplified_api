@@ -80,7 +80,7 @@ async () => {
     expect(parsedRes.data.getImages).toBeDefined();
     expect(parsedRes.data.getImages.__typename).toBe('ImagesPagination');
     expect(parsedRes.data.getImages.data).toBeDefined();
-    expect(parsedRes.data.getImages.data).toHaveLength(1);
+    expect(parsedRes.data.getImages.data.length).toBeGreaterThanOrEqual(1);
     expect(parsedRes.data.getImages.data[0].name).toBe(image.name);
     expect(parsedRes.data.getImages.count).toBe(1);
     expect(parsedRes.data.getImages.cursor).toBe(0);

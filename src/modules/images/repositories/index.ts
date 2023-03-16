@@ -35,13 +35,13 @@ export class ImagesRepository implements IImagesRepository {
     }) {
         const images = await this.prismaClient.image.findMany({
             where: {
-                name: filters.name,
-                description: filters.description,
-                tags: {
-                    array_contains: filters.tags
-                },
-                user_id: filters.user_id,
-                image_url: filters.image_url,
+                AND: [
+                    filters.name ? { name: { contains: filters.name } } : undefined,
+                    filters.description ? { description: { contains: filters.description } } : undefined,
+                    filters.image_url ? { image_url: { contains: filters.image_url } } : undefined,
+                    filters.user_id ? { user_id: filters.user_id } : undefined,
+                    filters.tags ? { tags: { array_contains: filters.tags } } : undefined,
+                ].filter(Boolean) as any
             },
             skip: pagination.skip,
             take: pagination.take,
@@ -50,23 +50,24 @@ export class ImagesRepository implements IImagesRepository {
                 pagination.orderDirection ? pagination.orderDirection as string : "desc"
             }
         })
-
+    
         return images as Image[]
     }
-
+    
     async count({ filters }: { filters: TListImagesFilters }) {
         const count = await this.prismaClient.image.count({
             where: {
-                name: filters.name,
-                description: filters.description,
-                tags: {
-                    array_contains: filters.tags
-                },
-                user_id: filters.user_id,
-                image_url: filters.image_url,
+                AND: [
+                    filters.name ? { name: { contains: filters.name } } : undefined,
+                    filters.description ? { description: { contains: filters.description } } : undefined,
+                    filters.image_url ? { image_url: { contains: filters.image_url } } : undefined,
+                    filters.user_id ? { user_id: filters.user_id } : undefined,
+                    filters.tags ? { tags: { array_contains: filters.tags } } : undefined,
+                ].filter(Boolean) as any
             }
         })
-
+    
         return count
     }
+    
 }
