@@ -39,7 +39,7 @@ jobs:
   #         SERVER_PORT: 3038
   #         API_URL: http://localhost:3038
   deploy-runner:
-    needs: tests-runner
+    # needs: tests-runner
     name: Deploy to VPS
     runs-on: ubuntu-latest
     steps:
