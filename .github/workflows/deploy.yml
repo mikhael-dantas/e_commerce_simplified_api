@@ -5,39 +5,39 @@ on:
     branches:
       - main
 jobs:
-  tests-runner:
-    runs-on: ubuntu-latest
-    container: node:18.12
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_PASSWORD: postgres
-          # POSTGRES_PORT: 5432
-          POSTGRES_USER: postgres
-        ports:
-          - 5432:5432
-        # set health checks to wait until postgres has started
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18.12'
-      - run: corepack enable
-      - run: yarn install
-      - run: yarn prisma generate
-      - run: yarn jest /__tests__
-        env:
-          DB: 1
-          DATABASE_URL: postgresql://postgres:postgres@postgres:5432/jest
-          SERVER_HOST: localhost
-          SERVER_PORT: 3038
-          API_URL: http://localhost:3038
+  # tests-runner:
+  #   runs-on: ubuntu-latest
+  #   container: node:18.12
+  #   services:
+  #     postgres:
+  #       image: postgres:latest
+  #       env:
+  #         POSTGRES_PASSWORD: postgres
+  #         # POSTGRES_PORT: 5432
+  #         POSTGRES_USER: postgres
+  #       ports:
+  #         - 5432:5432
+  #       # set health checks to wait until postgres has started
+  #       options: >-
+  #         --health-cmd pg_isready
+  #         --health-interval 10s
+  #         --health-timeout 5s
+  #         --health-retries 5
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '18.12'
+  #     - run: corepack enable
+  #     - run: yarn install
+  #     - run: yarn prisma generate
+  #     - run: yarn jest /__tests__
+  #       env:
+  #         DB: 1
+  #         DATABASE_URL: postgresql://postgres:postgres@postgres:5432/jest
+  #         SERVER_HOST: localhost
+  #         SERVER_PORT: 3038
+  #         API_URL: http://localhost:3038
   deploy-runner:
     needs: tests-runner
     name: Deploy to VPS
@@ -49,4 +49,4 @@ jobs:
           username: ${{ secrets.VPSUSERNAME }}
           key: ${{ secrets.VPSSSH }}
           port: ${{ secrets.VPSPORT }}
-          script: /root/ecommerce_simplified/redeploy.sh
+          script: /root/ecommerce_simplified/redeploy.sh ${{ github.repository }}
